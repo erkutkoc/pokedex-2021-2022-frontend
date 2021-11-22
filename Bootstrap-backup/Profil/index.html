@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" style="background: var(--bs-blue);font-family: 'Source Sans Pro', sans-serif;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profil</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/untitled-1.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
+</head>
+
+<body style="background: rgb(255,255,255);">
+    <section class="d-inline" style="background: #ffffff;">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto col-md-12" style="text-align: center;border-color: var(--bs-pink);">
+                    <h2>Profil</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 offset-xl-0" style="border-color: var(--bs-gray-900);">
+                    <div class="d-xl-flex justify-content-xl-center"><img class="img-thumbnail d-xl-flex" src="assets/img/Daco_2500140.png" style="width: 250px;text-align: center;border-style: none;"></div>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group"></ul><strong>Nickname</strong>
+                    <div style="width: 360px;"><input type="text" style="width: 350px;" placeholder="Email"><input type="password" style="width: 350px;" placeholder="New password"><input type="password" style="width: 350px;" placeholder="Repeat your password"></div>
+                    <div style="text-align: right;width: 350px;"><button class="btn btn-primary" type="button" style="background: #ffde00;text-align: center;width: 130px;color: var(--bs-blue);">Save</button><button class="btn btn-primary" type="button" style="background: var(--bs-red);width: 130px;">Edit</button></div>
+                    <div></div>
+                    <div><strong class="text-danger">Danger Zone</strong><button class="btn btn-warning text-center link-light" data-bss-hover-animate="shake" type="button" style="background: var(--bs-red);width: 350px;">Delete account</button></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="simple-slider">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper"></div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                    <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="padding: auto;margin: auto;">
+                        <div class="carousel-inner d-xl-flex" id="pokeball" style="margin: auto;padding: auto;height: auto;">
+                            <div class="carousel-item active" style="width: 150px;"><img class="rounded img-fluid w-100 d-block d-xl-flex" src="assets/img/clipart1298427.png" alt="Slide Image" loading="eager" style="width: 150px;"></div>
+                            <div class="carousel-item"><img class="rounded img-fluid w-100 d-block d-xl-flex" src="assets/img/clipart1298427.png" alt="Slide Image" loading="eager" style="width: 150px;"></div>
+                            <div class="carousel-item"><img class="rounded img-fluid w-100 d-block d-xl-flex" src="assets/img/clipart1298427.png" alt="Slide Image" loading="eager" style="width: 150px;"></div>
+                        </div>
+                        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon text-uppercase text-primary" style="font-weight: bold;font-size: 20px;">&lt;</span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon text-primary" style="font-weight: bold;font-size: 20px;">&gt;</span><span class="visually-hidden">Next</span></a></div>
+                        <ol class="carousel-indicators d-xl-flex m-auto" style="margin: auto;padding: auto;height: auto;width: auto;">
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="2"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col">
+                <h2 style="text-align: center;">My pokemon</h2>
+            </div>
+        </div>
+        <div class="container">
+            <picture><img class="border rounded-0 border-primary shadow-sm item" src="assets/img/PYGnvf1hJjcUHno-Pikachu-Transparent-Background.png" style="width: 100px;"></picture>
+            <div class="card"></div>
+        </div>
+    </section>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+    <script src="assets/js/Simple-Slider.js"></script>
+</body>
+
+</html>
