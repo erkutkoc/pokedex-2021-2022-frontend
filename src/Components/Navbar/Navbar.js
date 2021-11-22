@@ -1,47 +1,44 @@
-// When using Bootstrap to style components, the CSS is imported in index.js
-// However, the JS has still to be loaded for each Bootstrap's component that needs it.
-// Here, because our JS component 'Navbar' has the same name as Navbar Bootstrap's component
-// we change the name of the imported Bootstrap's 'Navbar' component
-import { Navbar as BootstrapNavbar} from "bootstrap";
-
-/**
- * Render the Navbar which is styled by using Bootstrap
- * Each item in the Navbar is tightly coupled with the Router configuration :
- * - the URI associated to a page shall be given in the attribute "data-uri" of the Navbar
- * - the router will show the Page associated to this URI when the user click on a nav-link
- */
-
+import { Navbar as BootstrapNavbar } from "bootstrap";
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 const Navbar = () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
-  let navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Add your brand here</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
-              </li>                        
-            </ul>
+  let navbar;
+  // Get the user object from the localStorage
+  let user = getSessionObject("user");
+
+  if (!user) {
+    navbar = `
+    <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="color: var(--bs-yellow);background: var(--bs-red);border-bottom: 6px solid #000000 ;">
+      <div class="container"><a class="navbar-brand" href="#" style="color: #edff24;border-bottom-color: #edff24;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="navbar-nav me-auto">
+                  <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="flash" href="#" data-uri="/" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: var(--bs-gray-100);font-weight: bold;">Trading</a></li>
+              </ul><span class="navbar-text actions"> <a class="login" href="#" data-uri="/" style="color: var(--bs-gray-100);">Log In</a></span><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: #edff24;color: var(--bs-red);">Sign Up</a></span>
           </div>
-        </div>
-      </nav>
-  `;  
+      </div>
+    </nav>
+  `;
+  } else {
+    navbar = `
+    <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="color: var(--bs-yellow);background: var(--bs-red);border-bottom: 6px solid #000000 ;">
+      <div class="container"><a class="navbar-brand" href="#" style="color: #edff24;border-bottom-color: #edff24;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="navbar-nav me-auto">
+                  <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="flash" href="#" data-uri="/" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: var(--bs-gray-100);font-weight: bold;">Trading</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: #edff24;">Coins<img src="img/pngegg.png" style="width: 28px;text-align: left;"></a></li>
+          </div>
+      </div>
+    </nav>
+  `;
+  }
   navbarWrapper.innerHTML = navbar;
 };
 
 export default Navbar;
+
+
+
+
+
