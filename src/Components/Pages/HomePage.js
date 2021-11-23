@@ -3,7 +3,7 @@
  */
 
 const HomePage = () => { 
-  const pageDiv = document.querySelector("#page");
+  const pageDiv = document.querySelector("main");
   pageDiv.innerHTML = "Deal with the content of your HomePage";
 };
 
