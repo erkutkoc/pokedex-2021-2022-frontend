@@ -14,7 +14,7 @@ const Navbar = () => {
               <ul class="navbar-nav me-auto">
                   <li class="nav-item"><a class="nav-link" data-bss-hover-animate="flash" href="#" data-uri="/" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
                   <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: var(--bs-gray-100);font-weight: bold;">Trading</a></li>
-              </ul><span class="navbar-text actions"> <a class="login" href="#" data-uri="/login" style="color: var(--bs-gray-100);">Log In</a></span><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: #edff24;color: var(--bs-red);">Sign Up</a></span>
+              </ul><span class="navbar-text actions"> <a class="login" href="#" data-uri="/login" style="color: var(--bs-gray-100);">Log In</a></span><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" data-uri="/register" style="background: #edff24;color: var(--bs-red);">Sign Up</a></span>
           </div>
       </div>
     </nav>

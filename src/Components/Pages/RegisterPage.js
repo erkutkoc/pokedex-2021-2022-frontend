@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-</head>
+    /**
+ * Render the RegisterPage
+ */
 
-<body>
-    <section class="register-photo">
+ const registerPage = `
+ <section class="register-photo">
         <div class="form-container" style="width: 354px;max-height: 0px;">
             <form method="post" style="padding-right: 40px;padding-left: 40px;">
-                <h2 class="text-center" style="color: var(--bs-danger);"><strong>Create</strong> an account</h2>
+                <h2 class="text-center" style="color: var(--bs-danger);">Create an account</h2>
                 <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
                 <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
                 <div class="mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)"></div>
@@ -24,8 +17,11 @@
                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: var(--bs-danger);">Sign Up</button></div><a class="already" href="#">You already have an account? Login here.</a>
             </form>
         </div>
-    </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-</body>
+ </section>`;
 
-</html>
+ const RegisterPage = () => { 
+    const main = document.querySelector("main");
+    main.innerHTML = registerPage; 
+  };
+  
+  export default RegisterPage;
