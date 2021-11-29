@@ -27,7 +27,7 @@ const Navbar = () => {
               <ul class="navbar-nav me-auto">
                   <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="flash" href="#" data-uri="/" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
                   <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: var(--bs-gray-100);font-weight: bold;">Trading</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/" style="color: #edff24;">Coins<img src="img/pngegg.png" style="width: 28px;text-align: left;"></a></li>
+                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/coins" style="color: #edff24;">Coins<img src="http://127.0.0.1:8887/pokeball.png" style="width: 28px;text-align: left;"></a></li>
                   <li class="nav-item"><a class="nav-link" href="#" data-uri="/logout" style="color: var(--bs-gray-100);font-weight: bold;">Logout</a></li>
           </div>
       </div>

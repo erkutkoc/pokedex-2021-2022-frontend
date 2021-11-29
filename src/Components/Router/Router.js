@@ -4,6 +4,7 @@ import NewPage from "../Pages/NewPage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import Logout from "../Logout/Logout";
+import CoinsPage from "../Pages/CoinsPage";
 
 // Configure your routes here
 const routes = {
@@ -12,8 +13,9 @@ const routes = {
   "/login": LoginPage,
   "/register": RegisterPage,
   "/profil": ProfilPage,
-  "/logout": Logout
-};
+  "/logout": Logout,
+  "/coins" : CoinsPage
+
 
 /**
  * Deal with call and auto-render of Functional Components following click events
