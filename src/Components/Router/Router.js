@@ -3,6 +3,7 @@ import NewPage from "../Pages/NewPage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import Logout from "../Logout/Logout";
+import CoinsPage from "../Pages/CoinsPage";
 
 // Configure your routes here
 const routes = {
@@ -10,7 +11,8 @@ const routes = {
   "/new": NewPage,
   "/login": LoginPage,
   "/register": RegisterPage,
-  "/logout": Logout
+  "/logout": Logout,
+  "/coins" : CoinsPage
 };
 
 /**
