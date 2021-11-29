@@ -15,6 +15,7 @@ const routes = {
   "/profil": ProfilPage,
   "/logout": Logout,
   "/coins" : CoinsPage
+}
 
 
 /**
