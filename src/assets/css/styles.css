@@ -1,0 +1,11 @@
+.navbar-brand {
+    font-family: 'pokemon_solidnormal';
+  }
+
+@font-face {
+    font-family: 'pokemon_solidnormal';
+    src: url('./pokemon_solid-webfont.woff2') format('woff2'),
+         url('./pokemon_solid-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
