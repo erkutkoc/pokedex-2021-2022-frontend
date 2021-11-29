@@ -1,4 +1,5 @@
 import HomePage from "../Pages/HomePage";
+import ProfilPage from "../Pages/ProfilPage";
 import NewPage from "../Pages/NewPage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
@@ -10,6 +11,7 @@ const routes = {
   "/new": NewPage,
   "/login": LoginPage,
   "/register": RegisterPage,
+  "/profil": ProfilPage,
   "/logout": Logout
 };
 
