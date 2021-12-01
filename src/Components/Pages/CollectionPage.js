@@ -8,7 +8,6 @@ import { Redirect } from "../Router/Router";
 const collectionPage = `
     <section></section>
     <div class="container">
-    
         <div class ="card"  style=" display: inline-block;width: 300px;border-radius: 15px; margin: 10px; background-color: #ffcd39">
             <p class="type" style=" position: relative;
                 color: black;
