@@ -4,6 +4,7 @@ import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import Logout from "../Logout/Logout";
 import CoinsPage from "../Pages/CoinsPage";
+import CollectionPage from "../Pages/CollectionPage";
 
 // Configure your routes here
 const routes = {
@@ -12,7 +13,8 @@ const routes = {
   "/login": LoginPage,
   "/register": RegisterPage,
   "/logout": Logout,
-  "/coins" : CoinsPage
+  "/coins" : CoinsPage,
+  "/collection" : CollectionPage
 };
 
 /**
