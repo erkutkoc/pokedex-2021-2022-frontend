@@ -5,6 +5,7 @@ import { Redirect } from "../Router/Router";
  * Render the NewPage :
  * Just an example to demonstrate how to use the router to "redirect" to a new page
  */
+//le css est dans cette partie si pour pouvoir le modifier façilement et avoir une bonne vue d'ensemble il est facile a bouger dans la page plus tard
 const collectionPage = `
     <section></section>
     <div class="container">
