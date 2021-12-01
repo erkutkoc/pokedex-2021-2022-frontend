@@ -66,7 +66,7 @@ const collectionPage = `
                         Ces Pokémons attendent patiemment que la foudre leur tombe dessus, 
                         pour pouvoir recharger au maximum leur réserve d'électricité. 
                         </p>
-                        
+                    
                     </div>
                 </div>
         </div>
