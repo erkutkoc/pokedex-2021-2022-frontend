@@ -10,9 +10,18 @@ const collectionPage = `
     <div class="container">
     
         <div class ="card"  style=" display: inline-block;width: 300px;border-radius: 15px; margin: 10px; background-color: #ffcd39">
-            <p class="type" style="alignment:right;position: relative" >Electrique</p>
+            <p class="type" style=" position: relative;
+                color: black;
+                text-transform: uppercase;
+                width: fit-content;
+                background: #ffef3b;
+                border-style: solid;
+                left:0.5em;
+                top:0.5em;
+                border-color: #fcad03;
+                border-radius: 10px" >Electric</p>
             <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;">pikachu</h2>
-            <figure class="figure"style="position: center"><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="https://resize-gulli.jnsmedia.fr/r/890,__ym__/img//var/jeunesse/storage/images/gulli/chaine-tv/dessins-animes/pokemon/pokemon/pikachu/26571681-1-fre-FR/Pikachu.jpg"> </figure>
+            <figure class="figure"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="https://resize-gulli.jnsmedia.fr/r/890,__ym__/img//var/jeunesse/storage/images/gulli/chaine-tv/dessins-animes/pokemon/pokemon/pikachu/26571681-1-fre-FR/Pikachu.jpg"> </figure>
                  <div class="cardText">
                     <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
                         <div class="statList"  >
@@ -38,12 +47,20 @@ const collectionPage = `
                     </div>
                 </div>
         </div>
-      
         
         <div class ="card"  style=" display: inline-block;width: 300px;border-radius: 15px; margin: 10px; background-color: #ffcd39">
-            <p class="type" style="alignment:right;position: relative" >Electrique</p>
+            <p class="type" style=" position: relative;
+                color: black;
+                text-transform: uppercase;
+                width: fit-content;
+                background: #ffef3b;
+                border-style: solid;
+                left:0.5em;
+                top:0.5em;
+                border-color: #fcad03;
+                border-radius: 10px" >Electric</p>
             <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;">pikachu</h2>
-            <figure class="figure"style="position: center"><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="https://resize-gulli.jnsmedia.fr/r/890,__ym__/img//var/jeunesse/storage/images/gulli/chaine-tv/dessins-animes/pokemon/pokemon/pikachu/26571681-1-fre-FR/Pikachu.jpg"> </figure>
+            <figure class="figure"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="https://resize-gulli.jnsmedia.fr/r/890,__ym__/img//var/jeunesse/storage/images/gulli/chaine-tv/dessins-animes/pokemon/pokemon/pikachu/26571681-1-fre-FR/Pikachu.jpg"> </figure>
                  <div class="cardText">
                     <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
                         <div class="statList"  >
@@ -66,10 +83,12 @@ const collectionPage = `
                         Ces Pokémons attendent patiemment que la foudre leur tombe dessus, 
                         pour pouvoir recharger au maximum leur réserve d'électricité. 
                         </p>
-
                     </div>
                 </div>
         </div>
+        
+        
+     
 </div>
  `;
 
