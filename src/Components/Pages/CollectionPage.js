@@ -67,6 +67,7 @@ const collectionPage = `
                         pour pouvoir recharger au maximum leur réserve d'électricité. 
                         </p>
                     
+                    
                     </div>
                 </div>
         </div>
