@@ -9,6 +9,28 @@ import { Redirect } from "../Router/Router";
 const collectionPage = `
     <section></section>
     <div class="container">
+        <div class="container">
+            <div class="row">
+            <div class="col-sm">
+                <label for="touch"><span class = "Filtering">Filter</span></label>               
+                <input type="checkbox" id="touch"> 
+            
+                <ul class="slide">
+                    <li> <a href="#" class="filterButton1" id="ASC" name="Attack">The most attack</a></li> 
+                    <li> <a href="#" class="filterButton1" id="ASC" name="HP">The most hp</a></li>
+                    <li> <a href="#" class="filterButton1" id="ASC" name="Defence" ">The most defence</a></li>
+                    <li> <a href="#" class="filterButton1" id="ASC" name="Speed">The fastest</a></li>
+
+                </ul
+            </div>
+            <div class="col-sm">
+                
+            </div>
+            <div class="col-sm">
+                
+            </div>
+            </div>
+        </div>
         <div class ="card"  style=" display: inline-block;width: 300px;border-radius: 15px; margin: 10px; background-color: #ffcd39">
             <p class="type" style=" position: relative;
                 color: black;
@@ -86,9 +108,6 @@ const collectionPage = `
                     </div>
                 </div>
         </div>
-        
-        
-     
 </div>
  `;
 
@@ -98,7 +117,32 @@ const CollectionPage = () => {
     const main = document.querySelector("main");
     main.innerHTML = collectionPage;
     // create a login form
+    const filterButton1 = document.querySelectorAll(".filterButton1");
+        filterButton1.forEach(item => {
+            item.addEventListener("click",filterby.bind(event,item.name,item.id))
+        })
+}
+ const filterby = async (filter,value) =>{
+    
+    try {
+            const options = {
+                method: "GET", // *GET, POST, PUT, DELETE, etc.
+                
+            };
 
+            const response = await fetch("/api/pokemons/sort/"+filter+"/"+value); // fetch return a promise => we wait for the response
+
+            if (!response.ok) {
+                throw new Error(
+                "fetch error : " + response.status + " : " + response.statusText
+                );
+            }
+            
+            await response.json(); // json() returns a promise => we wait for the data
+        } catch (error) {
+            console.error("LoginPage::error: ", error);
+        }
+        
 }
 
 export default CollectionPage;

@@ -1,11 +1,52 @@
-.navbar-brand {
-    font-family: 'pokemon_solidnormal';
-  }
+li a {
+  text-decoration: none;
+  color: #2d2f31;
+}
+ul {
+  list-style-type: none;
+}
+.navFilt {
+  width: 300px;
+  background: black;
+  margin: 40px auto;
+}
 
-@font-face {
-    font-family: 'pokemon_solidnormal';
-    src: url('./pokemon_solid-webfont.woff2') format('woff2'),
-         url('./pokemon_solid-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+.Filtering::after {
+  float: right;
+  right: 10%;
+}
+.Filtering {
+  padding: 10px;
+  background: #2d2f31;
+  color: white;
+  font-size: 1.2em;
+  font-variant: small-caps;
+  cursor: pointer;
+  display: block;
+}
+.slide {
+  background: white;
+  width: 30%;
+  height: 0px;
+  overflow: hidden;
+  text-align: left;
+  transition: height 0.2s ease;
+  position: absolute;
+  z-index: 5;
+}
+
+.slide li {
+  padding: 10px;
+}
+
+#touch {
+  height: 0px;
+  position: absolute;
+  z-index: 5;
+}
+
+#touch:checked + .slide {
+  height: 27%;
+  position: absolute;
+  z-index: 5;
 }

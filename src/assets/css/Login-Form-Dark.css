@@ -1,7 +1,11 @@
 body {
   height: 100%;
-  background: rgb(255,222,0);
-  background: linear-gradient(189deg, rgba(255,222,0,1) 50%, rgba(255,0,0,1) 100%);
+  background: rgb(255, 222, 0);
+  background: linear-gradient(
+    189deg,
+    rgba(255, 222, 0, 1) 50%,
+    rgba(255, 0, 0, 1) 100%
+  );
 }
 
 .login-dark form {
@@ -15,7 +19,7 @@ body {
   top: 50%;
   left: 50%;
   color: #fff;
-  box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
 .login-dark .illustration {
@@ -46,7 +50,8 @@ body {
   outline: none;
 }
 
-.login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
+.login-dark form .btn-primary:hover,
+.login-dark form .btn-primary:active {
   background: #214a80;
   outline: none;
 }
@@ -60,7 +65,8 @@ body {
   text-decoration: none;
 }
 
-.login-dark form .forgot:hover, .login-dark form .forgot:active {
+.login-dark form .forgot:hover,
+.login-dark form .forgot:active {
   opacity: 1;
   text-decoration: none;
 }
@@ -68,4 +74,3 @@ body {
 .login-dark form .btn-primary:active {
   transform: translateY(1px);
 }
-

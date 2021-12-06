@@ -32,6 +32,7 @@ const Navbar = () => {
           </div>
       </div>
     </nav>
+    
   `;
   }
   navbarWrapper.innerHTML = navbar;
