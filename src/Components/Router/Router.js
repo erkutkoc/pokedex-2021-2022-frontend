@@ -6,6 +6,9 @@ import RegisterPage from "../Pages/RegisterPage";
 import Logout from "../Logout/Logout";
 import CoinsPage from "../Pages/CoinsPage";
 import CollectionPage from "../Pages/CollectionPage";
+import ProfilPage from "../Pages/ProfilPage";
+import ShopPage from "../Pages/ShopPage";
+import TradingPage from "../Pages/TradingPage";
 
 // Configure your routes here
 const routes = {
@@ -13,10 +16,12 @@ const routes = {
   "/new": NewPage,
   "/login": LoginPage,
   "/register": RegisterPage,
-  //"/profil": ProfilPage,
+  "/profil": ProfilPage,
   "/logout": Logout,
-  "/coins" : CoinsPage,
-  "/collection" : CollectionPage
+  "/coins": CoinsPage,
+  "/shop": ShopPage,
+  "/collection": CollectionPage,
+  "/trading": TradingPage
 };
 
 /**
