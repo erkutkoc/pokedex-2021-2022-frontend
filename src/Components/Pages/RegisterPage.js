@@ -17,8 +17,11 @@ import Navbar from "../Navbar/Navbar";
             <span id='message'></span>
             <div class="mb-3">
                 <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox">I agree to the license terms.</label></div>
-                </div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: var(--bs-danger);">Sign Up</button></div><a class="already" href="/login">You already have an account? Login here.</a>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: var(--bs-danger);">Sign Up</button>
+            </div>
+            <a class="already" href="#">You already have an account? Login here.</a>
         </form>
     </section>`;
 
@@ -42,7 +45,7 @@ import Navbar from "../Navbar/Navbar";
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 body: JSON.stringify({
                 email: email.value,
-                pseudo : pseudo.value,
+                pseudo : pseudo,
                 password: password.value,
                 }), // body data type must match "Content-Type" header
                 headers: {
