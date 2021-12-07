@@ -1,72 +1,31 @@
 import { Redirect } from "../Router/Router";
 import { setSessionObject } from "../../utils/session";
 import Navbar from "../Navbar/Navbar";
-
     /**
  * Render the RegisterPage
  */
 
  const registerPage = `
- <section>
-        <div id="multple-step-form-n" class="container overflow-hidden" style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 300px;padding-top: 57px;">
-            <div id="progress-bar-button" class="multisteps-form">
-                <div id="stepp" class="row">
-                    <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
-                        <div class="multisteps-form__progress"><a class="btn multisteps-form__progress-btn js-active" role="button" title="User Info">User Info</a><a class="btn multisteps-form__progress-btn" role="button" title="Personalization">Personalization</a><a class="btn multisteps-form__progress-btn" role="button" title="Some other information">Some information</a></div>
-                    </div>
+ <section class="register-dark">
+        <form class="d-inline" method="post" style="background: var(--bs-body-bg);color: var(--bs-indigo);">
+            <h2 class="text-center" style="color: var(--bs-danger);">Register</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline" style="color: var(--bs-red);"></i></div>
+            <div class="mb-3"><input class="form-control" type="email" name="email" id="email" placeholder="Email" ></div>
+            <div class="mb-3"><input class="form-control" type="text" name="pseudo" id="pseudo" placeholder="Pseudo"></div>
+            <div class="mb-3"><input class="form-control" type="password" name="password" id="password" placeholder="Password"></div>
+            <div class="mb-3"><input class="form-control" type="password" name="password-repeat" id="password-repeat" placeholder="Password (repeat)"></div>
+            <span id='message'></span>
+            <div class="mb-3">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox">I agree to the license terms.</label></div>
                 </div>
-            </div>
-            <div id="multistep-start-row" class="row">
-                <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
-                    <form id="main-form" class="multisteps-form__form">
-                        <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
-                            <h3 class="text-center multisteps-form__title">User Info</h3>
-                            <div id="form-content" class="multisteps-form__content">
-                                <div id="input-grp-double" class="form-row mt-4">
-                                    <div class="col-12 col-sm-6"><input class="form-control multisteps-form__input" type="text" placeholder="Pseudo" name="pseudo"></div>
-                                </div>
-                                <div id="input-grp-double-3" class="form-row mt-4">
-                                    <div class="col-12 col-sm-6"><input class="form-control multisteps-form__input" type="text" placeholder="Mail" name="mail"></div>
-                                </div>
-                                <div id="input-grp-single" class="form-row mt-4">
-                                    <div class="col-12"><input class="form-control" type="password" placeholder="Password" name="password"></div>
-                                </div>
-                                <div id="next-button" class="button-row d-flex mt-4"><button class="btn btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button></div>
-                            </div>
-                        </div>
-                        <div id="single-form-next-prev" class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                            <h3 class="text-center multisteps-form__title">Personalization</h3>
-                            <div id="form-content-1" class="multisteps-form__content">
-                                <div id="input-grp-double-1" class="form-row mt-4">
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Homme</label></div>
-                                    </div>
-                                </div>
-                                <div id="input-grp-single-1" class="form-row mt-4">
-                                    <div class="col-12"><input class="form-control multisteps-form__input" type="text" placeholder="Favorite  Pokemon"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="single-form-next-prev-1" class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                            <h3 class="text-center multisteps-form__title">Some other information</h3>
-                            <div id="form-content-2" class="multisteps-form__content">
-                                <div id="input-grp-double-2" class="form-row mt-4">
-                                    <div class="col-12 col-sm-6"><input class="form-control multisteps-form__input" type="text" placeholder="Country"></div>
-                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0"><input class="form-control multisteps-form__input" type="text" placeholder="City"></div>
-                                </div>
-                                <div id="next-prev-buttons-1" class="button-row d-flex mt-4"><button class="btn btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button><button class="btn btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="color: var(--bs-white);background: var(--bs-danger);">Sign Up</button></div><a class="already" href="/login">You already have an account? Login here.</a>
+        </form>
     </section>`;
 
  const RegisterPage = () => { 
-    
     const main = document.querySelector("main");
     main.innerHTML = registerPage; 
+
     const form = main.querySelector("form");
     form.addEventListener("submit", onSubmit);
 
@@ -83,7 +42,7 @@ import Navbar from "../Navbar/Navbar";
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 body: JSON.stringify({
                 email: email.value,
-                pseudo : pseudo,
+                pseudo : pseudo.value,
                 password: password.value,
                 }), // body data type must match "Content-Type" header
                 headers: {
@@ -94,7 +53,7 @@ import Navbar from "../Navbar/Navbar";
 
             if (!response.ok) {
                 throw new Error(
-                "fetch error : " + response.status + " : " + response.statusText
+                "fetch error : " + response.status + " : " + response.statusText
                 );
             }
             const user = await response.json(); // json() returns a promise => we wait for the data
