@@ -64,18 +64,14 @@ import { setSessionObject } from "../../utils/session";
           const id = userSession.id;
           console.log(id, "id user");
 
-          const coins = userSession.coins;
-
-          const packCoins = 100;
-
-          const newTotalCoins = coins + packCoins;
+          const packCoins = 200;
           
-          console.log("credentials", coins);
+          console.log("packCoins", packCoins);
 
           const options = {
               method: "PUT", // *GET, POST, PUT, DELETE, etc.
               body: JSON.stringify({
-              coins: newTotalCoins,
+              coins: packCoins,
               }), // body data type must match "Content-Type" header
               headers: {
               "Content-Type": "application/json",
