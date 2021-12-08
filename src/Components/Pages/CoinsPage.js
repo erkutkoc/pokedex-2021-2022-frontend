@@ -43,28 +43,32 @@ import { setSessionObject } from "../../utils/session";
  </div>`;
 
  const CoinsPage = () => { 
+    let userSession = getSessionObject("user");
+    console.log(userSession, "user");
+    if (!userSession) {
+        return Redirect("/login");
+    }
+
     const main = document.querySelector("main");
     main.innerHTML = coinsPage; 
 
     const pack1 = document.getElementById("pack1");
     pack1.addEventListener("click", onSubmitPack1);
 
-    //const pack2 = document.getElementById("pack2");
-    //pack2.addEventListener("click", onSubmitPack2);
+    const pack2 = document.getElementById("pack2");
+    pack2.addEventListener("click", onSubmitPack2);
 
-    //const pack3 = document.getElementById("pack3");
-    //pack3.addEventListener("click", onSubmitPack3);
+    const pack3 = document.getElementById("pack3");
+    pack3.addEventListener("click", onSubmitPack3);
   
     async function onSubmitPack1(e) {
       e.preventDefault();
       try {
-          let userSession = getSessionObject("user");
-          console.log(userSession, "user");
-
+          
           const id = userSession.id;
           console.log(id, "id user");
 
-          const packCoins = 200;
+          const packCoins = 100;
           
           console.log("packCoins", packCoins);
 
@@ -75,7 +79,7 @@ import { setSessionObject } from "../../utils/session";
               }), // body data type must match "Content-Type" header
               headers: {
               "Content-Type": "application/json",
-              
+               Authorization: userSession.token,
               },
           };
 
@@ -102,6 +106,100 @@ import { setSessionObject } from "../../utils/session";
           console.error("CoinsPage::error: ", error);
       }
     } 
- };
+
+ async function onSubmitPack2(e) {
+    e.preventDefault();
+    try {
+       
+
+        const id = userSession.id;
+        console.log(id, "id user");
+
+        const packCoins = 1000;
+        
+        console.log("packCoins", packCoins);
+
+        const options = {
+            method: "PUT", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify({
+            coins: packCoins,
+            }), // body data type must match "Content-Type" header
+            headers: {
+            "Content-Type": "application/json",
+             Authorization: userSession.token,
+            },
+        };
+
+        const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
+
+        if (!response.ok) {
+            throw new Error(
+            "fetch error : " + response.status + " : " + response.statusText
+            );
+        }
+        const user = await response.json(); // json() returns a promise => we wait for the data
+        console.log("user authenticated", user);
+
+        // save the user into the localStorage with the new coins value
+        userSession.coins = user.coins;
+        setSessionObject("user", userSession);
+
+        // Rerender the navbar to display the new coins value
+        Navbar();
+
+        // call the CoinsPage via the Router
+        Redirect("/coins");
+    } catch (error) {
+        console.error("CoinsPage::error: ", error);
+    }
+  } 
+
+async function onSubmitPack3(e) {
+    e.preventDefault();
+    try {
+        
+
+        const id = userSession.id;
+        console.log(id, "id user");
+
+        const packCoins = 10000;
+        
+        console.log("packCoins", packCoins);
+
+        const options = {
+            method: "PUT", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify({
+            coins: packCoins,
+            }), // body data type must match "Content-Type" header
+            headers: {
+            "Content-Type": "application/json",
+             Authorization: userSession.token,
+            },
+        };
+
+        const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
+
+        if (!response.ok) {
+            throw new Error(
+            "fetch error : " + response.status + " : " + response.statusText
+            );
+        }
+        const user = await response.json(); // json() returns a promise => we wait for the data
+        console.log("user authenticated", user);
+
+        // save the user into the localStorage with the new coins value
+        userSession.coins = user.coins;
+        setSessionObject("user", userSession);
+
+        // Rerender the navbar to display the new coins value
+        Navbar();
+
+        // call the CoinsPage via the Router
+        Redirect("/coins");
+    } catch (error) {
+        console.error("CoinsPage::error: ", error);
+    }
+  } 
+};
   
   export default CoinsPage;

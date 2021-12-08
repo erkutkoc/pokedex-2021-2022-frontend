@@ -1,6 +1,7 @@
 import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 /**
  * Render the LoginPage
  */
@@ -17,6 +18,12 @@ import { setSessionObject } from "../../utils/session";
     </section>`;
 
  const LoginPage = () => { 
+    let userSession = getSessionObject("user");
+    console.log(userSession, "user");
+    if (userSession) {
+        return Redirect("/");
+    }
+
     const main = document.querySelector("main");
     main.innerHTML = loginPage; 
 

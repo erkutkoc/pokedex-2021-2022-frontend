@@ -1,4 +1,7 @@
-
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { Redirect } from "../Router/Router";
+import Navbar from "../Navbar/Navbar";
+import { setSessionObject } from "../../utils/session";
 /**
  * Render the Shop Page
  */
@@ -40,6 +43,12 @@
  </div>`;
 
  const ShopPage = () => { 
+    let userSession = getSessionObject("user");
+    console.log(userSession, "user");
+    if (!userSession) {
+        return Redirect("/login");
+    }
+
     const main = document.querySelector("main");
     main.innerHTML = shopPage; 
  

@@ -1,4 +1,5 @@
 import { Redirect } from "../Router/Router";
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import { setSessionObject } from "../../utils/session";
 import Navbar from "../Navbar/Navbar";
     /**
@@ -23,6 +24,12 @@ import Navbar from "../Navbar/Navbar";
     </section>`;
 
  const RegisterPage = () => { 
+    let userSession = getSessionObject("user");
+    console.log(userSession, "user");
+    if (userSession) {
+        return Redirect("/");
+    }
+
     const main = document.querySelector("main");
     main.innerHTML = registerPage; 
 
