@@ -36,7 +36,15 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg|mp3|mpe?g)$/,        
         type : 'asset/resource',
-      },  
+      },
+      
+     
+        {
+          test: /\.worker.js$/,
+          loader: 'worker-loader',
+        },
+        // ...
+      
 
       /*
       // automatically chooses between exporting a data URI and emitting a separate file.

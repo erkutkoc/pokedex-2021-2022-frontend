@@ -19,12 +19,15 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "worker-loader": "^3.0.8"
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
-    "colorthief": "^2.3.2",
+    "get-pixels": "^3.3.2",
+    "node-vibrant": "^3.1.6",
+    "quantize": "github:lokesh/quantize",
     "sweetalert2": "^11.3.0"
   }
 }
