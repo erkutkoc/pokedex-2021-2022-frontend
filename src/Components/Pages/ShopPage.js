@@ -87,30 +87,34 @@ const ShopPage = () => {
 
       let openedBooster = await response.json(); // json() returns a promise => we wait for the data
 
-      let openedBoosterHtml = "";
-
+      let openedBoosterHtml = `<container>`;
+      let divRow = `<div class="row">`;
+      let carte = "";
+      openedBoosterHtml += divRow;
+      let row = 0;
       for (let element of openedBooster) {
         let hex = "";
         const promise = await Vibrant.from(element.hires)
           .getPalette()
           .then((palette) => (hex = palette.DarkMuted.hex));
-
-        openedBoosterHtml += `
-                    <div class ="card"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background-color: ${hex}">
+   
+        carte += `
+          <!--carte-->
+                    <div class ="card col-md-4"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background-color: ${hex}">
                                 <p class="type" style=" position: relative;color: black;text-transform: uppercase;width: fit-content;background: #ffef3b;border-style: solid;left:0.5em;top:0.5em;border-color: #fcad03;border-radius: 10px" >${element.type}</p>
                                 <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white;">${element.name.french}</h2>
                                 <figure class="figure"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="${element.hires}"> </figure>
                                     <div class="cardText">
                                         <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
-                                            <div class="statList"  >
-                                                <p class ="stats">attaque :${element.base.Attack} </p>
-                                                <p class ="stats">defense :${element.base.Defense}</p>
-                                                <p class ="stats">vitalite :${element.base.HP} </p> 
+                                            <div class="statList" style="margin:auto">
+                                                <p class ="stats" style="font-size: 12px">attaque \n : ${element.base.Attack} </p>
+                                                <p class ="stats" style="font-size: 12px">defense \n : ${element.base.Defense}</p>
+                                                <p class ="stats" style="font-size: 12px">vitalite \n : ${element.base.HP} </p> 
                                             </div>
-                                            <div class="statList" >
-                                                <p class ="stats">attaque SP. :${element.base.SpAttack} </p>
-                                                <p class ="stats">defense SP. ::${element.base.SpDefense} </p>
-                                                <p class ="stats">vitesse ::${element.base.Speed}</p>
+                                            <div class="statList" style="margin:auto">
+                                                <p class ="stats" style="font-size: 12px">attaque SP. \n : ${element.base.SpAttack} </p>
+                                                <p class ="stats" style="font-size: 12px">defense SP. \n : ${element.base.SpDefense} </p>
+                                                <p class ="stats" style="font-size: 12px">vitesse \n : ${element.base.Speed}</p>
                                             </div>
                                         </div>
                                         <div class="movesContainer" style="display: flex;justify-content: space-between;">
@@ -123,9 +127,10 @@ const ShopPage = () => {
                                             </p>
                                         </div>
                                     </div>
-                            </div>`;
+                            </div> <!--fin carte-->`;
       }
-
+      openedBoosterHtml += carte;
+      openedBoosterHtml += "</div></container>";
       Swal.fire({
         title: "Voici votre Booster ! ",
         html: openedBoosterHtml,
