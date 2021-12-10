@@ -1,7 +1,5 @@
 import HomePage from "./HomePage";
-import {
-    Redirect
-} from "../Router/Router";
+import { Redirect } from "../Router/Router";
 
 /**
  * Render the NewPage :
@@ -29,30 +27,28 @@ const filterPartOne = `
         <!--Filter-->`;
 const filterPartTwo = `/div>`;
 
-
 const CollectionPage = () => {
-    const main = document.querySelector("main");
-    main.innerHTML = filterPartOne;
-    // create a login form
-    const filterButton1 = document.querySelectorAll(".filterButton1");
-    filterButton1.forEach(item => {
-        item.addEventListener("click", filterby.bind(event, item.name, item.id))
-    })
-    async function findAllPokemons() {
-        const response = await fetch("/api/pokemons", {
-            method: "GET",
-        })
-        if (!response.ok) {
-            console.log("response ko !")
-        }
-        let pokemons = await response.json();
-        console.log(pokemons);
-        // Deal with your NewPage content here
-        let cardsHtml = "";
-        pokemons = pokemons.filter(pokemon => pokemon.base != undefined);
-        pokemons.forEach(pokemon => {
-            
-            cardsHtml += `
+  const main = document.querySelector("main");
+  main.innerHTML = filterPartOne;
+  // create a login form
+  const filterButton1 = document.querySelectorAll(".filterButton1");
+  filterButton1.forEach((item) => {
+    item.addEventListener("click", filterby.bind(event, item.name, item.id));
+  });
+  async function findAllPokemons() {
+    const response = await fetch("/api/pokemons", {
+      method: "GET",
+    });
+    if (!response.ok) {
+      console.log("response ko !");
+    }
+    let pokemons = await response.json();
+    console.log(pokemons);
+    // Deal with your NewPage content here
+    let cardsHtml = "";
+    pokemons = pokemons.filter((pokemon) => pokemon.base != undefined);
+    pokemons.forEach((pokemon) => {
+      cardsHtml += `
             <!--Card-->
                 <div class ="card"  style=" display: inline-block;width: 300px; height:550px;border-radius: 15px; margin: 10px; background-color: #ffcd39">
                     <p class="type" style=" position: relative;
@@ -93,37 +89,31 @@ const CollectionPage = () => {
                         </div>
                 </div>
             <!--Card-->`;
-        })
-        main.innerHTML = cardsHtml;
-    }
-    findAllPokemons();
-    main.innerHTML = filterPartTwo;
-
-
+    });
+    main.innerHTML = cardsHtml;
+  }
+  findAllPokemons();
+  main.innerHTML = filterPartTwo;
 };
 
-
 const filterby = async (filter, value) => {
+  try {
+    const options = {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+    };
 
-    try {
-        const options = {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
+    const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
 
-        };
-
-        const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
-
-        if (!response.ok) {
-            throw new Error(
-                "fetch error : " + response.status + " : " + response.statusText
-            );
-        }
-
-        await response.json(); // json() returns a promise => we wait for the data
-    } catch (error) {
-        console.error("LoginPage::error: ", error);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
     }
 
-}
+    await response.json(); // json() returns a promise => we wait for the data
+  } catch (error) {
+    console.error("LoginPage::error: ", error);
+  }
+};
 
 export default CollectionPage;

@@ -50,3 +50,24 @@ ul {
   position: absolute;
   z-index: 5;
 }
+.card1 {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  size: 30%;
+  display: inline-block;
+  width: 25%;
+  height: 25%;
+  border-radius: 15px;
+  margin: 10px;
+}
+.figure2 {
+  padding: 0 25% 0 25%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card1:hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.09);
+}
+.card1:hover > .figure2 {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.7);
+}
