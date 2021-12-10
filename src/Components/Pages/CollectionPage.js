@@ -39,7 +39,7 @@ const filter = `<!--Filter-->
 //une carte
 const pokemonCardHtml = (pokemon,hex) => {
     return `<!--Card Start-->
-    <div class ="card col-sm"  style="width: 300px; height:550px;border-radius: 15px; margin: 10px; background-color: ${hex}">
+    <div class ="card1 col-sm"  style="width: 300px; height:550px;border-radius: 15px; margin: 10px; background-color: ${hex}">
         <p class="type" style=" position: relative;
             color: black;
             text-transform: uppercase;
@@ -51,7 +51,7 @@ const pokemonCardHtml = (pokemon,hex) => {
             border-color: #fcad03;
             border-radius: 10px" >${pokemon.type}</p>
         <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
-        <figure class="figure"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
+        <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
         width: 128px;" src="${pokemon.hires}"> </figure>
             <div class="cardText">
                 <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
