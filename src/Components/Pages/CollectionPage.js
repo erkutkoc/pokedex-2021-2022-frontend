@@ -1,8 +1,8 @@
 import HomePage from "./HomePage";
-import {
-    Redirect
-} from "../Router/Router";
 import * as Vibrant from "node-vibrant";
+
+import { Redirect } from "../Router/Router";
+
 
 let pokemons = [];
 
@@ -32,6 +32,7 @@ const filter = `<!--Filter-->
     </div>
 </div>
 <!--Filter-->`;
+
 
 
 
@@ -158,27 +159,25 @@ const displayRow = async (currentRow, divRow) => {
     }
 }
 
+
 const filterby = async (filter, value) => {
+  try {
+    const options = {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+    };
 
-    try {
-        const options = {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
+    const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
 
-        };
-
-        const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
-
-        if (!response.ok) {
-            throw new Error(
-                "fetch error : " + response.status + " : " + response.statusText
-            );
-        }
-
-        await response.json(); // json() returns a promise => we wait for the data
-    } catch (error) {
-        console.error("LoginPage::error: ", error);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
     }
 
-}
+    await response.json(); // json() returns a promise => we wait for the data
+  } catch (error) {
+    console.error("LoginPage::error: ", error);
+  }
+};
 
 export default CollectionPage;
