@@ -56,16 +56,6 @@ const RegisterPage = () => {
     const pseudo = document.getElementById("pseudo");
     const password = document.getElementById("password");
     const password_repeat = document.getElementById("password-repeat");
-    
-    //check si les deux mdp sont bien équivalent
-    if (password.value != password_repeat.value) {
-        const message = document.getElementById("message");
-        message.innerHTML = "Password doesn't match";
-        password.style = "border:2px solid red;";
-        password_repeat.style = "border:2px solid red;";
-        
-        throw new Error("Password doesn't match");
-      }
 
     console.log(
       "credentials",
@@ -74,6 +64,16 @@ const RegisterPage = () => {
       password.value,
       password_repeat.value
     );
+
+    //check si les deux mdp sont bien équivalent
+    if (password.value != password_repeat.value) {
+      const message = document.getElementById("message");
+      message.innerHTML = "Password doesn't match";
+      password.style = "border:2px solid red;";
+      password_repeat.style = "border:2px solid red;";
+
+      throw new Error("Password doesn't match");
+    }
 
     try {
       const options = {
@@ -109,6 +109,5 @@ const RegisterPage = () => {
     }
   }
 };
-
 
 export default RegisterPage;
