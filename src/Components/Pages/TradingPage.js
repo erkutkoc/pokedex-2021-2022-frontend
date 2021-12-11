@@ -8,7 +8,6 @@ import { setSessionObject } from "../../utils/session";
 
  const TradingPage = () => { 
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (!userSession) {
       return Redirect("/login");
   }
