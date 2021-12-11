@@ -1,8 +1,7 @@
 import HomePage from "./HomePage";
 import * as Vibrant from "node-vibrant";
-
+import "../../assets/css/cartePokememon.css"
 import { Redirect } from "../Router/Router";
-
 
 let pokemons = [];
 
@@ -36,25 +35,18 @@ const filter = `<!--Filter-->
 
 
 
+
+
 //une carte
 const pokemonCardHtml = (pokemon,hex) => {
     return `<!--Card Start-->
-    <div class ="card1 col-sm"  style="width: 300px; height:550px;border-radius: 15px; margin: 10px; background-color: ${hex}">
-        <p class="type" style=" position: relative;
-            color: black;
-            text-transform: uppercase;
-            width: fit-content;
-            background: #ffef3b;
-            border-style: solid;
-            left:0.5em;
-            top:0.5em;
-            border-color: #fcad03;
-            border-radius: 10px" >${pokemon.type}</p>
+    <div id="card_${pokemon.type[0]}" class ="card1 col-sm ">
+        <p id="type_${pokemon.type[0]}" class="type"  >${pokemon.type}</p>
         <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
         <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
         width: 128px;" src="${pokemon.hires}"> </figure>
             <div class="cardText">
-                <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
+                <div class="StatsContainer" style="display: flex; flex justify-content: space-between;  background: rgba(255,255,255,30%); font-size:15px; border-radius: 10px;">
                     <div class="statList"  >
                         <p class ="stats">attaque : ${pokemon.base.Attack} </p>
                         <p class ="stats">defense : ${pokemon.base.Defense}</p>
@@ -67,10 +59,10 @@ const pokemonCardHtml = (pokemon,hex) => {
                     </div>
                 </div>
                 <div class="movesContainer" style="display: flex;justify-content: space-between;">
-                    <p class =moves> Move 1 </p>
-                    <p class =moves> Move 2 </p>
+                    <p class =moves> ${pokemon.profile.ability[0][0]} </p>
+                    <p class =moves> ${pokemon.profile.ability[1][0]} </p>
                 </div>
-                <div class="pokemonDescription" style="background-color: #fff1c7; font-size: 10px">
+                <div class="pokemonDescription" style="background: rgba(204,204,204,40%);; font-size: 10px; ">
                     <p class =description> 
                     ${pokemon.description} 
                     </p>
