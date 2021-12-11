@@ -59,8 +59,8 @@ const pokemonCardHtml = (pokemon,hex) => {
                     </div>
                 </div>
                 <div class="movesContainer" style="display: flex;justify-content: space-between;">
-                    <p class =moves> ${pokemon.profile.ability[0][0]} </p>
-                    <p class =moves> ${pokemon.profile.ability[1][0]} </p>
+                    <p class =moves style="color:white"> ${pokemon.profile.ability[0][0]} </p>
+                    <p class =moves style="color:white"> ${pokemon.profile.ability[0][1]} </p>
                 </div>
                 <div class="pokemonDescription" style="background: rgba(204,204,204,40%);; font-size: 10px; ">
                     <p class =description> 
@@ -85,17 +85,20 @@ const CollectionPage = () => {
     async function findAllPokemons() {
         const response = await fetch("/api/pokemons", {
             method: "GET",
+            cache : "no-cache",
+            cache : "no-store"
+
         })
         if (!response.ok) {
             console.log("response ko !")
         }
         //fetch pokemon
+
         pokemons = await response.json();
         pokemons = pokemons.filter(pokemon => pokemon.base != undefined);
-        let size = pokemons.length;
-        let rowNumber = size / 4;
+        console.log(pokemons)
         //i = ligne
-        while (i < 2) {
+        while (i < 4) {
             let divRow = document.createElement("div");
             divRow.className = "row";
             container.appendChild(divRow)
@@ -108,11 +111,11 @@ const CollectionPage = () => {
 
     //scroll bottom event detection
     window.addEventListener('scroll', () => {
-        let lastKnowScrollPosition = (window.innerHeight + window.pageYOffset);
-        console.log("o : "+document.body.offsetHeight)
-        console.log("l : "+lastKnowScrollPosition)
+        let lastKnowScrollPosition = (window.innerHeight + Math.ceil(window.pageYOffset));
+        //console.log("o : "+document.body.offsetHeight)
+        //console.log("l : "+lastKnowScrollPosition)
         if (document.body.offsetHeight <= lastKnowScrollPosition ) {
-            lastKnowScrollPosition = document.body.offsetHeight;
+            lastKnowScrollPosition = document.body.offsetHeight -1;
             displayRowAfterScroll (i)
         }
 
@@ -120,12 +123,13 @@ const CollectionPage = () => {
 };
 
 const displayRowAfterScroll = (ligne) =>{
+    
     console.log("displayRowAfterScroll")
     let size = pokemons.length;
     let rowNumber = size / 4;
     //i = ligne
-    let newLigne = ligne+1;
-    while (ligne < newLigne) {
+    let newLigne = ligne+3;
+    while (ligne < rowNumber && ligne < newLigne) {
         let divRow = document.createElement("div");
         divRow.className = "row";
         container.appendChild(divRow)
@@ -138,9 +142,12 @@ const displayRowAfterScroll = (ligne) =>{
 const displayRow = async (currentRow, divRow) => {
     console.log("displayRow")
     let cardsHtml = "";
-    let hex = "";
+
     
     for (let index = currentRow; index < currentRow + 4; index++) {
+        console.log("current row : " + currentRow)
+        console.log("index : " +index)
+        let hex = "";
         const pokemon = pokemons[index];
         const promise = await Vibrant.from(pokemon.hires)
         .getPalette()
