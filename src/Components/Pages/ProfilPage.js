@@ -1,5 +1,8 @@
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { setSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
+import Navbar from "../Navbar/Navbar";
+
 
 /**
  * Render the profil page
@@ -19,7 +22,7 @@ const ProfilPage = async () => {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        Authorization: user.token,
+        Authorization: userSession.token,
       },
     };
     const response = await fetch("/api/users/" + userId, options); // fetch return a promise => we wait for the response
@@ -30,7 +33,17 @@ const ProfilPage = async () => {
       );
     }
     const user = await response.json(); // json() returns a promise => we wait for the data
-    console.log("user authenticated", user);
+    console.log("user GET", user);
+
+    userSession.email = user.email;
+    userSession.pseudo = user.pseudo;
+
+    // save the user into the localStorage
+    setSessionObject("user", userSession);
+
+    // Rerender the navbar for an authenticated user
+    Navbar();
+
   } catch (error) {
     console.error("ProfilPage::error: ", error);
   }
@@ -64,16 +77,16 @@ const ProfilPage = async () => {
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label>Pseudo</label>
-                                <input class="form-control" type="text" name="Pseudo" placeholder="${userSession.pseudo}">
+                                <label for="pseudo">Pseudo</label>
+                                <input class="form-control" type="text" id="pseudo" name="pseudo" placeholder="${userSession.pseudo}">
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label>Email</label>
-                                <input class="form-control" type="text" placeholder="${userSession.email}">
+                                <label for="email">Email</label>
+                                <input class="form-control" id="email" name="email" type="text" placeholder="${userSession.email}">
                               </div>
                             </div>
                           </div>
@@ -86,25 +99,28 @@ const ProfilPage = async () => {
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label>Current Password</label>
-                                <input class="form-control" type="password" placeholder="••••••">
+                                <label for="currentPassword">Current Password</label>
+                                <input class="form-control" id="currentPassword" name="currentPassword" type="password" placeholder="••••••">
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label>New Password</label>
-                                <input class="form-control" type="password" placeholder="••••••">
+                                <label for="newPassword">New Password</label>
+                                <input class="form-control" id="newPassword" name="newPassword" type="password" placeholder="••••••">
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                <input class="form-control" type="password" placeholder="••••••"></div>
+                                <label for="newPasswordCheck">Confirm <span class="d-none d-xl-inline">Password</span></label>
+                                <input class="form-control" id="newPasswordCheck" name="newPasswordCheck" type="password" placeholder="••••••"></div>
                             </div>
+                            <span id='message' style="color:red;"></span>
+                            <br/>
+                            <br/>
                           </div>
                         </div>
                       </div>
@@ -122,6 +138,70 @@ const ProfilPage = async () => {
         </div>`;
 
   pageDiv.innerHTML = profilPage;
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", onSubmitChange);
+
+  async function onSubmitChange(e) {
+    e.preventDefault();
+    //const pseudo = document.getElementById("pseudo");
+    //const email = document.getElementById("email");
+    const currentPassword = document.getElementById("currentPassword");
+    const newPassword = document.getElementById("newPassword");
+    const newPasswordCheck = document.getElementById("newPasswordCheck");
+    console.log("credentials", pseudo.value, email.value, currentPassword.value, newPassword.value, newPasswordCheck.value);
+
+    //check si les deux mdp sont bien équivalent
+    if (newPassword.value != newPasswordCheck.value) {
+      const message = document.getElementById("message");
+      message.innerHTML = "Password doesn't match";
+      newPassword.style = "border:2px solid red;";
+      newPasswordCheck.style = "border:2px solid red;";
+
+      throw new Error("Password doesn't match");
+    }
+
+    try {
+      const options = {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify({
+          //pseudo: pseudo.value,
+          //email: email.value,
+          currentPassword: currentPassword.value,
+          newPassword: newPassword.value,
+          //newPasswordCheck: newPasswordCheck.value,
+        }), // body data type must match "Content-Type" header
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userSession.token,
+        },
+      };
+
+      const response = await fetch("/api/users/" + userId, options); // fetch return a promise => we wait for the response
+
+      if (!response.ok) {
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
+      }
+      const user = await response.json(); // json() returns a promise => we wait for the data
+      console.log("user updated", user);
+
+      userSession.email = user.email;
+      userSession.pseudo = user.pseudo;
+
+      // save the user into the localStorage
+      setSessionObject("user", userSession);
+
+      // Rerender the navbar for an authenticated user
+      Navbar();
+
+      // call the ProfilPage via the Router
+      Redirect("/profil");
+    } catch (error) {
+      console.error("profilPage::error: ", error);
+    }
+  }
 };
 
 export default ProfilPage;
