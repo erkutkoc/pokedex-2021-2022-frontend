@@ -42,6 +42,20 @@ const ShopPage = () => {
   );
 
   async function onSubmitPack1(cost) {
+    let timerInterval;
+    Swal.fire({
+      title: "Opening the pack !",
+      timer: 1100,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        timerInterval = setInterval(() => {}, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
     const id = userSession.id;
 
     const packcoins = cost;
@@ -93,36 +107,42 @@ const ShopPage = () => {
       openedBoosterHtml += divRow;
       let row = 0;
       for (let element of openedBooster) {
-        let hex = "";
+        let hexx;
         let vibrant = "";
         const promise = await Vibrant.from(element.hires)
           .getPalette()
-          .then((palette) => (hex = palette.DarkMuted.hex));
-   
+          .then((palette) => (hexx = palette));
+
+        let a = "";
+        if (element.profile.ability[1] == undefined) {
+          a = "";
+        } else {
+          a = element.profile.ability[1][0];
+        }
         carte += `
           <!--carte-->
-                    <div class ="card1 col-md-4"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background-color: ${hex}">
+                    <div class ="card1 col-md-4"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background :linear-gradient(120deg, ${hexx.DarkMuted.hex} 0%, ${hexx.Vibrant.hex} 100%);">
                                 <p class="type" style=" position: relative;color: black;text-transform: uppercase;width: fit-content;background: #ffef3b;border-style: solid;left:0.5em;top:0.5em;border-color: #fcad03;border-radius: 10px" >${element.type}</p>
                                 <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white;">${element.name.french}</h2>
                                 <figure class="figure2"style=""><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="${element.hires}"> </figure>
                                     <div class="cardText">
-                                        <div class="StatsContainer" style="display: flex;justify-content: space-between;  background-color: #f2d785">
+                                        <div class="StatsContainer" style="display: flex;justify-content: space-between;background: rgba(0, 0, 0, 0.05);  ">
                                             <div class="statList" style="margin:auto">
-                                                <p class ="stats" style="font-size: 12px">attaque \n : ${element.base.Attack} </p>
-                                                <p class ="stats" style="font-size: 12px">defense \n : ${element.base.Defense}</p>
-                                                <p class ="stats" style="font-size: 12px">vitalite \n : ${element.base.HP} </p> 
+                                                <p class ="stats" style="font-size: 12px ;color : black; opacity: 60%">attaque \n : ${element.base.Attack} </p>
+                                                <p class ="stats" style="font-size: 12px;color : black; opacity: 60%">defense \n : ${element.base.Defense}</p>
+                                                <p class ="stats" style="font-size: 12px;color : black; opacity: 60%">vitalite \n : ${element.base.HP} </p> 
                                             </div>
                                             <div class="statList" style="margin:auto">
-                                                <p class ="stats" style="font-size: 12px">attaque SP. \n : ${element.base.SpAttack} </p>
-                                                <p class ="stats" style="font-size: 12px">defense SP. \n : ${element.base.SpDefense} </p>
-                                                <p class ="stats" style="font-size: 12px">vitesse \n : ${element.base.Speed}</p>
+                                                <p class ="stats" style="font-size: 12px;color : black; opacity: 60%">attaque SP. \n : ${element.base.SpAttack} </p>
+                                                <p class ="stats" style="font-size: 12px;color : black; opacity: 60%">defense SP. \n : ${element.base.SpDefense} </p>
+                                                <p class ="stats" style="font-size: 12px;color : black; opacity: 60%">vitesse \n : ${element.base.Speed}</p>
                                             </div>
                                         </div>
                                         <div class="movesContainer" style="display: flex;justify-content: space-between;">
-                                            <p class =moves> Move 1 </p>
-                                            <p class =moves> Move 2 </p>
+                                            <p class =moves style="color : black; opacity: 60%">  ${element.profile.ability[0][0]} </p>
+                                            <p class =moves style="color : black; opacity: 60%"> ${a} </p>
                                         </div>
-                                        <div class="pokemonDescription" style="background-color: #fff1c7; font-size: 10px">
+                                        <div class="pokemonDescription" style="font-size: 11px;color : black; opacity: 60%;background: rgba(0, 0, 0, 0.05)">
                                             <p class =description> 
                                             ${element.description}
                                             </p>
@@ -132,10 +152,30 @@ const ShopPage = () => {
       }
       openedBoosterHtml += carte;
       openedBoosterHtml += "</div></container>";
+
       Swal.fire({
         title: "Voici votre Booster ! ",
         html: openedBoosterHtml,
         width: 1000,
+
+        willClose: () => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Card successfuly added to your collection !",
+          });
+        },
       });
 
       Navbar();
