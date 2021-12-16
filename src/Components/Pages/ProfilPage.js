@@ -78,7 +78,7 @@ const ProfilPage = async () => {
                             <div class="col">
                               <div class="form-group">
                                 <label for="pseudo">Pseudo</label>
-                                <input class="form-control" type="text" id="pseudo" name="pseudo" placeholder="${userSession.pseudo}">
+                                <input class="form-control" type="text" id="pseudo" name="pseudo" placeholder="${userSession.pseudo}" disabled>
                               </div>
                             </div>
                           </div>
@@ -86,7 +86,7 @@ const ProfilPage = async () => {
                             <div class="col">
                               <div class="form-group">
                                 <label for="email">Email</label>
-                                <input class="form-control" id="email" name="email" type="text" placeholder="${userSession.email}">
+                                <input class="form-control" id="email" name="email" type="text" placeholder="${userSession.email}" disabled>
                               </div>
                             </div>
                           </div>
