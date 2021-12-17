@@ -52,10 +52,9 @@ ul {
 }
 .card1 {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  size: 30%;
-  display: inline-block;
-  width: 25%;
-  height: 25%;
+  size: 22%;
+  width: 22%;
+  height: 22%;
   border-radius: 15px;
   margin: 10px;
 }
@@ -70,4 +69,11 @@ ul {
 .card1:hover > .figure2 {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.7);
+}
+
+
+a:hover {
+  
+  background-color: red;
+  text-decoration: underline;
 }
