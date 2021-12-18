@@ -79,7 +79,7 @@ const filter = `<!--Filter-->
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
   return `<!--Card Start-->
-    <div id="card_${pokemon.type[0]}" class ="card1 col-sm mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
+    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
         <p id="type_${pokemon.type[0]}" class="type" style="" >${pokemon.type}</p>
         <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
         <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
