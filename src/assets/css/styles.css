@@ -32,6 +32,8 @@ ul {
   font-size: 12px;
   margin:auto;
   text-align: center;
+  border-radius:10px;
+  background-color: rgb(245, 245, 245, 0.7);
 }
 .table-wrapper-scroll-y {
   display: block;
