@@ -1,6 +1,7 @@
 import * as Vibrant from "node-vibrant";
 import "../../assets/css/cartePokememon.css";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import  "../../assets/js/background";
 let pokemons = [];
 let listePokemonAfficher = [];
 var showMyCollection = false;
@@ -15,10 +16,10 @@ const loaderHTML = `
 const main = document.querySelector("main");
 const tabs = `<ul class="nav nav-tabs justify-content-center">
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#">All</a>
+  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="color : white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: black  ">All</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" id="myCollection" href="#">My Collection</a>
+  <a class="nav-link" id="myCollection" href="#" style="color : white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: black  ">My Collection</a>
 </li>
 </ul>`;
 const containerHtml = `<div class="container" id="container"></div>`;
@@ -163,6 +164,8 @@ const CollectionPage = async () => {
           filterType[count].style + "background-color: transparent;";
       }
       e.target.style = "background-color: red;";
+      changerBack(nomType);
+      // appel focniton pour changer le background
       affichageListe();
     });
   });

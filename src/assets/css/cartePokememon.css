@@ -4,7 +4,6 @@
     text-transform: uppercase;
     font-size: 13px;
     text-align: center;
-    width: fit-content;
     width: 100px;
     border-style: solid;
     left:0.5em;
@@ -20,9 +19,18 @@
     background-color: mediumslateblue;
     border-color: cadetblue;
 }
+#type_Dark{
+    background-color: #262426;
+    border-color: #828282;
+    text : white;
+}
 #type_Electric{
     background-color: yellow;
     border-color: orange;
+}
+#type_Fairy{
+    background-color:#fc9cff;
+    border-color: #fecfff;
 }
 #type_Fighting{
     background-color:#d48013;
@@ -77,6 +85,10 @@
     background-color: #8c6c31;
     border-color: #573902;
 }
+#type_Steel{
+    background-color:#e6e5d8;
+    border-color: #c2c2c2;
+}
 
 #type_Water{
     background-color: #00a2ff;
@@ -84,81 +96,81 @@
 }
 
 .card1{
-    width: 300px;
-    max-height:550px;
+    width: 100px;
+    height:160px;
     border-radius: 15px;
     margin: 10px;
-    box-shadow:10px 10px 30px black
+    box-shadow:10px 10px 30px black;
+    border-style: solid;
+    border-width: 7px;
 }
 
 #card_Bug{
-    background: linear-gradient(120deg, #8ec961 0%, #31610d 100%);
-    border-color: forestgreen;
+    border-color:#8cb388;
+
 }
 #card_Dragon{
-    background: linear-gradient(120deg, #bf8ed1 0%, #8540c9 100%);
-    border-color: cadetblue;
+    border-color: #d8bae3;
+}
+#card_Drak{
+    border-color: #474747;
 }
 #card_Electric{
-    background: linear-gradient(120deg, #f8ff8f 0%, #ebe421 100%);
-    border-color: orange;
+    border-color: #fafab9;
 }
 #card_Fighting{
-    background: linear-gradient(120deg, #d6a12f 0%, #bf710a 100%);
     border-color: #9e6a26;
 }
 #card_Fire{
-    background: linear-gradient(120deg, #ffa600 0%, #cc1414 100%);
-    border-color: darkred;
+    border-color: red;
+
+}
+#card_Fairy{
+    border-color: #FC98D3;
 }
 
 #card_Flying{
-    background: linear-gradient(120deg, #c9fffd 0%, #49d8f5 100%);
     border-color: #75e2ff;
 }
 
 #card_Ghost{
-    background: linear-gradient(120deg, #a476b8 0%, #52126e 100%);
     border-color: #400357;
 }
 
 #card_Grass{
-    background: linear-gradient(120deg, #3bff4b 0%, #0d8517 100%);
     border-color: green;
 }
 
+
 #card_Ground{
-    background: linear-gradient(120deg, #706c62 0%, #705610 100%);
     border-color: #9c7f4e;
 }
 
 #card_Ice{
-    background: linear-gradient(120deg, #d4fffb 0%, #2bc4b6 100%);
     border-color: #54fff1;
 }
 
 #card_Normal{
-    background: linear-gradient(120deg, #b0b0b0 0%, #6b6b6b 100%);
     border-color: #7a7a7a;
 }
 
 #card_Poison{
-    background: linear-gradient(120deg, #1CB5E0 0%, #000851 100%);
     border-color: #7c44b8;
 }
 
 #card_Psychic{
-    background: linear-gradient(120deg, #bf6bbe 0%, #ff00bb 100%);
     border-color: #f2a7db;
 }
 
 #card_Rock{
-    background: linear-gradient(120deg, #cf9b3a 0%, #694707 100%);
     border-color: #573902;
 }
 
+#card_Steel{
+    border-color: #cccccc;
+}
+
 #card_Water{
-    background: linear-gradient(120deg, #1CB5E0 0%, #000851 100%);
     border-color: #0a44cc;
 }
 
