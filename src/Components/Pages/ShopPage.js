@@ -3,9 +3,8 @@ import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
 import Swal from "sweetalert2";
-import * as Vibrant from "node-vibrant";
 
-//var ColorThief = require('color-thief');
+import * as Vibrant from "node-vibrant";
 
 /**
  * Render the Shop Page
@@ -121,7 +120,7 @@ const ShopPage = () => {
         }
         carte += `
           <!--carte-->
-                    <div class ="card1 col-md-4"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background :linear-gradient(120deg, ${hexx.DarkMuted.hex} 0%, ${hexx.Vibrant.hex} 100%);">
+                    <div class ="card1 col-md-4"  style=" display: inline-block;width: 30%;border-radius: 15px; margin: 10px; background :linear-gradient(100deg, ${hexx.Muted.hex} 0%, ${hexx.Vibrant.hex} 100%);">
                                 <p class="type" style=" position: relative;color: black;text-transform: uppercase;width: fit-content;background: #ffef3b;border-style: solid;left:0.5em;top:0.5em;border-color: #fcad03;border-radius: 10px" >${element.type}</p>
                                 <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white;">${element.name.french}</h2>
                                 <figure class="figure2"style=""><img class="img-fluid figure-img" style="max-height: 150px;margin: auto;display: inline-block;" src="${element.hires}"> </figure>

@@ -2,11 +2,13 @@ import { getSessionObject } from "../../utils/session"; // destructuring assignm
 import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
+import Swal from "sweetalert2";
+
 /**
  * Render the Coins Page
  */
 
- const coinsPage = `
+const coinsPage = `
  <section></section>
  <div class="container">
      <div class="row">
@@ -42,164 +44,207 @@ import { setSessionObject } from "../../utils/session";
      </div>
  </div>`;
 
- const CoinsPage = () => { 
-    let userSession = getSessionObject("user");
-    console.log(userSession, "user");
-    if (!userSession) {
-        return Redirect("/login");
-    }
+const CoinsPage = () => {
+  let userSession = getSessionObject("user");
+  console.log(userSession, "user");
+  if (!userSession) {
+    return Redirect("/login");
+  }
 
-    const main = document.querySelector("main");
-    main.innerHTML = coinsPage; 
+  const main = document.querySelector("main");
+  main.innerHTML = coinsPage;
 
-    const pack1 = document.getElementById("pack1");
-    pack1.addEventListener("click", onSubmitPack1);
+  const pack1 = document.getElementById("pack1");
+  pack1.addEventListener("click", onSubmitPack1);
 
-    const pack2 = document.getElementById("pack2");
-    pack2.addEventListener("click", onSubmitPack2);
+  const pack2 = document.getElementById("pack2");
+  pack2.addEventListener("click", onSubmitPack2);
 
-    const pack3 = document.getElementById("pack3");
-    pack3.addEventListener("click", onSubmitPack3);
-  
-    async function onSubmitPack1(e) {
-      e.preventDefault();
-      try {
-          
-          const id = userSession.id;
-          console.log(id, "id user");
+  const pack3 = document.getElementById("pack3");
+  pack3.addEventListener("click", onSubmitPack3);
 
-          const packCoins = 100;
-          
-          console.log("packCoins", packCoins);
+  async function onSubmitPack1(e) {
+    e.preventDefault();
+    try {
+      const id = userSession.id;
+      console.log(id, "id user");
 
-          const options = {
-              method: "PUT", // *GET, POST, PUT, DELETE, etc.
-              body: JSON.stringify({
-              coins: packCoins,
-              }), // body data type must match "Content-Type" header
-              headers: {
-              "Content-Type": "application/json",
-               Authorization: userSession.token,
-              },
-          };
+      const packCoins = 100;
 
-          const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
+      console.log("packCoins", packCoins);
 
-          if (!response.ok) {
-              throw new Error(
-              "fetch error : " + response.status + " : " + response.statusText
-              );
-          }
-          const user = await response.json(); // json() returns a promise => we wait for the data
-          console.log("user authenticated", user);
+      const options = {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify({
+          coins: packCoins,
+        }), // body data type must match "Content-Type" header
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userSession.token,
+        },
+      };
 
-          // save the user into the localStorage with the new coins value
-          userSession.coins = user.coins;
-          setSessionObject("user", userSession);
+      const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
 
-          // Rerender the navbar to display the new coins value
-          Navbar();
-
-          // call the CoinsPage via the Router
-          Redirect("/coins");
-      } catch (error) {
-          console.error("CoinsPage::error: ", error);
+      if (!response.ok) {
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
       }
-    } 
+      const user = await response.json(); // json() returns a promise => we wait for the data
+      console.log("user authenticated", user);
 
- async function onSubmitPack2(e) {
+      // save the user into the localStorage with the new coins value
+      userSession.coins = user.coins;
+      setSessionObject("user", userSession);
+
+      // Rerender the navbar to display the new coins value
+      Navbar();
+
+      // call the CoinsPage via the Router
+      Redirect("/coins");
+    } catch (error) {
+      console.error("CoinsPage::error: ", error);
+    }
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "Coins successfuly added to your account !",
+    });
+  }
+
+  async function onSubmitPack2(e) {
     e.preventDefault();
     try {
-       
+      const id = userSession.id;
+      console.log(id, "id user");
 
-        const id = userSession.id;
-        console.log(id, "id user");
+      const packCoins = 1000;
 
-        const packCoins = 1000;
-        
-        console.log("packCoins", packCoins);
+      console.log("packCoins", packCoins);
 
-        const options = {
-            method: "PUT", // *GET, POST, PUT, DELETE, etc.
-            body: JSON.stringify({
-            coins: packCoins,
-            }), // body data type must match "Content-Type" header
-            headers: {
-            "Content-Type": "application/json",
-             Authorization: userSession.token,
-            },
-        };
+      const options = {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify({
+          coins: packCoins,
+        }), // body data type must match "Content-Type" header
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userSession.token,
+        },
+      };
 
-        const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
+      const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
 
-        if (!response.ok) {
-            throw new Error(
-            "fetch error : " + response.status + " : " + response.statusText
-            );
-        }
-        const user = await response.json(); // json() returns a promise => we wait for the data
-        console.log("user authenticated", user);
+      if (!response.ok) {
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
+      }
+      const user = await response.json(); // json() returns a promise => we wait for the data
+      console.log("user authenticated", user);
 
-        // save the user into the localStorage with the new coins value
-        userSession.coins = user.coins;
-        setSessionObject("user", userSession);
+      // save the user into the localStorage with the new coins value
+      userSession.coins = user.coins;
+      setSessionObject("user", userSession);
 
-        // Rerender the navbar to display the new coins value
-        Navbar();
+      // Rerender the navbar to display the new coins value
+      Navbar();
 
-        // call the CoinsPage via the Router
-        Redirect("/coins");
+      // call the CoinsPage via the Router
+      Redirect("/coins");
     } catch (error) {
-        console.error("CoinsPage::error: ", error);
+      console.error("CoinsPage::error: ", error);
     }
-  } 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
-async function onSubmitPack3(e) {
+    Toast.fire({
+      icon: "success",
+      title: "Coins successfuly added to your account !",
+    });
+  }
+
+  async function onSubmitPack3(e) {
     e.preventDefault();
     try {
-        
+      const id = userSession.id;
+      console.log(id, "id user");
 
-        const id = userSession.id;
-        console.log(id, "id user");
+      const packCoins = 10000;
 
-        const packCoins = 10000;
-        
-        console.log("packCoins", packCoins);
+      console.log("packCoins", packCoins);
 
-        const options = {
-            method: "PUT", // *GET, POST, PUT, DELETE, etc.
-            body: JSON.stringify({
-            coins: packCoins,
-            }), // body data type must match "Content-Type" header
-            headers: {
-            "Content-Type": "application/json",
-             Authorization: userSession.token,
-            },
-        };
+      const options = {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify({
+          coins: packCoins,
+        }), // body data type must match "Content-Type" header
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: userSession.token,
+        },
+      };
 
-        const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
+      const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
 
-        if (!response.ok) {
-            throw new Error(
-            "fetch error : " + response.status + " : " + response.statusText
-            );
-        }
-        const user = await response.json(); // json() returns a promise => we wait for the data
-        console.log("user authenticated", user);
+      if (!response.ok) {
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
+      }
+      const user = await response.json(); // json() returns a promise => we wait for the data
+      console.log("user authenticated", user);
 
-        // save the user into the localStorage with the new coins value
-        userSession.coins = user.coins;
-        setSessionObject("user", userSession);
+      // save the user into the localStorage with the new coins value
+      userSession.coins = user.coins;
+      setSessionObject("user", userSession);
 
-        // Rerender the navbar to display the new coins value
-        Navbar();
+      // Rerender the navbar to display the new coins value
+      Navbar();
 
-        // call the CoinsPage via the Router
-        Redirect("/coins");
+      // call the CoinsPage via the Router
+      Redirect("/coins");
     } catch (error) {
-        console.error("CoinsPage::error: ", error);
+      console.error("CoinsPage::error: ", error);
     }
-  } 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "Coins successfuly added to your account !",
+    });
+  }
 };
-  
-  export default CoinsPage;
+
+export default CoinsPage;
