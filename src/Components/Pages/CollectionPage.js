@@ -1,10 +1,15 @@
-import HomePage from "./HomePage";
 import * as Vibrant from "node-vibrant";
 import "../../assets/css/cartePokememon.css";
+<<<<<<< HEAD
 import { Redirect } from "../Router/Router";
+=======
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 let pokemons = [];
+let listePokemonAfficher = [];
 var showMyCollection = false;
+let lengthListe = 0;
+let surplusRow = 0;
 
 let i = 0;
 const loaderHTML = `
@@ -23,8 +28,8 @@ const tabs = `<ul class="nav nav-tabs justify-content-center">
 const containerHtml = `<div class="container" id="container"></div>`;
 const filter = `<!--Filter-->
 <div class="container">
-    <div class="row">
-        <div class="col-sm">
+    <div class="row align-items-end">
+        <div class="col-5">
             <label for="touch"><span class = "Filtering">Filter</span></label>               
             <input type="checkbox" id="touch"> 
         
@@ -33,17 +38,57 @@ const filter = `<!--Filter-->
                 <li> <a href="#" class="filterButton1" id="ASC" name="HP">The most hp</a></li>
                 <li> <a href="#" class="filterButton1" id="ASC" name="Defence" ">The most defence</a></li>
                 <li> <a href="#" class="filterButton1" id="ASC" name="Speed">The fastest</a></li>
-            </ul
+            </ul>
+        </div>
+        <div class="col-7 align-middler" id="searchWrapper">
+                <input
+                    type="text"
+                    name="searchBar"
+                    id="searchBar"
+                    placeholder="search for a pokemon"
+                />
         </div>
     </div>
+    <br/>
+    <div class="row">
+        <div class="">
+            <ul class="list-group list-group-horizontal">
+                <li> <a class="list-group-item filterType" id="All" name="All">All</a></li> 
+                <li> <a class="list-group-item filterType" id="Grass" name="Grass">Grass</a></li> 
+                <li> <a class="list-group-item filterType" id="Poison" name="Poison">Poison</a></li>
+                <li> <a class="list-group-item filterType" id="Fire" name="Fire" ">Fire</a></li>
+                <li> <a class="list-group-item filterType" id="Flying" name="Flying">Flying</a></li>
+                <li> <a class="list-group-item filterType" id="Water" name="Water">Water</a></li>
+                <li> <a class="list-group-item filterType" id="Bug" name="Bug">Bug</a></li>
+                <li> <a class="list-group-item filterType" id="Normal" name="Normal">Normal</a></li>
+                <li> <a class="list-group-item filterType" id="Ground" name="Ground">Ground</a></li>
+                <li> <a class="list-group-item filterType" id="Electric" name="Electric">Electric</a></li>
+                <li> <a class="list-group-item filterType" id="Fairy" name="Fairy">Fairy</a></li>
+                <li> <a class="list-group-item filterType" id="Fighting" name="Fighting">Fighting</a></li>
+                <li> <a class="list-group-item filterType" id="Psychic" name="Psychic">Psychic</a></li>
+                <li> <a class="list-group-item filterType" id="Steel" name="Steel">Steel</a></li>
+                <li> <a class="list-group-item filterType" id="Ice" name="Ice">Ice</a></li>
+                <li> <a class="list-group-item filterType" id="Rock" name="Rock">Rock</a></li>             
+                <li> <a class="list-group-item filterType" id="Ghost" name="Ghost">Ghost</a></li>
+                <li> <a  class="list-group-item filterType" id="Dragon" name="Dragon">Dragon</a></li>
+                <li> <a  class="list-group-item filterType" id="Dark" name="Dark">Dark</a></li>
+            </ul>
+        </div>
+    </div>
+    <br/>
 </div>
 <!--Filter-->`;
 
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
   return `<!--Card Start-->
+<<<<<<< HEAD
     <div id="card_${pokemon.type[0]}" class ="card1 col-sm mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
         <p id="type_${pokemon.type[0]}" class="type" style="" >${pokemon.type}</p>
+=======
+    <div id="card_${pokemon.type[0]}" class ="card1 col-3">
+        <p id="type_${pokemon.type[0]}" class="type"  >${pokemon.type}</p>
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
         <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
         <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
         width: 128px;" src="${pokemon.hires}"> </figure>
@@ -79,6 +124,7 @@ const CollectionPage = async () => {
   main.innerHTML += tabs;
   main.innerHTML += filter;
   main.innerHTML += containerHtml;
+<<<<<<< HEAD
   const container = document.querySelector("#container");
 
   const filterButton1 = document.querySelectorAll(".filterButton1");
@@ -112,6 +158,77 @@ const CollectionPage = async () => {
         i++;
       }
     }
+=======
+  let container = document.querySelector("#container");
+
+  // Gère la barre de recherche sur la liste contenant Tous les pokemons
+  const searchBar = document.getElementById("searchBar");
+  searchBar.addEventListener("keyup", (e) => {
+    const searchString = e.target.value.toLowerCase();
+    //refresh le background-color laissé sur le dernier filtreType cliquer
+    //car la recherche se fait sur toute la liste et non la liste trié par type choisi
+    for (let count = 0; count < filterType.length; count++) {
+      filterType[count].style =
+        filterType[count].style + "background-color: transparent;";
+    }
+    console.log(searchString);
+    listePokemonAfficher = pokemons.filter((pokemon) => {
+      return pokemon.name.french.toLowerCase().startsWith(searchString);
+      //Rajouter cette ligne si l'on veut aussi check les noms anglais
+      // || pokemon.name.english.toLowerCase().startsWith(searchString)
+    });
+    container.innerHTML = "";
+    affichageListe();
+  });
+
+  // Gère le bouton filter en haut à gauche - Pas fonctionnelle
+  const filterButton1 = document.querySelectorAll(".filterButton1");
+  filterButton1.forEach((item) => {
+    item.addEventListener("click", filterby.bind(event, item.name, item.id));
+  });
+
+  // Gère tous les boutons Type ex( Water, Grass,...)
+  const filterType = document.querySelectorAll(".filterType");
+  filterType.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      let nomType = e.target.id;
+      if (nomType == "All") {
+        listePokemonAfficher = pokemons;
+      } else {
+        listePokemonAfficher = pokemons.filter(
+          (pokemon) => pokemon.type[0] == nomType || pokemon.type[1] == nomType
+        );
+      }
+
+      container.innerHTML = "";
+      //refresh le background-color laissé sur le dernier filtreType cliquer
+      for (let count = 0; count < filterType.length; count++) {
+        filterType[count].style =
+          filterType[count].style + "background-color: transparent;";
+      }
+      e.target.style = "background-color: red;";
+      affichageListe();
+    });
+  });
+
+  if (showMyCollection == false) {
+    console.log("all");
+    async function findAllPokemons() {
+      const response = await fetch("/api/pokemons", {
+        method: "GET",
+        cache: "no-cache",
+        cache: "no-store",
+      });
+      if (!response.ok) {
+        console.log("response ko !");
+      }
+
+      pokemons = await response.json();
+      pokemons = pokemons.filter((pokemon) => pokemon.base != undefined);
+      listePokemonAfficher = pokemons;
+      affichageListe();
+    }
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
     findAllPokemons();
   } else {
     console.log("my");
@@ -129,6 +246,7 @@ const CollectionPage = async () => {
       if (!response.ok) {
         console.log("response ko !");
       }
+<<<<<<< HEAD
       //fetch pokemon
 
       pokemons = await response.json();
@@ -143,6 +261,13 @@ const CollectionPage = async () => {
         displayRow(i * 4, divRow);
         i++;
       }
+=======
+
+      pokemons = await response.json();
+      pokemons = pokemons.filter((pokemon) => pokemon.base != undefined);
+      listePokemonAfficher = pokemons;
+      affichageListe();
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
     }
     findMyCollections();
   }
@@ -151,8 +276,11 @@ const CollectionPage = async () => {
   window.addEventListener("scroll", () => {
     let lastKnowScrollPosition =
       window.innerHeight + Math.ceil(window.pageYOffset);
+<<<<<<< HEAD
     //console.log("o : "+document.body.offsetHeight)
     //console.log("l : "+lastKnowScrollPosition)
+=======
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
     if (document.body.offsetHeight <= lastKnowScrollPosition) {
       lastKnowScrollPosition = document.body.offsetHeight - 1;
       displayRowAfterScroll(i);
@@ -177,6 +305,7 @@ const CollectionPage = async () => {
 };
 
 const displayRowAfterScroll = (ligne) => {
+<<<<<<< HEAD
   //console.log("displayRowAfterScroll")
   let size = pokemons.length;
   let rowNumber = size / 4;
@@ -185,6 +314,14 @@ const displayRowAfterScroll = (ligne) => {
   while (ligne < rowNumber && ligne < newLigne) {
     let divRow = document.createElement("div");
     divRow.className = "row";
+=======
+  let size = listePokemonAfficher.length;
+  let rowNumber = size / 4;
+  let newLigne = ligne + 3;
+  while (ligne < rowNumber && ligne < newLigne) {
+    let divRow = document.createElement("div");
+    divRow.className = "row justify-content-center";
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
     container.appendChild(divRow);
     displayRow(i * 4, divRow);
     i++;
@@ -193,6 +330,7 @@ const displayRowAfterScroll = (ligne) => {
 };
 
 const displayRow = async (currentRow, divRow) => {
+<<<<<<< HEAD
   //console.log("displayRow")
   let cardsHtml = "";
 
@@ -224,10 +362,99 @@ const filterby = async (filter, value) => {
       );
     }
 
+=======
+  let cardsHtml = "";
+
+  //console.log(listePokemonAfficher)
+  for (let index = currentRow; index < currentRow + 4; index++) {
+    let hex = "";
+    const pokemon = listePokemonAfficher[index];
+    const promise = await Vibrant.from(pokemon.hires)
+      .getPalette()
+      .then((palette) => (hex = palette.DarkMuted.hex));
+    
+    cardsHtml += pokemonCardHtml(pokemon, hex);;
+    divRow.innerHTML = cardsHtml;
+  }
+};
+
+const displayRowSurplus = async (currentRow, divRow) => {
+  let cardsHtml = "";
+
+  //console.log(listePokemonAfficher)
+  for (let index = currentRow; index < currentRow + surplusRow; index++) {
+    let hex = "";
+    const pokemon = listePokemonAfficher[index];
+    const promise = await Vibrant.from(pokemon.hires)
+      .getPalette()
+      .then((palette) => (hex = palette.DarkMuted.hex));
+
+    cardsHtml += pokemonCardHtml(pokemon, hex);
+    divRow.innerHTML = cardsHtml;
+  }
+};
+
+const filterby = async (filter, value) => {
+  try {
+    const options = {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+    };
+
+    const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
     await response.json(); // json() returns a promise => we wait for the data
   } catch (error) {
     console.error("LoginPage::error: ", error);
   }
+<<<<<<< HEAD
+=======
+};
+
+const affichageListe = async () => {
+  lengthListe = listePokemonAfficher.length;
+  if (lengthListe == 0) return;
+  
+  let NumberRow = Math.ceil(lengthListe / 4);
+  let maxRow = 4;
+  if (NumberRow < 4) {
+    maxRow = NumberRow;
+    surplusRow = lengthListe % 4;
+    console.log("Surplus:" + surplusRow);
+  }
+  let compteur = 0;
+  while (compteur < maxRow - 1) {
+    let divRow = document.createElement("div");
+    divRow.className = "row justify-content-center";
+    container.appendChild(divRow);
+    displayRow(compteur * 4, divRow);
+    compteur++;
+    i++;
+  }
+  if (surplusRow > 0) {
+    let divRow = document.createElement("div");
+    divRow.className = "row justify-content-center";
+    container.appendChild(divRow);
+    displayRowSurplus(compteur * 4, divRow);
+    compteur++;
+    i++;
+  } else {
+    let divRow = document.createElement("div");
+    divRow.className = "row justify-content-center";
+    container.appendChild(divRow);
+    displayRow(compteur * 4, divRow);
+    compteur++;
+    i++;
+  }
+  //reset
+  surplusRow = 0;
+>>>>>>> 7385889e3fbb85240b3f42f6ab847c9571214457
 };
 
 export default CollectionPage;

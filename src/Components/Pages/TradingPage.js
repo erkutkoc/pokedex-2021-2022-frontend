@@ -78,7 +78,7 @@ const TradingPage = async () => {
       }
 
       tradesList = await response.json();
- 
+
       let divRow = document.createElement("div");
       divRow.className = "row";
       container.appendChild(divRow);
@@ -102,7 +102,7 @@ const TradingPage = async () => {
 
       tradesList = await response.json();
       console.log("test" + tradesList);
-      
+
       let divRow = document.createElement("div");
       divRow.className = "row";
       container.appendChild(divRow);
@@ -132,12 +132,12 @@ const TradingPage = async () => {
 const displayRow = async (divRow) => {
   //console.log("displayRow")
   let cardsHtml = "";
-    for(let i = 0; i < tradesList.length; i++){
-        let trade = tradesList[i];
+  for (let i = 0; i < tradesList.length; i++) {
+    let trade = tradesList[i];
 
-        cardsHtml += tradesCardHtml(trade);
-        divRow.innerHTML = cardsHtml;
-    }   
+    cardsHtml += tradesCardHtml(trade);
+    divRow.innerHTML = cardsHtml;
+  }
 };
 
 const filterby = async (filter, value) => {
