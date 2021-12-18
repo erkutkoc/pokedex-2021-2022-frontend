@@ -27,13 +27,16 @@ ul {
 /* début source : https://mdbootstrap.com/docs/b4/jquery/tables/scroll/ */
 .my-custom-scrollbar {
   position: relative;
-  height: 200px;
+  height: 400px;
   overflow: auto;
-  }
-  .table-wrapper-scroll-y {
+  font-size: 12px;
+  margin:auto;
+  text-align: center;
+}
+.table-wrapper-scroll-y {
   display: block;
-  }
-  /* fin source */
+}
+/* fin source */
 .slide {
   background: white;
   width: 30%;
@@ -87,9 +90,7 @@ ul {
   transform: scale(1.7);
 }
 
-
 a:hover {
-  
   background-color: red;
   text-decoration: underline;
 }

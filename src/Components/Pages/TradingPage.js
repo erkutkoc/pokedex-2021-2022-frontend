@@ -1,7 +1,16 @@
-import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import { Redirect } from "../Router/Router";
+import {
+  getSessionObject
+} from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import {
+  Redirect
+} from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
-import { setSessionObject } from "../../utils/session";
+import {
+  setSessionObject
+} from "../../utils/session";
+import {
+  createPopper
+} from "@popperjs/core/lib/createPopper";
 /**
  * Render the trading page
  */
@@ -23,109 +32,82 @@ const tabs = `<ul class="nav nav-tabs justify-content-center">
     <a class="nav-link" id="create" href="#">Create</a>
   </li>
   </ul>`;
-const formAddTrade = `
-<div class="container-fluid h-100 bg-light text-dark">
-    <hr />
-    <form action="">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col col-9">
-                <div class="form-group">
-                    <div class="container" id="propositionsContainer">
-                        <p>Propositions</p>
-                        <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Write pokemon name..."
-                            aria-label="Write pokemon name..." aria-describedby="basic-addon2" />
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">
-                                Reset
-                            </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-3">
-                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-bordered table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Photo</th>
-                            </tr>
-                        </thead>
-                        <tbody id="requestList">
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                            </tr>
-                            <tr>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                            </tr>
-                        </tbody>
-                    </table>
+const formAddTrade = `<div class="container-fluid h-100 bg-light text-dark">
+<hr />
+<div class="row">
+<p>Propositions</p>
 
-                </div>
-            </div>
-            <div class="row justify-content-center align-items-center h-100"></div>
-            <div class="col col-9">
-                <div class="form-group">
-                    <div class="container" id="RequestsContainer">
-                        <p>Requests</p>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Write pokemon name..."
-                                aria-label="Write pokemon name..." aria-describedby="basic-addon2" />
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">
-                                    Reset
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-3">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-            <table class="table table-bordered table-striped mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Photo</th>
-                    </tr>
-                </thead>
-                <tbody id="requestList">
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                    <tr>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                    </tr>
-                </tbody>
-            </table>
-
+  <div class="col col-9">
+    <div class="form-group">
+      <div class="container" id="propositionsContainer">
+        <div class="input-group mb-3">
+          <div class="input-group-append"></div>
+          <div id="propositions"></div>
         </div>
-            </div>
-        </div>
-    </form>
+      </div>
+    </div>
+  </div>
+  <div class="col col-3">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-bordered table-striped mb-0" id="">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Photo</th>
+          </tr>
+        </thead>
+        <tbody id="propositionsTable">
+          <tr>
+            <th colspan="2">propositions list empty</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+<div class="row">
+<p>Requests</p>
+<input type="text" id="requestsFilter" placeholder="Write pokemon name...">
+  <div class="col col-6">
+    <div class="form-group">
+      <div class="container" id="requestsContainer">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered table-striped mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Photo</th>
+              </tr>
+            </thead>
+            <tbody id="requestList">
+            <th colspan="2">please search pokemon</th></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col col-6">
+    <div class="form-group">
+      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Photo</th>
+            </tr>
+          </thead>
+          <tbody id="requestsTable">
+            <tr>
+              <th colspan="2">requests list empty</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 `;
 const containerHtml = `<div class="container" id="container"></div>`;
 const filter = `<!--Filter-->
@@ -148,7 +130,6 @@ const filter = `<!--Filter-->
 
 //une carte
 const tradesCardHtml = (trade) => {
-  //console.log(trade)
   return `<!--Card Start-->
          <div>
             <p> 
@@ -173,43 +154,41 @@ async function findMyCollections() {
   return pokemons.filter((pokemon) => pokemon.base != undefined);
 }
 async function findCollectionsIDontOwn() {
-  const response = await fetch("/api/users/collection/" + user.id + "/dontown", {
-    method: "GET",
-    cache: "no-cache",
-    cache: "no-store",
-  });
+  const response = await fetch(
+    "/api/users/collection/" + user.id + "/dontown", {
+      method: "GET",
+      cache: "no-cache",
+      cache: "no-store",
+    }
+  );
   if (!response.ok) {
     console.log("response ko !");
   }
   let pokemons = await response.json();
   return pokemons.filter((pokemon) => pokemon.base != undefined);
 }
-const showMyCollections = async () => {
-  let myCollections = await findMyCollections();
-  let list = document.createElement("div");
-  list.className = "propositions";
-  myCollections.forEach((element) => {
-    list.innerHTML += `<div id="${element.id}"><p id="${element.id}">${element.name.french}</p><img id="${element.id}" style="width:100px" loading="lazy" data-lazy="${element.hires}" class="img-thumbnail"><p></p></div>`;
-  });
-  const container = document.getElementById("propositionsContainer");
-  container.appendChild(list);
-  container.innerHTML += `<p>Choose the cards you wish to offer in exchange</p>`;
-  console.log(main);
-  customSlick(".propositions");
-};
-const showRequestsCollections = async() => {
-  let requests = await findCollectionsIDontOwn();
-  let list = document.createElement("div");
-  list.className = "requests";
-  requests.forEach((element) => {
-    list.innerHTML += `<div id="${element.id}"><p>${element.name.french}</p><img style="width:100px" loading="lazy" data-lazy="${element.hires}" class="img-thumbnail"><p></p></div>`;
-  });
-  const container = document.getElementById("RequestsContainer");
-  container.appendChild(list);
-  console.log(main);
-  customSlick(".requests");
-};
+
+
+
+const loadingAndDisplay = (array) => {
+  let requestsHtml = document.getElementById("requestList");
+  requestsHtml.innerHTML = "";
+  for (let i = 0; i < array.length; i++) {
+    if (i < array.length) {
+      const element = array[i];
+      let tableRow = `
+    <tr id="${element.id}" class="requestsRow">
+      <th id="${element.id}" >${element.name.french}</th>
+      <th id="${element.id}" ><img style="width:50px" loading="lazy" src="${element.hires}"></th>
+    </tr>
+  `;
+ 
+     requestsHtml.innerHTML += tableRow;
+    }
+  }
+}
 const TradingPage = async () => {
+
   if (!user) {
     return Redirect("/login");
   }
@@ -226,8 +205,95 @@ const TradingPage = async () => {
 
   if (showCreateTrades == true) {
     main.innerHTML += formAddTrade;
-    showMyCollections();
-    //showRequestsCollections();
+    let propositions = [];
+    let requests = [];
+    let myCollections = await findMyCollections();
+    let listPropositionPokemonAAfficher = myCollections;
+    let collectionsUserDontOwn = await findCollectionsIDontOwn();
+    let collectionsUserDontOwnDisplay = collectionsUserDontOwn;
+    //Propositions
+    let myCollectionsPokemons = "";
+    let list = document.createElement("div");
+    list.className = "propositions";
+    listPropositionPokemonAAfficher.forEach((element) => {
+      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections border"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" class="img-thumbnail"></div>`;
+    });
+    list.innerHTML += myCollectionsPokemons;
+    const container = document.getElementById("propositionsContainer");
+    container.appendChild(list);
+    container.innerHTML += `<p>Choose the cards you wish to offer in exchange</p>`;
+    customSlick(".propositions");
+
+    const requestsList = document.getElementsByClassName("requestsRow");
+    for (const requestPokemon of requestsList) {
+      requestPokemon.addEventListener("click", function () {
+        propositions[propositions.length] = requestPokemon.id;
+        requestPokemon.style.display = "none";
+        let table = document.getElementById("requestsTable");
+        if (
+          table.children[0].children[0].textContent == "propositions list empty"
+        ) {
+          table.innerHTML = "";
+        }
+        let pokemonName = requestPokemon.children[0].textContent;
+        let pokemonSrc = requestPokemon.children[1].src;
+        let tableRow = `
+            <tr>
+              <th>${pokemonName}</th>
+              <th><img style="width:50px" src="${pokemonSrc}"></th>
+            </tr>`;
+        table.innerHTML += tableRow;
+        //supprime de la collection actuel
+        let index = requests.findIndex(
+          (a) => a.id == requestPokemon.id
+        );
+        if (index < 0) return;
+        requests.splice(index, 1);
+      });
+    }
+
+    /*const propositionsList = document.getElementsByClassName("imageMyCollections");
+    for (const propositionsPokemon of propositionsList) {
+      propositionsPokemon.addEventListener("click", function () {
+        propositions[propositions.length] = propositionsPokemon.id;
+        propositionsPokemon.style.display = "none";
+        let table = document.getElementById("propositionsTable");
+        if (
+          table.children[0].children[0].textContent == "propositions list empty"
+        ) {
+          table.innerHTML = "";
+        }
+        let pokemonName = propositionsPokemon.children[0].textContent;
+        let pokemonSrc = propositionsPokemon.children[1].src;
+        let tableRow = `
+            <tr >
+              <th>${pokemonName}</th>
+              <th><img style="width:50px" src="${pokemonSrc}"></th>
+            </tr>`;
+        table.innerHTML += tableRow;
+        //supprime de la collection actuel
+        let index = propositions.findIndex(
+          (a) => a.id == propositionsPokemon.id
+        );
+        if (index < 0) return;
+        propositions.splice(index, 1);
+      });
+    }*/
+    let inputRequest = document.getElementById("requestsFilter");
+    inputRequest.addEventListener("keyup", (e) => {
+      console.log("ok")
+      console.log(collectionsUserDontOwnDisplay.length)
+      console.log(collectionsUserDontOwn.length)
+      collectionsUserDontOwnDisplay = collectionsUserDontOwn;
+      collectionsUserDontOwnDisplay = collectionsUserDontOwnDisplay.filter(element => e.target.value.length != 0 && element.name.french.toLowerCase().startsWith(e.target.value.toLowerCase()));
+      loadingAndDisplay(collectionsUserDontOwnDisplay)
+    })
+
+
+
+
+
+
   } else if (showAll == true) {
     async function findAllTrades() {
       const response = await fetch("/api/trades", {
@@ -264,7 +330,6 @@ const TradingPage = async () => {
     }
     findMyTrades();
   }
-
   // get all nav-link items
   let tabsTag = document.getElementsByClassName("nav-link");
   // filter all nav-link item by id
@@ -296,17 +361,17 @@ const TradingPage = async () => {
     showCreateTrades = true;
   });
 };
+// slick library working with jQuery
 const customSlick = (className) => {
   $(className).slick({
     dots: false,
-    infinite: true,
-    speed: 1000,
+    infinite: false,
+    speed: 200,
     slidesToShow: 15,
     slidesToScroll: 10,
-    lazyLoad: 'ondemand',
+    lazyLoad: "ondemand",
     variableWidth: true,
-    responsive: [
-      {
+    responsive: [{
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
