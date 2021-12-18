@@ -30,7 +30,7 @@ const Navbar = () => {
                   <li class="nav-item"><a class="nav-link" href="#" data-uri="/logout" style="color: var(--bs-gray-100);font-weight: bold;">Logout</a></li>
                   <li class="nav-item"><a class="nav-link" href="#" data-uri="/profil" style="color: var(--bs-gray-100);font-weight: bold;">Profil</a></li>
                   <li class="nav-item"><a class="nav-link" href="#" style="color: var(--bs-gray-100);">${user.pseudo}</a></li>   
-                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/coins" style="color: #edff24;">Coins: ${user.coins}<img src="http://127.0.0.1:8887/coins.png" style="width: 28px;text-align: left;"></a></li>
+                  <li class="nav-item"><a class="nav-link" href="#" data-uri="/coins" style="color: #edff24;">Coins: ${user.coins}<img src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true" style="width: 28px;text-align: left;"></a></li>
                   
           </div>
       </div>
@@ -42,8 +42,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-

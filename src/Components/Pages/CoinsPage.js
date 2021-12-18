@@ -14,7 +14,7 @@ const coinsPage = `
      <div class="row">
          <div id="pack1" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
              <div class="text-center" style="color: var(--bs-blue);">
-                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="http://127.0.0.1:8887/coins.png">
+                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 1</figcaption>
                  </figure>
                  <p>Ce pack vous donne 100 Coins</p>
@@ -24,7 +24,7 @@ const coinsPage = `
 
          <div id="pack2" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
              <div class="text-center" style="color: var(--bs-blue);">
-                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="http://127.0.0.1:8887/coins.png">
+                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 2</figcaption>
                  </figure>
                  <p>Ce pack vous donne 1000 Coins</p>
@@ -34,7 +34,7 @@ const coinsPage = `
 
          <div id="pack3" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
              <div class="text-center" style="color: var(--bs-blue);">
-                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="http://127.0.0.1:8887/coins.png">
+                 <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 3</figcaption>
                  </figure>
                  <p>Ce pack vous donne 10 000 Coins</p>
