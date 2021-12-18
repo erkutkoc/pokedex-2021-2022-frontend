@@ -260,7 +260,7 @@ const displayRow = async (currentRow, divRow) => {
     const pokemon = listePokemonAfficher[index];
     const promise = await Vibrant.from(pokemon.hires)
       .getPalette()
-      .then((palette) => (hex = palette.DarkMuted.hex));
+      .then((palette) => (hex = palette));
 
     cardsHtml += pokemonCardHtml(pokemon, hex);
     divRow.innerHTML = cardsHtml;
