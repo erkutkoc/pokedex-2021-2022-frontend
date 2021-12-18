@@ -32,7 +32,7 @@ const tabs = `<ul class="nav nav-tabs justify-content-center">
     <a class="nav-link" id="create" href="#">Create</a>
   </li>
   </ul>`;
-const formAddTrade = `<div class="container-fluid h-100 bg-light text-dark">
+const formAddTrade = `<div class="container-fluid h-100  text-dark" >
 <hr />
 <div class="row">
 <p>Propositions</p>
@@ -168,27 +168,25 @@ async function findCollectionsIDontOwn() {
   return pokemons.filter((pokemon) => pokemon.base != undefined);
 }
 
-
-
 const loadingAndDisplay = (array) => {
   let requestsHtml = document.getElementById("requestList");
   requestsHtml.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
     if (i < array.length) {
       const element = array[i];
+      console.log(element.hires);
       let tableRow = `
-    <tr id="${element.id}" class="requestsRow">
+    <tr id="${element.id}" class="requestsPokemonList">
       <th id="${element.id}" >${element.name.french}</th>
-      <th id="${element.id}" ><img style="width:50px" loading="lazy" src="${element.hires}"></th>
+      <th id="${element.id}" ><img style="width:50px"  src="${element.hires}"></th>
     </tr>
   `;
- 
-     requestsHtml.innerHTML += tableRow;
+
+      requestsHtml.innerHTML += tableRow;
     }
   }
-}
+};
 const TradingPage = async () => {
-
   if (!user) {
     return Redirect("/login");
   }
@@ -216,7 +214,7 @@ const TradingPage = async () => {
     let list = document.createElement("div");
     list.className = "propositions";
     listPropositionPokemonAAfficher.forEach((element) => {
-      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections border"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" class="img-thumbnail"></div>`;
+      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections border"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" ></div>`;
     });
     list.innerHTML += myCollectionsPokemons;
     const container = document.getElementById("propositionsContainer");
@@ -224,35 +222,8 @@ const TradingPage = async () => {
     container.innerHTML += `<p>Choose the cards you wish to offer in exchange</p>`;
     customSlick(".propositions");
 
-    const requestsList = document.getElementsByClassName("requestsRow");
-    for (const requestPokemon of requestsList) {
-      requestPokemon.addEventListener("click", function () {
-        propositions[propositions.length] = requestPokemon.id;
-        requestPokemon.style.display = "none";
-        let table = document.getElementById("requestsTable");
-        if (
-          table.children[0].children[0].textContent == "propositions list empty"
-        ) {
-          table.innerHTML = "";
-        }
-        let pokemonName = requestPokemon.children[0].textContent;
-        let pokemonSrc = requestPokemon.children[1].src;
-        let tableRow = `
-            <tr>
-              <th>${pokemonName}</th>
-              <th><img style="width:50px" src="${pokemonSrc}"></th>
-            </tr>`;
-        table.innerHTML += tableRow;
-        //supprime de la collection actuel
-        let index = requests.findIndex(
-          (a) => a.id == requestPokemon.id
-        );
-        if (index < 0) return;
-        requests.splice(index, 1);
-      });
-    }
-
-    /*const propositionsList = document.getElementsByClassName("imageMyCollections");
+    const propositionsList =
+      document.getElementsByClassName("imageMyCollections");
     for (const propositionsPokemon of propositionsList) {
       propositionsPokemon.addEventListener("click", function () {
         propositions[propositions.length] = propositionsPokemon.id;
@@ -266,34 +237,62 @@ const TradingPage = async () => {
         let pokemonName = propositionsPokemon.children[0].textContent;
         let pokemonSrc = propositionsPokemon.children[1].src;
         let tableRow = `
-            <tr >
+            <tr>
               <th>${pokemonName}</th>
               <th><img style="width:50px" src="${pokemonSrc}"></th>
             </tr>`;
         table.innerHTML += tableRow;
         //supprime de la collection actuel
-        let index = propositions.findIndex(
+        let index = listPropositionPokemonAAfficher.findIndex(
           (a) => a.id == propositionsPokemon.id
         );
         if (index < 0) return;
-        propositions.splice(index, 1);
+        listPropositionPokemonAAfficher.splice(index, 1);
       });
-    }*/
+    }
+
     let inputRequest = document.getElementById("requestsFilter");
     inputRequest.addEventListener("keyup", (e) => {
-      console.log("ok")
-      console.log(collectionsUserDontOwnDisplay.length)
-      console.log(collectionsUserDontOwn.length)
       collectionsUserDontOwnDisplay = collectionsUserDontOwn;
-      collectionsUserDontOwnDisplay = collectionsUserDontOwnDisplay.filter(element => e.target.value.length != 0 && element.name.french.toLowerCase().startsWith(e.target.value.toLowerCase()));
-      loadingAndDisplay(collectionsUserDontOwnDisplay)
-    })
+      collectionsUserDontOwnDisplay = collectionsUserDontOwnDisplay.filter(
+        (element) =>
+        e.target.value.length != 0 &&
+        element.name.french
+        .toLowerCase()
+        .startsWith(e.target.value.toLowerCase())
+      );
+      loadingAndDisplay(collectionsUserDontOwnDisplay);
+      //ici
+      const requestsPokemonList = document.getElementsByClassName(
+        "requestsPokemonList"
+      );
+      console.log(requestsPokemonList)
 
-
-
-
-
-
+      for (const requestPokemon of requestsPokemonList) {
+        requestPokemon.addEventListener("click", function () {
+          requests[requests.length] = requestPokemon.id;
+          requestPokemon.style.display = "none";
+          let table = document.getElementById("requestsTable");
+          if (
+            table.children[0].children[0].textContent ==
+            "propositions list empty"
+          ) {
+            table.innerHTML = "";
+          }
+          let pokemonName = requestPokemon.children[0].textContent;
+          let tableRow = `
+        <tr >
+          <th>${pokemonName}</th>
+          <th><img style="width:50px" src="${requestPokemon.children[1].children[0].src}"/></th>
+        </tr>`;
+          table.innerHTML += tableRow;
+          //supprime de la collection actuel
+          let index = collectionsUserDontOwn.findIndex((a) => a.id == requestPokemon.id);
+          if (index < 0) return;
+          collectionsUserDontOwn.splice(index, 1);
+        });
+      }
+    });
   } else if (showAll == true) {
     async function findAllTrades() {
       const response = await fetch("/api/trades", {
@@ -401,7 +400,6 @@ const customSlick = (className) => {
   });
 };
 const displayRow = async (divRow) => {
-  //console.log("displayRow")
   let cardsHtml = "";
   for (let i = 0; i < tradesList.length; i++) {
     let trade = tradesList[i];
