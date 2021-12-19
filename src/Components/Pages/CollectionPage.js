@@ -16,10 +16,10 @@ const loaderHTML = `
 const main = document.querySelector("main");
 const tabs = `<ul class="nav nav-tabs justify-content-center">
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="color:white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: white  ">All</a>
+  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="color:white;background: rgba(0,0,0,30%);   ">All</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" id="myCollection" href="#" style="color:white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: white  ">My Collection</a>
+  <a class="nav-link" id="myCollection" href="#" style="color:white; background: rgba(0,0,0,30%);   ">My Collection</a>
 </li>
 </ul>`;
 const containerHtml = `<div class="container" id="container"></div>`;
@@ -49,7 +49,7 @@ const filter = `<!--Filter-->
     <br/>
     <div class="row">
         <div class="">
-            <ul class="list-group list-group-horizontal" style="overflow-x: scroll;">
+            <ul class="list-group list-group-horizontal" style="overflow-x: scroll; background: rgba(0,0,0,30%); ">
                 <li> <a class="list-group-item filterType" id="All" name="All">All</a></li> 
                 <li> <a class="list-group-item filterType" id="Grass" name="Grass">Grass</a></li> 
                 <li> <a class="list-group-item filterType" id="Poison" name="Poison">Poison</a></li>
@@ -85,7 +85,7 @@ const pokemonCardHtml = (pokemon, hex) => {
         <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
         width: 128px;" src="${pokemon.hires}"> </figure>
             <div class="cardText">
-                <div class="StatsContainer" style="display: flex; flex justify-content: space-between;  background: rgba(255,255,255,30%); font-size:15px; border-radius: 10px;">
+                <div class="StatsContainer" style="display: flex; justify-content: space-between;  background: rgba(255,255,255,30%); font-size:15px; border-radius: 10px;">
                     <div class="statList"  >
                         <p class ="stats">attaque : ${pokemon.base.Attack} </p>
                         <p class ="stats">defense : ${pokemon.base.Defense}</p>
