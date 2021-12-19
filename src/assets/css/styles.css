@@ -32,7 +32,7 @@ ul {
   font-size: 12px;
   margin: auto;
   text-align: center;
-  border-radius:10px;
+  border-radius: 10px;
   background-color: rgb(245, 245, 245, 0.7);
 }
 .table-wrapper-scroll-y {
@@ -55,11 +55,11 @@ ul {
 .slick-next:before {
   color: red;
 }
-li a.filterType{
+li a.filterType {
   background-color: transparent;
 }
-a.filterType{
-  color:white;
+a.filterType {
+  color: white;
 }
 .slide li {
   padding: 10px;
@@ -81,8 +81,17 @@ a.filterType{
   size: 22%;
   width: 22%;
   height: 22%;
+  border: solid;
   border-radius: 15px;
+  border-width: 2px;
   margin: 10px;
+}
+#cardTitle {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: white;
 }
 .figure2 {
   padding: 0 25% 0 25%;
@@ -95,11 +104,6 @@ a.filterType{
 .card1:hover > .figure2 {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.7);
-}
-
-a:hover {
-  background-color: red;
-  text-decoration: underline;
 }
 .nav-link {
   transition: all 0.5s ease;

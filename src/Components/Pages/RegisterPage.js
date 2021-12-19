@@ -2,6 +2,8 @@ import { Redirect } from "../Router/Router";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import { setSessionObject } from "../../utils/session";
 import Navbar from "../Navbar/Navbar";
+import Swal from "sweetalert2";
+
 /**
  * Render the RegisterPage
  */
@@ -39,49 +41,60 @@ const registerPage = `
 
 const RegisterPage = () => {
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (userSession) {
     return Redirect("/");
   }
 
   const main = document.querySelector("main");
-  main.innerHTML = registerPage;
+  main.innerHTML = "";
+  showRegisterForm("", "");
 
-  const form = main.querySelector("form");
-  form.addEventListener("submit", onSubmit);
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    const email = document.getElementById("email");
-    const pseudo = document.getElementById("pseudo");
-    const password = document.getElementById("password");
-    const password_repeat = document.getElementById("password-repeat");
-
-    console.log(
-      "credentials",
-      email.value,
-      pseudo.value,
-      password.value,
-      password_repeat.value
-    );
+  async function showRegisterForm(placeHolderEmail, placeHolderPseudo) {
+    const { value: formValues } = await Swal.fire({
+      title: "Register",
+      html:
+        `<input id="email" name="email" class="swal2-input" placeholder = "Email" value = "${placeHolderEmail}">` +
+        `<input id="pseudo" name="email" class="swal2-input" placeholder = "Pseudo" value = "${placeHolderPseudo}" >` +
+        `<input id="password" type = "password" name="email" class="swal2-input" placeholder = "Password">` +
+        `<input  name="password-repeat" type="password"  id="password-repeat" placeholder="Password (repeat)" class="swal2-input" placeholder = "Mot De Passe">`,
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        let email = document.getElementById("email").value;
+        let pseudo = document.getElementById("pseudo").value;
+        let password = document.getElementById("password").value;
+        let password_reapeat = document.getElementById("password-repeat").value;
+        return onSubmit(email, pseudo, password, password_reapeat);
+        // document.getElementById("email").value,
+        // document.getElementById("password").value
+      },
+      allowEnterKey: true,
+    });
+  }
+  async function onSubmit(mail, pseudop, passwordp, password_reapeatp) {
+    const email = mail;
+    const pseudo = pseudop;
+    const password = passwordp;
+    const password_repeat = password_reapeatp;
 
     //check si les deux mdp sont bien équivalent
-    if (password.value != password_repeat.value) {
-      const message = document.getElementById("message");
-      message.innerHTML = "Password doesn't match";
-      password.style = "border:2px solid red;";
-      password_repeat.style = "border:2px solid red;";
+    if (password != password_repeat) {
+      Swal.fire({
+        icon: "error",
+        title: "password aren't the same",
+        confirmButtonText: "Try again",
+      }).then(() => {
+        showRegisterForm(email, pseudo);
+      });
 
       throw new Error("Password doesn't match");
     }
-
     try {
       const options = {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
-          email: email.value,
-          pseudo: pseudo.value,
-          password: password.value,
+          email: email,
+          pseudo: pseudo,
+          password: password,
         }), // body data type must match "Content-Type" header
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +108,6 @@ const RegisterPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
       // save the user into the localStorage
       setSessionObject("user", user);
 
@@ -105,6 +117,13 @@ const RegisterPage = () => {
       // call the HomePage via the Router
       Redirect("/");
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error on account creation",
+        confirmButtonText: "Try again",
+      }).then(() => {
+        showRegisterForm("", "");
+      });
       console.error("RegisterPage::error: ", error);
     }
   }

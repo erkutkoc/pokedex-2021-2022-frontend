@@ -46,7 +46,6 @@ const coinsPage = `
 
 const CoinsPage = () => {
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (!userSession) {
     return Redirect("/login");
   }
@@ -67,11 +66,9 @@ const CoinsPage = () => {
     e.preventDefault();
     try {
       const id = userSession.id;
-      console.log(id, "id user");
 
       const packCoins = 100;
 
-      console.log("packCoins", packCoins);
 
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
@@ -92,7 +89,6 @@ const CoinsPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
 
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
@@ -128,11 +124,9 @@ const CoinsPage = () => {
     e.preventDefault();
     try {
       const id = userSession.id;
-      console.log(id, "id user");
 
       const packCoins = 1000;
 
-      console.log("packCoins", packCoins);
 
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
@@ -153,7 +147,6 @@ const CoinsPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
 
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
@@ -189,11 +182,9 @@ const CoinsPage = () => {
     e.preventDefault();
     try {
       const id = userSession.id;
-      console.log(id, "id user");
 
       const packCoins = 10000;
 
-      console.log("packCoins", packCoins);
 
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
@@ -214,7 +205,6 @@ const CoinsPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
 
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
