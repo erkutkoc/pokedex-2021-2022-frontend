@@ -158,7 +158,6 @@ const CollectionPage = async () => {
         );
       }
 
-      console.log(listePokemonAfficher)
       container.innerHTML = "";
       //refresh le background-color laissé sur le dernier filtreType cliquer
       for (let count = 0; count < filterType.length; count++) {

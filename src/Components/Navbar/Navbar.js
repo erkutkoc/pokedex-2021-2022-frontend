@@ -5,7 +5,6 @@ const Navbar = () => {
   let navbar;
   // Get the user object from the localStorage
   let user = getSessionObject("user");
-  console.log(user, "TEST");
   if (!user) {
     navbar = `
     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="color: var(--bs-yellow);background: var(--bs-red);border-bottom: 6px solid #000000 ;">
