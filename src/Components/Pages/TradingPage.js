@@ -429,69 +429,68 @@ const TradingPage = async () => {
     showMyTrades = false;
     showCreateTrades = true;
   });
+};
+// slick library working with jQuery
+const customSlick = (className) => {
+  $(className).slick({
+    dots: false,
+    infinite: false,
+    speed: 200,
+    slidesToShow: 15,
+    slidesToScroll: 10,
+    lazyLoad: "ondemand",
+    variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      // You can unslick at a given breakpoint now by adding:
+      // settings: "unslick"
+      // instead of a settings object
+    ],
+  });
+};
+const displayRow = async (divRow) => {
+  let cardsHtml = "";
+  for (let i = 0; i < tradesList.length; i++) {
+    let trade = tradesList[i];
 
-  // slick library working with jQuery
-  const customSlick = (className) => {
-    $(className).slick({
-      dots: false,
-      infinite: false,
-      speed: 200,
-      slidesToShow: 15,
-      slidesToScroll: 10,
-      lazyLoad: "ondemand",
-      variableWidth: true,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
-      ],
-    });
-  };
-  const displayRow = async (divRow) => {
-    let cardsHtml = "";
-    for (let i = 0; i < tradesList.length; i++) {
-      let trade = tradesList[i];
-
-      cardsHtml += await tradesCardHtml(trade);
-      divRow.innerHTML = cardsHtml;
-      let acceptbutton = document.getElementsByClassName("acceptButton");
-      for (let index = 0; index < acceptbutton.length; index++) {
-        const element = acceptbutton[index];
-        element.addEventListener(
-          "click",
-          acceptOffer.bind(event, element.id, user.id)
-        );
-      }
-      let cancelbutton = document.getElementsByClassName("cancelButton");
-      for (let index = 0; index < cancelbutton.length; index++) {
-        const element = cancelbutton[index];
-        element.addEventListener("click", cancelOffer.bind(event, element.id));
-      }
+    cardsHtml += await tradesCardHtml(trade);
+    divRow.innerHTML = cardsHtml;
+    let acceptbutton = document.getElementsByClassName("acceptButton");
+    for (let index = 0; index < acceptbutton.length; index++) {
+      const element = acceptbutton[index];
+      element.addEventListener(
+        "click",
+        acceptOffer.bind(event, element.id, user.id)
+      );
     }
-  };
+    let cancelbutton = document.getElementsByClassName("cancelButton");
+    for (let index = 0; index < cancelbutton.length; index++) {
+      const element = cancelbutton[index];
+      element.addEventListener("click", cancelOffer.bind(event, element.id));
+    }
+  }
 };
 
 const filterby = async (filter, value) => {
