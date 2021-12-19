@@ -16,10 +16,10 @@ const loaderHTML = `
 const main = document.querySelector("main");
 const tabs = `<ul class="nav nav-tabs justify-content-center">
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="color : white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: black  ">All</a>
+  <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="color:white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: white  ">All</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" id="myCollection" href="#" style="color : white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: black  ">My Collection</a>
+  <a class="nav-link" id="myCollection" href="#" style="color:white; -webkit-text-stroke-width: 0.5px ;  -webkit-text-stroke-color: white  ">My Collection</a>
 </li>
 </ul>`;
 const containerHtml = `<div class="container" id="container"></div>`;
@@ -49,7 +49,7 @@ const filter = `<!--Filter-->
     <br/>
     <div class="row">
         <div class="">
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-horizontal" style="overflow-x: scroll;">
                 <li> <a class="list-group-item filterType" id="All" name="All">All</a></li> 
                 <li> <a class="list-group-item filterType" id="Grass" name="Grass">Grass</a></li> 
                 <li> <a class="list-group-item filterType" id="Poison" name="Poison">Poison</a></li>

@@ -137,10 +137,10 @@ const tradesCardHtml = async (trade) => {
   let tdhtmlrequest = "";
   let tdhtmlproposition = "";
   tradeObjreq[1].forEach((element) => {
-    tdhtmlrequest += `<td><img style="width: 75px" src="${element.hires}"></td>`;
+    tdhtmlrequest += `<td><img style="width: 75px; border:solid ; border-width : 0.3px ; border-radius : 10px" src="${element.hires}"></td>`;
   });
   tradeObjprop[1].forEach((element) => {
-    tdhtmlproposition += `<td><img style="width: 75px" src="${element.hires}"></td>`;
+    tdhtmlproposition += `<td ><img style="width: 75px; border:solid ; border-width : 0.3px ; border-radius : 10px" src="${element.hires}"></td>`;
   });
   let userIn = await getUserNameByid(trade.id_trader);
   let pseudo = userIn.pseudo;
@@ -151,7 +151,6 @@ const tradesCardHtml = async (trade) => {
     console.log(trade.id);
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-danger cancelButton">Cancel Trade</button> `;
   }
-  console.log(trade.status);
   if (trade.status != "Accept" && trade.status != "Cancel") {
     return `<!--Card Start-->
          <div>
@@ -161,13 +160,13 @@ const tradesCardHtml = async (trade) => {
                     <th style="text-align:center"> Offer by : ${pseudo} Status : ${trade.status}</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr>
                   <td>
                     ${buttonAccept}
                   </td>
                 </tr>
-                <tr>
+                <tr >
                 <td>Proposition</td>  
                   ${tdhtmlproposition}
                 </tr>
@@ -374,6 +373,7 @@ const TradingPage = async () => {
       tradesList = await response.json();
       let divRow = document.createElement("div");
       divRow.className = "row";
+      divRow.style = "background:rgb(245, 245, 245, 0.7); border: solid; border-radius : 10px; border-width:0.3px";
       container.appendChild(divRow);
       displayRow(divRow);
     }

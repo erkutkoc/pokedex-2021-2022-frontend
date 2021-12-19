@@ -55,7 +55,12 @@ ul {
 .slick-next:before {
   color: red;
 }
-
+li a.filterType{
+  background-color: transparent;
+}
+a.filterType{
+  color:white;
+}
 .slide li {
   padding: 10px;
 }

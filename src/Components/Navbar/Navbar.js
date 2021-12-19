@@ -9,7 +9,7 @@ const Navbar = () => {
   if (!user) {
     navbar = `
     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="color: var(--bs-yellow);background: var(--bs-red);border-bottom: 6px solid #000000 ;">
-      <div class="container"><a class="navbar-brand" href="#" data-uri="/" style="color: rgb(255,222,0);font-size: 27px;text-shadow: 0px 2px 7px rgb(0,0,0), 5px 0px rgb(0,0,0);/*font-family: Acme, sans-serif;*/margin-top: -12px;letter-spacing: 2px;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+      <div class="container"><a class="navbar-brand" href="#" data-uri="/collection" style="color: rgb(255,222,0);font-size: 27px;text-shadow: 0px 2px 7px rgb(0,0,0), 5px 0px rgb(0,0,0);/*font-family: Acme, sans-serif;*/margin-top: -12px;letter-spacing: 2px;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navcol-1">
               <ul class="navbar-nav me-auto">
                   <li class="nav-item"><a class="nav-link" data-bss-hover-animate="flash" href="#" data-uri="/collection" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
@@ -21,7 +21,7 @@ const Navbar = () => {
   } else {
     navbar = `
     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="color: var(--bs-yellow);background: var(--bs-red);border-bottom: 6px solid #000000 ;">
-      <div class="container"><a class="navbar-brand" href="#" data-uri="/" style="color: #edff24;border-bottom-color: #edff24;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+      <div class="container"><a class="navbar-brand" href="#" data-uri="/collection" style="color: #edff24;border-bottom-color: #edff24;">PokeDecks</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navcol-1">
               <ul class="navbar-nav me-auto">
                   <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="flash" href="#" data-uri="/collection" style="color: var(--bs-gray-200);font-weight: bold;">Collection</a></li>
