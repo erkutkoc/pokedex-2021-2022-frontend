@@ -216,7 +216,7 @@ const CollectionPage = async () => {
   //scroll bottom event detection
   window.addEventListener("scroll", () => {
     let lastKnowScrollPosition =
-      window.innerHeight + Math.ceil(window.pageYOffset);
+      window.innerHeight + Math.ceil(window.pageYOffset + 10);
     if (document.body.offsetHeight <= lastKnowScrollPosition) {
       lastKnowScrollPosition = document.body.offsetHeight - 1;
       displayRowAfterScroll(i);
