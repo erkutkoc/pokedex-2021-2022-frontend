@@ -9,7 +9,7 @@ var showMyCollection = false;
 let lengthListe = 0;
 let surplusRow = 0;
 
-let i = 0;
+let nombresPokemonAffiche = 0;
 const loaderHTML = `
 <div class="spinner-border text-warning" role="status">
     <span class="sr-only">Loading...</span>
@@ -73,14 +73,14 @@ const filter = `<!--Filter-->
             </ul>
         </div>
     </div>
-    <br/>
 </div>
 <!--Filter-->`;
+
 
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
   return `<!--Card Start-->
-    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
+    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3" style ="background : ${hex};>
         <p id="type_${pokemon.type[0]}" class="type" style="" >${pokemon.type}</p>
         <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
         <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
@@ -112,7 +112,6 @@ const pokemonCardHtml = (pokemon, hex) => {
 <!--Card End-->`;
 };
 const CollectionPage = async () => {
-  i = 0;
   main.innerHTML = "";
   main.innerHTML += tabs;
   main.innerHTML += filter;
@@ -167,7 +166,7 @@ const CollectionPage = async () => {
       }
       e.target.style = "background-color: red;";
       changerBack(nomType);
-      // appel focniton pour changer le background
+      // appel fonction pour changer le background
       affichageListe();
     });
   });
@@ -221,9 +220,10 @@ const CollectionPage = async () => {
       window.innerHeight + Math.ceil(window.pageYOffset + 10);
     if (document.body.offsetHeight <= lastKnowScrollPosition) {
       lastKnowScrollPosition = document.body.offsetHeight - 1;
-      displayRowAfterScroll(i);
+      displayRowAfterScroll();
     }
-  });
+  }); 
+
   // get all nav-link items
   let tabsTag = document.getElementsByClassName("nav-link");
   // filter all nav-link item by id
@@ -242,49 +242,106 @@ const CollectionPage = async () => {
   });
 };
 
-const displayRowAfterScroll = (ligne) => {
-  let size = listePokemonAfficher.length;
-  let rowNumber = size / 4;
-  let newLigne = ligne + 3;
-  while (ligne < rowNumber && ligne < newLigne) {
+const displayRowAfterScroll = () => {
+  lengthListe = listePokemonAfficher.length - nombresPokemonAffiche;
+  console.log("Taille liste - nombresPokemonAffiche: "+lengthListe);
+  if (lengthListe <= 0) return;
+
+  let maxRow = 4;
+  let compteur = 0;
+  while (compteur < maxRow) {
     let divRow = document.createElement("div");
     divRow.className = "row justify-content-center";
     container.appendChild(divRow);
-    displayRow(i * 4, divRow);
-    i++;
-    ligne++;
+    displayRow(nombresPokemonAffiche, divRow);
+    compteur++;
   }
+
+
 };
 
-const displayRow = async (currentRow, divRow) => {
+const displayRow = (currentRow, divRow) => {
   let cardsHtml = "";
-
   let pokemon;
   for (let index = currentRow; index < currentRow + 4; index++) {
-    let hex = "";
-    pokemon = listePokemonAfficher[index];
-    const promise = await Vibrant.from(pokemon.hires)
-      .getPalette()
-      .then((palette) => (hex = palette));
-    cardsHtml += pokemonCardHtml(pokemon, hex);
-    divRow.innerHTML = cardsHtml;
-  }
-};
-
-const displayRowSurplus = async (currentRow, divRow) => {
-  let cardsHtml = "";
-
-  let pokemon;
-  let maxRow = parseInt(currentRow + surplusRow);
-  for (let index = currentRow; index < maxRow; index++) {
-    let hex = "";
-    pokemon = listePokemonAfficher[index];
-    const promise = await Vibrant.from(pokemon.hires)
-      .getPalette()
-      .then((palette) => (hex = palette));
-    cardsHtml += pokemonCardHtml(pokemon, hex);
-    divRow.innerHTML = cardsHtml;
-  }
+    if(index < listePokemonAfficher.length){
+      let hex = "";
+      console.log("INDEX => " + index);
+      pokemon = listePokemonAfficher[index];
+      nombresPokemonAffiche++;
+      if(pokemon.type[0].toLowerCase() == "grass"){
+        hex = "#5FC314";
+      }else if(pokemon.type[0].toLowerCase() == "poison"){
+        hex = "#c41b5a";
+      }
+      else if(pokemon.type[0].toLowerCase() == "fire"){
+        hex = "#801100";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "flying"){
+        hex = "#DBf4e0";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "water"){
+        hex = "#2384eb";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "bug"){
+        hex = "#499801";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "normal"){
+        hex = "#aaaaaa";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "ground"){
+        hex = "#d47b4a";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "electric"){
+        hex = "#FEDA00";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "fairy"){
+        hex = "#FC98D3";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "fighting"){
+        hex = "#b41c24";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "psychic"){
+        hex = "#E54ED0";
+          
+      }
+      else if(pokemon.type[0].toLowerCase() == "steel"){
+        hex = "#d1e1f6";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "ice"){
+        hex = "#3F7EB3";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "rock"){
+        hex = "#1e0707";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "ghost"){
+        hex = "#3d5496";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "dragon"){
+        hex = "#d52318";
+        
+      }
+      else if(pokemon.type[0].toLowerCase() == "dark"){
+        hex = "#23395d";
+        
+      }
+     
+      cardsHtml += pokemonCardHtml(pokemon, hex);
+      divRow.innerHTML = cardsHtml;}
+    }
 };
 
 const filterby = async (filter, value) => {
@@ -308,6 +365,7 @@ const filterby = async (filter, value) => {
 };
 
 const affichageListe = async () => {
+  nombresPokemonAffiche=0;
   lengthListe = listePokemonAfficher.length;
   if (lengthListe == 0) return;
 
@@ -319,31 +377,15 @@ const affichageListe = async () => {
     console.log("Surplus:" + surplusRow);
   }
   let compteur = 0;
-  while (compteur < maxRow - 1) {
+  while (compteur < maxRow ) {
     let divRow = document.createElement("div");
     divRow.className = "row justify-content-center";
     container.appendChild(divRow);
     displayRow(compteur * 4, divRow);
     compteur++;
-    i++;
+ 
   }
-  if (surplusRow > 0) {
-    let divRow = document.createElement("div");
-    divRow.className = "row justify-content-center";
-    container.appendChild(divRow);
-    displayRowSurplus(compteur * 4, divRow);
-    compteur++;
-    i++;
-  } else {
-    let divRow = document.createElement("div");
-    divRow.className = "row justify-content-center";
-    container.appendChild(divRow);
-    displayRow(compteur * 4, divRow);
-    compteur++;
-    i++;
-  }
-  //reset
-  surplusRow = 0;
+
 };
 
 export default CollectionPage;
