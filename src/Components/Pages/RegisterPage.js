@@ -2,6 +2,8 @@ import { Redirect } from "../Router/Router";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import { setSessionObject } from "../../utils/session";
 import Navbar from "../Navbar/Navbar";
+import Swal from "sweetalert2";
+
 /**
  * Render the RegisterPage
  */
@@ -45,11 +47,26 @@ const RegisterPage = () => {
   }
 
   const main = document.querySelector("main");
-  main.innerHTML = registerPage;
+  main.innerHTML = "";
+  showRegisterForm();
 
-  const form = main.querySelector("form");
-  form.addEventListener("submit", onSubmit);
-
+  async function showRegisterForm() {
+    const { value: formValues } = await Swal.fire({
+      title: "Register",
+      html:
+        '<input id="email" name="email" class="swal2-input" placeholder = "Email">' +
+        '<input id="pseudo" name="email" class="swal2-input" placeholder = "Pseudo">' +
+        '<input id="password" type = "password" name="email" class="swal2-input" placeholder = "Password">' +
+        '<input  name="password-repeat" type="password"  id="password-repeat" placeholder="Password (repeat)" class="swal2-input" placeholder = "Mot De Passe">',
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return onSubmit();
+        // document.getElementById("email").value,
+        // document.getElementById("password").value
+      },
+      allowEnterKey: true,
+    });
+  }
   async function onSubmit(e) {
     e.preventDefault();
     const email = document.getElementById("email");

@@ -32,7 +32,7 @@ ul {
   font-size: 12px;
   margin: auto;
   text-align: center;
-  border-radius:10px;
+  border-radius: 10px;
   background-color: rgb(245, 245, 245, 0.7);
 }
 .table-wrapper-scroll-y {
@@ -55,11 +55,11 @@ ul {
 .slick-next:before {
   color: red;
 }
-li a.filterType{
+li a.filterType {
   background-color: transparent;
 }
-a.filterType{
-  color:white;
+a.filterType {
+  color: white;
 }
 .slide li {
   padding: 10px;
@@ -97,10 +97,6 @@ a.filterType{
   transform: scale(1.7);
 }
 
-a:hover {
-  background-color: red;
-  text-decoration: underline;
-}
 .nav-link {
   transition: all 0.5s ease;
 }

@@ -1,14 +1,14 @@
 import * as Vibrant from "node-vibrant";
 import "../../assets/css/cartePokememon.css";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import  changerBack from "../../assets/js/background";
+import changerBack from "../../assets/js/background";
 
 let pokemons = [];
 let listePokemonAfficher = [];
 var showMyCollection = false;
 let lengthListe = 0;
 let surplusRow = 0;
-
+let currentFilter = [];
 let i = 0;
 const loaderHTML = `
 <div class="spinner-border text-warning" role="status">
@@ -32,10 +32,11 @@ const filter = `<!--Filter-->
             <input type="checkbox" id="touch"> 
         
             <ul class="slide">
-                <li> <a href="#" class="filterButton1" id="ASC" name="Attack">The most attack</a></li> 
-                <li> <a href="#" class="filterButton1" id="ASC" name="HP">The most hp</a></li>
-                <li> <a href="#" class="filterButton1" id="ASC" name="Defence" ">The most defence</a></li>
-                <li> <a href="#" class="filterButton1" id="ASC" name="Speed">The fastest</a></li>
+               <li> <a  class="filterButton1 hvr-grow" id="Reset" name="">Reset</a></li>
+                <li> <a  class="filterButton1 hvr-grow" id="Attack" name="ASC">Filter By attack</a></li> 
+                <li> <a  class="filterButton1 hvr-grow" id="HP" name="ASC">Filter By hp</a></li>
+                <li> <a  class="filterButton1 hvr-grow" id="Defense" name="ASC" ">Filter By defence</a></li>
+                <li> <a  class="filterButton1 hvr-grow" id="Speed" name="ASC">Filter By Speed</a></li>
             </ul>
         </div>
         <div class="col-7 align-middler" id="searchWrapper">
@@ -51,25 +52,25 @@ const filter = `<!--Filter-->
     <div class="row">
         <div class="">
             <ul class="list-group list-group-horizontal" style="overflow-x: scroll; background: rgba(0,0,0,30%); ">
-                <li> <a class="list-group-item filterType" id="All" name="All">All</a></li> 
-                <li> <a class="list-group-item filterType" id="Grass" name="Grass">Grass</a></li> 
-                <li> <a class="list-group-item filterType" id="Poison" name="Poison">Poison</a></li>
-                <li> <a class="list-group-item filterType" id="Fire" name="Fire" ">Fire</a></li>
-                <li> <a class="list-group-item filterType" id="Flying" name="Flying">Flying</a></li>
-                <li> <a class="list-group-item filterType" id="Water" name="Water">Water</a></li>
-                <li> <a class="list-group-item filterType" id="Bug" name="Bug">Bug</a></li>
-                <li> <a class="list-group-item filterType" id="Normal" name="Normal">Normal</a></li>
-                <li> <a class="list-group-item filterType" id="Ground" name="Ground">Ground</a></li>
-                <li> <a class="list-group-item filterType" id="Electric" name="Electric">Electric</a></li>
-                <li> <a class="list-group-item filterType" id="Fairy" name="Fairy">Fairy</a></li>
-                <li> <a class="list-group-item filterType" id="Fighting" name="Fighting">Fighting</a></li>
-                <li> <a class="list-group-item filterType" id="Psychic" name="Psychic">Psychic</a></li>
-                <li> <a class="list-group-item filterType" id="Steel" name="Steel">Steel</a></li>
-                <li> <a class="list-group-item filterType" id="Ice" name="Ice">Ice</a></li>
-                <li> <a class="list-group-item filterType" id="Rock" name="Rock">Rock</a></li>             
-                <li> <a class="list-group-item filterType" id="Ghost" name="Ghost">Ghost</a></li>
-                <li> <a  class="list-group-item filterType" id="Dragon" name="Dragon">Dragon</a></li>
-                <li> <a  class="list-group-item filterType" id="Dark" name="Dark">Dark</a></li>
+                <li> <a class="list-group-item filterType hvr-wobble-vertical" id="All" name="All">All</a></li> 
+                <li> <a class="list-group-item filterType hvr-forward" id="Grass" name="Grass">Grass</a></li> 
+                <li> <a class="list-group-item filterType hvr-backward" id="Poison" name="Poison">Poison</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Fire" name="Fire" ">Fire</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Flying" name="Flying">Flying</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Water" name="Water">Water</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Bug" name="Bug">Bug</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Normal" name="Normal">Normal</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Ground" name="Ground">Ground</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Electric" name="Electric">Electric</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Fairy" name="Fairy">Fairy</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Fighting" name="Fighting">Fighting</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Psychic" name="Psychic">Psychic</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Steel" name="Steel">Steel</a></li>
+                <li> <a class="list-group-item filterType hvr-backward" id="Ice" name="Ice">Ice</a></li>
+                <li> <a class="list-group-item filterType hvr-forward" id="Rock" name="Rock">Rock</a></li>             
+                <li> <a class="list-group-item filterType hvr-backward" id="Ghost" name="Ghost">Ghost</a></li>
+                <li> <a  class="list-group-item filterType hvr-forward" id="Dragon" name="Dragon">Dragon</a></li>
+                <li> <a  class="list-group-item filterType hvr-backward" id="Dark" name="Dark">Dark</a></li>
             </ul>
         </div>
     </div>
@@ -142,7 +143,7 @@ const CollectionPage = async () => {
   // Gère le bouton filter en haut à gauche - Pas fonctionnelle
   const filterButton1 = document.querySelectorAll(".filterButton1");
   filterButton1.forEach((item) => {
-    item.addEventListener("click", filterby.bind(event, item.name, item.id));
+    item.addEventListener("click", filterby.bind(event, item.id, item.name));
   });
 
   // Gère tous les boutons Type ex( Water, Grass,...)
@@ -158,7 +159,7 @@ const CollectionPage = async () => {
         );
       }
 
-      console.log(listePokemonAfficher)
+      console.log(listePokemonAfficher);
       container.innerHTML = "";
       //refresh le background-color laissé sur le dernier filtreType cliquer
       for (let count = 0; count < filterType.length; count++) {
@@ -286,25 +287,107 @@ const displayRowSurplus = async (currentRow, divRow) => {
     divRow.innerHTML = cardsHtml;
   }
 };
-
-const filterby = async (filter, value) => {
-  try {
-    const options = {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-    };
-
-    const response = await fetch("/api/pokemons/sort/" + filter + "/" + value); // fetch return a promise => we wait for the response
-
-    if (!response.ok) {
-      throw new Error(
-        "fetch error : " + response.status + " : " + response.statusText
-      );
-    }
-
-    await response.json(); // json() returns a promise => we wait for the data
-  } catch (error) {
-    console.error("LoginPage::error: ", error);
+function getAllSorted(filter, value) {
+  if (filter == "Reset") {
+    currentFilter[0] = "";
+    currentFilter[1] = "";
+    return listePokemonAfficher.sort(function (a, b) {
+      return a.id - b.id;
+    });
   }
+  if (filter == "HP") {
+    if (currentFilter[0] == "HP") {
+      if (currentFilter[1] == "ASC") {
+        value = "DESC";
+        currentFilter[1] = value;
+      } else if (currentFilter[1] == "DESC") {
+        value = "ASC";
+        currentFilter[1] = value;
+      }
+    }
+    if (value == "ASC") {
+      currentFilter[0] = "HP";
+      currentFilter[1] = "ASC";
+      return listePokemonAfficher.sort(function (a, b) {
+        return a.base.HP - b.base.HP;
+      });
+    } else {
+      return listePokemonAfficher.sort(function (a, b) {
+        return b.base.HP - a.base.HP;
+      });
+    }
+  }
+  if (filter == "Attack") {
+    if (currentFilter[0] == "Attack") {
+      if (currentFilter[1] == "ASC") {
+        value = "DESC";
+        currentFilter[1] = value;
+      } else if (currentFilter[1] == "DESC") {
+        value = "ASC";
+        currentFilter[1] = value;
+      }
+    }
+    if (value == "ASC") {
+      currentFilter[0] = "Attack";
+      currentFilter[1] = "ASC";
+      return listePokemonAfficher.sort(function (a, b) {
+        return a.base.Attack - b.base.Attack;
+      });
+    } else {
+      return listePokemonAfficher.sort(function (a, b) {
+        return b.base.Attack - a.base.Attack;
+      });
+    }
+  }
+  if (filter == "Defense") {
+    if (currentFilter[0] == "Defense") {
+      if (currentFilter[1] == "ASC") {
+        value = "DESC";
+        currentFilter[1] = value;
+      } else if (currentFilter[1] == "DESC") {
+        value = "ASC";
+        currentFilter[1] = value;
+      }
+    }
+    if (value == "ASC") {
+      currentFilter[0] = "Defense";
+      currentFilter[1] = "ASC";
+      return listePokemonAfficher.sort(function (a, b) {
+        return a.base.Defense - b.base.Defense;
+      });
+    } else {
+      return listePokemonAfficher.sort(function (a, b) {
+        return b.base.Defense - a.base.Defense;
+      });
+    }
+  }
+  if (filter == "Speed") {
+    if (currentFilter[0] == "Speed") {
+      if (currentFilter[1] == "ASC") {
+        value = "DESC";
+        currentFilter[1] = value;
+      } else if (currentFilter[1] == "DESC") {
+        value = "ASC";
+        currentFilter[1] = value;
+      }
+    }
+    if (value == "ASC") {
+      currentFilter[0] = "Speed";
+      currentFilter[1] = "ASC";
+      return listePokemonAfficher.sort(function (a, b) {
+        return a.base.Speed - b.base.Speed;
+      });
+    } else {
+      return listePokemonAfficher.sort(function (a, b) {
+        return b.base.Speed - a.base.Speed;
+      });
+    }
+  }
+}
+const filterby = async (filter, value) => {
+  listePokemonAfficher = getAllSorted(filter, value);
+  container.innerHTML = "";
+  affichageListe();
 };
 
 const affichageListe = async () => {
