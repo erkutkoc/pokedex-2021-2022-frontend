@@ -25,9 +25,14 @@ const tabs = `<ul class="nav nav-tabs justify-content-center">
     <a class="nav-link" id="create" href="#">Create</a>
   </li>
   </ul>`;
-const formAddTrade = `<div class="container-fluid h-100  text-dark" >
+const formAddTrade = `
+<div class="container-fluid h-100  text-dark" >
+
 <hr />
-<div class="row">
+
+<div class="row" style="background:rgb(245, 245, 245, 0.4);">
+<button type="button" id="addTrade" style="background-color:yellow; text-align:center; width: 400px ; margin-left:auto; margin-right: auto;" class="btn">Add trade</button>
+
 <p>Propositions</p>
 
   <div class="col col-9">
@@ -58,7 +63,9 @@ const formAddTrade = `<div class="container-fluid h-100  text-dark" >
     </div>
   </div>
 </div>
-<div class="row">
+<hr />
+
+<div class="row" style="background:rgb(245, 245, 245, 0.4);">
 <p>Requests</p>
 <input type="text" id="requestsFilter" placeholder="Write pokemon name...">
   <div class="col col-6">
@@ -82,7 +89,7 @@ const formAddTrade = `<div class="container-fluid h-100  text-dark" >
   <div class="col col-6">
     <div class="form-group">
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="table table-bordered table-striped mb-0">
+        <table class="table table-bordered table-striped mb-0" >
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -100,6 +107,7 @@ const formAddTrade = `<div class="container-fluid h-100  text-dark" >
   </div>
 </div>
 </div>
+
 
 `;
 const containerHtml = `<div class="container" id="container"></div>`;
@@ -216,7 +224,6 @@ const loadingAndDisplay = (array) => {
   for (let i = 0; i < array.length; i++) {
     if (i < array.length) {
       const element = array[i];
-      console.log(element.hires);
       let tableRow = `
     <tr id="${element.id}" class="requestsPokemonList">
       <th id="${element.id}" >${element.name.french}</th>
@@ -255,8 +262,9 @@ const TradingPage = async () => {
     let myCollectionsPokemons = "";
     let list = document.createElement("div");
     list.className = "propositions";
+    list.style = "background:rgb(245, 245, 245, 0.7);";
     listPropositionPokemonAAfficher.forEach((element) => {
-      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections border"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" ></div>`;
+      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections" style="border : 0.5px solid; border-color:green"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" ></div>`;
     });
     list.innerHTML += myCollectionsPokemons;
     const container = document.getElementById("propositionsContainer");
@@ -308,7 +316,6 @@ const TradingPage = async () => {
       const requestsPokemonList = document.getElementsByClassName(
         "requestsPokemonList"
       );
-      console.log(requestsPokemonList);
 
       for (const requestPokemon of requestsPokemonList) {
         requestPokemon.addEventListener("click", function () {
@@ -336,6 +343,25 @@ const TradingPage = async () => {
           collectionsUserDontOwn.splice(index, 1);
         });
       }
+    });
+    let trade = document.getElementById("addTrade");
+    trade.addEventListener("click", () => {
+      console.log("ok");
+      fetch("/api/trades", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify({
+          idTrader: user.id,
+          requests: requests,
+          propositions: propositions,
+        }),
+      })
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
     });
   } else if (showAll == true) {
     async function findAllTrades() {
