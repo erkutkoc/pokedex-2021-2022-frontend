@@ -28,7 +28,6 @@ const loginPage = `
 
 const LoginPage = () => {
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (userSession) {
     return Redirect("/");
   }
@@ -43,7 +42,6 @@ const LoginPage = () => {
     e.preventDefault();
     const email = document.getElementById("email");
     const password = document.getElementById("password");
-    console.log("credentials", email.value, password.value);
 
     try {
       const options = {
@@ -69,7 +67,6 @@ const LoginPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
       // save the user into the localStorage
       setSessionObject("user", user);
 

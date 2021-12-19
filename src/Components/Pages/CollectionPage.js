@@ -129,7 +129,7 @@ const CollectionPage = async () => {
       filterType[count].style =
         filterType[count].style + "background-color: transparent;";
     }
-    console.log(searchString);
+
     listePokemonAfficher = pokemons.filter((pokemon) => {
       return pokemon.name.french.toLowerCase().startsWith(searchString);
       //Rajouter cette ligne si l'on veut aussi check les noms anglais
@@ -172,7 +172,7 @@ const CollectionPage = async () => {
   });
 
   if (showMyCollection == false) {
-    console.log("all");
+
     async function findAllPokemons() {
       const response = await fetch("/api/pokemons", {
         method: "GET",
@@ -180,7 +180,7 @@ const CollectionPage = async () => {
         cache: "no-store",
       });
       if (!response.ok) {
-        console.log("response ko !");
+        console.error("response ko !");
       }
 
       pokemons = await response.json();
@@ -190,12 +190,10 @@ const CollectionPage = async () => {
     }
     findAllPokemons();
   } else {
-    console.log("my");
-    console.log(showMyCollection);
+
     const container1 = document.querySelector("#container");
     container1.innerHTML = "";
     let userSession = getSessionObject("user");
-    console.log(userSession, "user");
     async function findMyCollections() {
       const response = await fetch("/api/users/collection/" + userSession.id, {
         method: "GET",
@@ -203,7 +201,7 @@ const CollectionPage = async () => {
         cache: "no-store",
       });
       if (!response.ok) {
-        console.log("response ko !");
+        console.error("response ko !");
       }
 
       pokemons = await response.json();
@@ -316,7 +314,7 @@ const affichageListe = async () => {
   if (NumberRow < 4) {
     maxRow = NumberRow;
     surplusRow = lengthListe % 4;
-    console.log("Surplus:" + surplusRow);
+
   }
   let compteur = 0;
   while (compteur < maxRow - 1) {

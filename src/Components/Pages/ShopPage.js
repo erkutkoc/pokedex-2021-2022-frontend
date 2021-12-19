@@ -77,7 +77,6 @@ const ShopPage = () => {
       );
     } else {
       const user = await achat.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
       setSessionObject("user", userSession);

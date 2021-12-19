@@ -16,13 +16,11 @@ let user = getSessionObject("user");
 const main = document.querySelector("main");
 const tabs = `<ul class="nav nav-tabs justify-content-center">
   <li class="nav-item">
-    <a class="nav-link" aria-current="page" name="tabs" id="all" href="#">All</a>
+    <a class="nav-link" aria-current="page" name="tabs" id="all" href="#" style="background: rgba(0,0,0,30%); color: white">All</a>
   </li>
+ 
   <li class="nav-item">
-    <a class="nav-link" id="myTrade" href="#">My Trades</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="create" href="#">Create</a>
+    <a class="nav-link" id="create" href="#" style="background: rgba(0,0,0,30%); color: white" ">Create</a>
   </li>
   </ul>`;
 const formAddTrade = `
@@ -111,23 +109,7 @@ const formAddTrade = `
 
 `;
 const containerHtml = `<div class="container" id="container"></div>`;
-const filter = `<!--Filter-->
-  <div class="container" >
-      <div class="row">
-          <div class="col-sm">
-              <label for="touch"><span class = "Filtering">Filter</span></label>               
-              <input type="checkbox" id="touch"> 
-          
-              <ul class="slide">
-                  <li> <a href="#" class="filterButton1" id="ASC" name="Attack">The most attack</a></li> 
-                  <li> <a href="#" class="filterButton1" id="ASC" name="HP">The most hp</a></li>
-                  <li> <a href="#" class="filterButton1" id="ASC" name="Defence" ">The most defence</a></li>
-                  <li> <a href="#" class="filterButton1" id="ASC" name="Speed">The fastest</a></li>
-              </ul
-          </div>
-      </div>
-  </div>
-  <!--Filter-->`;
+
 
 //une carte
 const tradesCardHtml = async (trade) => {
@@ -148,7 +130,7 @@ const tradesCardHtml = async (trade) => {
   if (user.id != trade.id_trader) {
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-primary acceptButton">Accept Trade</button> `;
   } else if (user.id == trade.id_trader) {
-    console.log(trade.id);
+
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-danger cancelButton">Cancel Trade</button> `;
   }
   if (trade.status != "Accept" && trade.status != "Cancel") {
@@ -196,7 +178,7 @@ async function findMyCollections() {
     cache: "no-store",
   });
   if (!response.ok) {
-    console.log("response ko !");
+    console.error("response ko !");
   }
   let pokemons = await response.json();
   return pokemons.filter((pokemon) => pokemon.base != undefined);
@@ -211,7 +193,7 @@ async function findCollectionsIDontOwn() {
     }
   );
   if (!response.ok) {
-    console.log("response ko !");
+    console.error("response ko !");
   }
   let pokemons = await response.json();
   return pokemons.filter((pokemon) => pokemon.base != undefined);
@@ -240,7 +222,7 @@ const TradingPage = async () => {
   }
   main.innerHTML = "";
   main.innerHTML += tabs;
-  main.innerHTML += filter;
+
   main.innerHTML += containerHtml;
   const container = document.querySelector("#container");
 
@@ -345,7 +327,7 @@ const TradingPage = async () => {
     });
     let trade = document.getElementById("addTrade");
     trade.addEventListener("click", () => {
-      console.log("ok");
+
       fetch("/api/trades", {
         method: "POST",
         headers: {
@@ -359,8 +341,8 @@ const TradingPage = async () => {
         }),
       })
         .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+        .then((result) =>{Redirect("/trading")})
+        .catch((error) => console.error("error", error));
     });
   } else if (showAll == true) {
     async function findAllTrades() {
@@ -368,7 +350,7 @@ const TradingPage = async () => {
         method: "GET",
       });
       if (!response.ok) {
-        console.log("response ko !");
+        console.error("reponse KO");
       }
       tradesList = await response.json();
       let divRow = document.createElement("div");
@@ -378,7 +360,7 @@ const TradingPage = async () => {
       displayRow(divRow);
     }
     findAllTrades();
-  } else {
+  } /*else {
     const container1 = document.querySelector("#container");
     container1.innerHTML = "";
     async function findMyTrades() {
@@ -398,7 +380,7 @@ const TradingPage = async () => {
       displayRow(divRow);
     }
     findMyTrades();
-  }
+  }*/
   // get all nav-link items
   let tabsTag = document.getElementsByClassName("nav-link");
   // filter all nav-link item by id
@@ -407,28 +389,25 @@ const TradingPage = async () => {
   tabsTagFiltered[0].addEventListener("click", () => {
     tabsTagFiltered[0].className = "nav-link active";
     tabsTagFiltered[1].className = "nav-link";
-    tabsTagFiltered[2].className = "nav-link";
+
     showAll = true;
-    showMyTrades = false;
     showCreateTrades = false;
   });
   // tabsTagFiltered[1] = nav link id = myTrade
   tabsTagFiltered[1].addEventListener("click", () => {
+
     tabsTagFiltered[0].className = "nav-link";
     tabsTagFiltered[1].className = "nav-link active";
-    tabsTagFiltered[2].className = "nav-link";
     showAll = false;
-    showMyTrades = true;
-    showCreateTrades = false;
+    showCreateTrades = true;
   });
-  tabsTagFiltered[2].addEventListener("click", () => {
+  /*tabsTagFiltered[2].addEventListener("click", () => {
     tabsTagFiltered[0].className = "nav-link";
     tabsTagFiltered[1].className = "nav-link";
     tabsTagFiltered[2].className = "nav-link active";
     showAll = false;
-    showMyTrades = false;
     showCreateTrades = true;
-  });
+  });  */
 };
 // slick library working with jQuery
 const customSlick = (className) => {
