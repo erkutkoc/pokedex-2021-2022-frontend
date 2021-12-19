@@ -30,7 +30,7 @@ ul {
   height: 400px;
   overflow: auto;
   font-size: 12px;
-  margin:auto;
+  margin: auto;
   text-align: center;
 }
 .table-wrapper-scroll-y {
@@ -93,4 +93,10 @@ ul {
 a:hover {
   background-color: red;
   text-decoration: underline;
+}
+.nav-link {
+  transition: all 0.5s ease;
+}
+.nav-link:hover {
+  transition: all 0.5s ease;
 }

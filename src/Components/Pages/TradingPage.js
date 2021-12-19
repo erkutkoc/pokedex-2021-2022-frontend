@@ -1,16 +1,9 @@
-import {
-  getSessionObject
-} from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import {
-  Redirect
-} from "../Router/Router";
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
-import {
-  setSessionObject
-} from "../../utils/session";
-import {
-  createPopper
-} from "@popperjs/core/lib/createPopper";
+import { setSessionObject } from "../../utils/session";
+import { createPopper } from "@popperjs/core/lib/createPopper";
+import Swal from "sweetalert2";
 /**
  * Render the trading page
  */
@@ -129,17 +122,65 @@ const filter = `<!--Filter-->
   <!--Filter-->`;
 
 //une carte
-const tradesCardHtml = (trade) => {
-  return `<!--Card Start-->
+const tradesCardHtml = async (trade) => {
+  console.log(trade);
+  let tradeObjreq = await getTradePlusPokeObject(trade.id, "requests");
+  let tradeObjprop = await getTradePlusPokeObject(trade.id, "propositions");
+  let tdhtmlrequest = "";
+  let tdhtmlproposition = "";
+  tradeObjreq[1].forEach((element) => {
+    tdhtmlrequest += `<td><img style="width: 75px" src="${element.hires}"></td>`;
+  });
+  tradeObjprop[1].forEach((element) => {
+    tdhtmlproposition += `<td><img style="width: 75px" src="${element.hires}"></td>`;
+  });
+  let userIn = await getUserNameByid(trade.id_trader);
+  let pseudo = userIn.pseudo;
+  let buttonAccept = "";
+  if (user.id != trade.id_trader) {
+    buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-primary acceptButton">Accept Trade</button> `;
+  } else if (user.id == trade.id_trader) {
+    console.log(trade.id);
+    buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-danger cancelButton">Cancel Trade</button> `;
+  }
+  console.log(trade.status);
+  if (trade.status != "Accept" && trade.status != "Cancel") {
+    return `<!--Card Start-->
          <div>
-            <p> 
-              id_trader = ${trade.id_trader} 
-              requestId = ${trade.requests} 
+         <table>
+            <thead>
+                <tr>
+                    <th style="text-align:center"> Offer by : ${pseudo} Status : ${trade.status}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                    ${buttonAccept}
+                  </td>
+                </tr>
+                <tr>
+                <td>Proposition</td>  
+                  ${tdhtmlproposition}
+                </tr>
+                <tr>
+                <td>Requested</td>  
+                  ${tdhtmlrequest}
+                </tr>
+                
+            
+            </tbody>
+           </table>   
+              
+              
               
             </p>
           </div>
 
   <!--Card End-->`;
+  } else {
+    return "";
+  }
 };
 async function findMyCollections() {
   const response = await fetch("/api/users/collection/" + user.id, {
@@ -155,7 +196,8 @@ async function findMyCollections() {
 }
 async function findCollectionsIDontOwn() {
   const response = await fetch(
-    "/api/users/collection/" + user.id + "/dontown", {
+    "/api/users/collection/" + user.id + "/dontown",
+    {
       method: "GET",
       cache: "no-cache",
       cache: "no-store",
@@ -256,17 +298,17 @@ const TradingPage = async () => {
       collectionsUserDontOwnDisplay = collectionsUserDontOwn;
       collectionsUserDontOwnDisplay = collectionsUserDontOwnDisplay.filter(
         (element) =>
-        e.target.value.length != 0 &&
-        element.name.french
-        .toLowerCase()
-        .startsWith(e.target.value.toLowerCase())
+          e.target.value.length != 0 &&
+          element.name.french
+            .toLowerCase()
+            .startsWith(e.target.value.toLowerCase())
       );
       loadingAndDisplay(collectionsUserDontOwnDisplay);
       //ici
       const requestsPokemonList = document.getElementsByClassName(
         "requestsPokemonList"
       );
-      console.log(requestsPokemonList)
+      console.log(requestsPokemonList);
 
       for (const requestPokemon of requestsPokemonList) {
         requestPokemon.addEventListener("click", function () {
@@ -287,7 +329,9 @@ const TradingPage = async () => {
         </tr>`;
           table.innerHTML += tableRow;
           //supprime de la collection actuel
-          let index = collectionsUserDontOwn.findIndex((a) => a.id == requestPokemon.id);
+          let index = collectionsUserDontOwn.findIndex(
+            (a) => a.id == requestPokemon.id
+          );
           if (index < 0) return;
           collectionsUserDontOwn.splice(index, 1);
         });
@@ -359,54 +403,69 @@ const TradingPage = async () => {
     showMyTrades = false;
     showCreateTrades = true;
   });
-};
-// slick library working with jQuery
-const customSlick = (className) => {
-  $(className).slick({
-    dots: false,
-    infinite: false,
-    speed: 200,
-    slidesToShow: 15,
-    slidesToScroll: 10,
-    lazyLoad: "ondemand",
-    variableWidth: true,
-    responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
-    ],
-  });
-};
-const displayRow = async (divRow) => {
-  let cardsHtml = "";
-  for (let i = 0; i < tradesList.length; i++) {
-    let trade = tradesList[i];
 
-    cardsHtml += tradesCardHtml(trade);
-    divRow.innerHTML = cardsHtml;
-  }
+  // slick library working with jQuery
+  const customSlick = (className) => {
+    $(className).slick({
+      dots: false,
+      infinite: false,
+      speed: 200,
+      slidesToShow: 15,
+      slidesToScroll: 10,
+      lazyLoad: "ondemand",
+      variableWidth: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ],
+    });
+  };
+  const displayRow = async (divRow) => {
+    let cardsHtml = "";
+    for (let i = 0; i < tradesList.length; i++) {
+      let trade = tradesList[i];
+
+      cardsHtml += await tradesCardHtml(trade);
+      divRow.innerHTML = cardsHtml;
+      let acceptbutton = document.getElementsByClassName("acceptButton");
+      for (let index = 0; index < acceptbutton.length; index++) {
+        const element = acceptbutton[index];
+        element.addEventListener(
+          "click",
+          acceptOffer.bind(event, element.id, user.id)
+        );
+      }
+      let cancelbutton = document.getElementsByClassName("cancelButton");
+      for (let index = 0; index < cancelbutton.length; index++) {
+        const element = cancelbutton[index];
+        element.addEventListener("click", cancelOffer.bind(event, element.id));
+      }
+    }
+  };
 };
 
 const filterby = async (filter, value) => {
@@ -428,5 +487,102 @@ const filterby = async (filter, value) => {
     console.error("LoginPage::error: ", error);
   }
 };
+const getTradePlusPokeObject = async (id, reqOrProp) => {
+  try {
+    const options = {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+    };
 
+    const response = await fetch("/api/trades/" + id + "/" + reqOrProp); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+
+    let returnedId;
+    returnedId = await response.json(); // json() returns a promise => we wait for the data
+    return returnedId;
+  } catch (error) {
+    console.error("LoginPage::error: ", error);
+  }
+};
+const getUserNameByid = async (id) => {
+  try {
+    const options = {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+    };
+
+    const response = await fetch("/api/users/" + id); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+
+    let returnedId;
+    returnedId = await response.json(); // json() returns a promise => we wait for the data
+    return returnedId;
+  } catch (error) {
+    console.error("LoginPage::error: ", error);
+  }
+};
+const acceptOffer = async (idTrade, idAcceptor) => {
+  try {
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: user.token,
+      },
+      method: "PUT", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify({ id: idTrade, id_acceptor: idAcceptor }),
+    };
+
+    const response = await fetch("/api/trades/accept", options); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+
+    // json() returns a promise => we wait for the data
+    return Redirect("/trading");
+  } catch (error) {
+    Swal.fire({
+      title: "Cannot accept this offer",
+      timerProgressBar: true,
+    });
+  }
+};
+const cancelOffer = async (idTrade) => {
+  try {
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: user.token,
+      },
+      method: "PUT", // *GET, POST, PUT, DELETE, etc.
+      body: {},
+    };
+
+    const response = await fetch("/api/trades/cancel/" + idTrade, options); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+
+    // json() returns a promise => we wait for the data
+    return Redirect("/trading");
+  } catch (error) {
+    Swal.fire({
+      title: "Cannot cancel this offer",
+      timerProgressBar: true,
+    });
+  }
+};
 export default TradingPage;
