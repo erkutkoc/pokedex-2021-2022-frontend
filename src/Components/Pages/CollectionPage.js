@@ -1,7 +1,8 @@
 import * as Vibrant from "node-vibrant";
 import "../../assets/css/cartePokememon.css";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import  "../../assets/js/background";
+import  changerBack from "../../assets/js/background";
+
 let pokemons = [];
 let listePokemonAfficher = [];
 var showMyCollection = false;
