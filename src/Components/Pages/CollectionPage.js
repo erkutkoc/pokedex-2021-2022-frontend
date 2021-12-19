@@ -157,6 +157,7 @@ const CollectionPage = async () => {
         );
       }
 
+      console.log(listePokemonAfficher)
       container.innerHTML = "";
       //refresh le background-color laissé sur le dernier filtreType cliquer
       for (let count = 0; count < filterType.length; count++) {
@@ -257,14 +258,13 @@ const displayRowAfterScroll = (ligne) => {
 const displayRow = async (currentRow, divRow) => {
   let cardsHtml = "";
 
-  //console.log(listePokemonAfficher)
+  let pokemon;
   for (let index = currentRow; index < currentRow + 4; index++) {
     let hex = "";
-    const pokemon = listePokemonAfficher[index];
+    pokemon = listePokemonAfficher[index];
     const promise = await Vibrant.from(pokemon.hires)
       .getPalette()
       .then((palette) => (hex = palette));
-
     cardsHtml += pokemonCardHtml(pokemon, hex);
     divRow.innerHTML = cardsHtml;
   }
@@ -273,14 +273,14 @@ const displayRow = async (currentRow, divRow) => {
 const displayRowSurplus = async (currentRow, divRow) => {
   let cardsHtml = "";
 
-  //console.log(listePokemonAfficher)
-  for (let index = currentRow; index < currentRow + surplusRow; index++) {
+  let pokemon;
+  let maxRow = parseInt(currentRow + surplusRow);
+  for (let index = currentRow; index < maxRow; index++) {
     let hex = "";
-    const pokemon = listePokemonAfficher[index];
+    pokemon = listePokemonAfficher[index];
     const promise = await Vibrant.from(pokemon.hires)
       .getPalette()
-      .then((palette) => (hex = palette.DarkMuted.hex));
-
+      .then((palette) => (hex = palette));
     cardsHtml += pokemonCardHtml(pokemon, hex);
     divRow.innerHTML = cardsHtml;
   }
