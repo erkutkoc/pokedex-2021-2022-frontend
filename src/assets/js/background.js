@@ -1,4 +1,4 @@
-require ('granim');
+var Granim = require('granim');
 
 var granimInstance = new Granim({
     element: '#canvas-interactive',
