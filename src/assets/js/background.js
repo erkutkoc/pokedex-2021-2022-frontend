@@ -1,3 +1,4 @@
+var Granim = require('granim');
 
 var granimInstance = new Granim({
     element: '#canvas-interactive',
@@ -79,7 +80,7 @@ var granimInstance = new Granim({
                 ['#cecd9f', '#dc5e5a']
             ]
         },
-        "psychic": {
+        "Psychic": {
             gradients: [
                 ['#E54ED0', '#000761'],
                 ['#9f4580', '#44008b']
@@ -133,7 +134,7 @@ const changerBack = async (element) => {
     console.log(element);
    granimInstance.changeState(element.toString());
 }
-
+export default changerBack;
 
 
 

@@ -131,9 +131,9 @@ const filter = `<!--Filter-->
 
 //une carte
 const tradesCardHtml = async (trade) => {
-  console.log(trade);
   let tradeObjreq = await getTradePlusPokeObject(trade.id, "requests");
   let tradeObjprop = await getTradePlusPokeObject(trade.id, "propositions");
+
   let tdhtmlrequest = "";
   let tdhtmlproposition = "";
   tradeObjreq[1].forEach((element) => {
