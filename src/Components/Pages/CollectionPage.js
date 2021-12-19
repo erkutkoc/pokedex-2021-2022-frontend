@@ -81,6 +81,14 @@ const filter = `<!--Filter-->
 
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
+  let abilityOne = "";
+  let abilityTwo = "";
+  if(pokemon.profile.ability[1]){
+    abilityTwo = pokemon.profile.ability[1][0];
+  }
+  if(pokemon.profile.ability[0]){
+    abilityOne = pokemon.profile.ability[0][0];
+  }
   return `<!--Card Start-->
     <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3"  style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
         <p id="type_${pokemon.type[0]}" class="type" >${pokemon.type}</p>
@@ -100,8 +108,8 @@ const pokemonCardHtml = (pokemon, hex) => {
                     </div>
                 </div>
                 <div class="movesContainer" style="display: flex;justify-content: space-between;">
-                    <p class =moves style="color:white"> ${pokemon.profile.ability[0][0]} </p>
-                    <p class =moves style="color:white"> ${pokemon.profile.ability[1][0]} </p>
+                    <p class =moves style="color:white"> ${abilityOne} </p>
+                    <p class =moves style="color:white"> ${abilityTwo} </p>
                 </div>
                 <div class="pokemonDescription" style="background: rgba(204,204,204,40%);; font-size: 10px; ">
                     <p class =description> 
