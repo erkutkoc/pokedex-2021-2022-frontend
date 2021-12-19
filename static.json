@@ -11,7 +11,7 @@
     },
     "proxies": {
     "/api/": {
-    "origin": "https://frontend-pokedex-dev.herokuapp.com/api/"
+    "origin": "https://backend-pokedex-dev.herokuapp.com/"
     }
     }
    }
