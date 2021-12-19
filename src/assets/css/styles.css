@@ -81,7 +81,7 @@ a.filterType {
   size: 22%;
   width: 22%;
   height: 22%;
-  border:solid;
+  border: solid;
   border-radius: 15px;
   border-width: 2px;
   margin: 10px;
@@ -104,14 +104,6 @@ a.filterType {
 .card1:hover > .figure2 {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.7);
-}
-.figure-img{
-  display: inline-block;  height: 128px;
-        width: 128px;
-}
-a:hover {
-  background-color: red;
-  text-decoration: underline;
 }
 .nav-link {
   transition: all 0.5s ease;
