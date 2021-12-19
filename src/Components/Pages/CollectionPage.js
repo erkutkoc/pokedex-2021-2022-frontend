@@ -2,6 +2,7 @@ import * as Vibrant from "node-vibrant";
 import "../../assets/css/cartePokememon.css";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import changerBack from "../../assets/js/background";
+import Swal from "sweetalert2";
 
 let pokemons = [];
 let listePokemonAfficher = [];
@@ -83,10 +84,10 @@ const filter = `<!--Filter-->
 const pokemonCardHtml = (pokemon, hex) => {
   let abilityOne = "";
   let abilityTwo = "";
-  if(pokemon.profile.ability[1]){
+  if (pokemon.profile.ability[1]) {
     abilityTwo = pokemon.profile.ability[1][0];
   }
-  if(pokemon.profile.ability[0]){
+  if (pokemon.profile.ability[0]) {
     abilityOne = pokemon.profile.ability[0][0];
   }
   return `<!--Card Start-->
@@ -245,6 +246,25 @@ const CollectionPage = async () => {
 };
 
 const displayRowAfterScroll = (ligne) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom",
+    showConfirmButton: false,
+    timer: 500,
+    icon: "info",
+    width: "6em",
+    background: "rgba(0, 0,0, 0.5)",
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      Swal.showLoading();
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: "info",
+  });
   let size = listePokemonAfficher.length;
   let rowNumber = size / 4;
   let newLigne = ligne + 3;
@@ -283,16 +303,30 @@ const displayRowSurplus = async (currentRow, divRow) => {
   for (let index = currentRow; index < maxRow; index++) {
     let hex = "";
     pokemon = listePokemonAfficher[index];
-    if(pokemon) {
-    const promise = await Vibrant.from(pokemon.hires)
-      .getPalette()
-      .then((palette) => (hex = palette));
-    cardsHtml += pokemonCardHtml(pokemon, hex);
-    divRow.innerHTML = cardsHtml;
+    if (pokemon) {
+      const promise = await Vibrant.from(pokemon.hires)
+        .getPalette()
+        .then((palette) => (hex = palette));
+      cardsHtml += pokemonCardHtml(pokemon, hex);
+      divRow.innerHTML = cardsHtml;
     }
   }
 };
 function getAllSorted(filter, value) {
+  let timerInterval;
+  Swal.fire({
+    title: "Sorting ",
+    timer: 850,
+    timerProgressBar: true,
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+      timerInterval = setInterval(() => {}, 100);
+    },
+    willClose: () => {
+      clearInterval(timerInterval);
+    },
+  });
   if (filter == "Reset") {
     currentFilter[0] = "";
     currentFilter[1] = "";
