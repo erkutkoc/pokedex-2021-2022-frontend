@@ -14,6 +14,12 @@ var granimInstance = new Granim({
                 ['#FFDE00', '#CC0000']
             ]
         },
+        "All": {
+            gradients: [
+                ['#FF0000', '#3B4CCA'],
+                ['#FFDE00', '#CC0000']
+            ]
+        },
         "Grass": {
             gradients: [
                 ['#5FC314', '#C1F376'],
@@ -125,13 +131,10 @@ var granimInstance = new Granim({
 
             ]
         }
-
-
     }
 });
 
 const changerBack = async (element) => {
-    console.log(element);
    granimInstance.changeState(element.toString());
 }
 export default changerBack;

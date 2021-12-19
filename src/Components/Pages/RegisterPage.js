@@ -41,7 +41,6 @@ const registerPage = `
 
 const RegisterPage = () => {
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (userSession) {
     return Redirect("/");
   }
@@ -74,13 +73,7 @@ const RegisterPage = () => {
     const password = document.getElementById("password");
     const password_repeat = document.getElementById("password-repeat");
 
-    console.log(
-      "credentials",
-      email.value,
-      pseudo.value,
-      password.value,
-      password_repeat.value
-    );
+
 
     //check si les deux mdp sont bien équivalent
     if (password.value != password_repeat.value) {
@@ -112,7 +105,6 @@ const RegisterPage = () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
       // save the user into the localStorage
       setSessionObject("user", user);
 

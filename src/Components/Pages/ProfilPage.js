@@ -10,7 +10,6 @@ import Navbar from "../Navbar/Navbar";
 
 const ProfilPage = async () => {
   let userSession = getSessionObject("user");
-  console.log(userSession, "user");
   if (!userSession) {
     return Redirect("/login");
   }
@@ -33,7 +32,6 @@ const ProfilPage = async () => {
       );
     }
     const user = await response.json(); // json() returns a promise => we wait for the data
-    console.log("user GET", user);
 
     userSession.email = user.email;
     userSession.pseudo = user.pseudo;
@@ -149,7 +147,6 @@ const ProfilPage = async () => {
     const currentPassword = document.getElementById("currentPassword");
     const newPassword = document.getElementById("newPassword");
     const newPasswordCheck = document.getElementById("newPasswordCheck");
-    console.log("credentials", pseudo.value, email.value, currentPassword.value, newPassword.value, newPasswordCheck.value);
 
     //check si les deux mdp sont bien équivalent
     if (newPassword.value != newPasswordCheck.value) {
@@ -185,7 +182,6 @@ const ProfilPage = async () => {
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user updated", user);
 
       userSession.email = user.email;
       userSession.pseudo = user.pseudo;

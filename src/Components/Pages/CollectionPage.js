@@ -27,7 +27,7 @@ const containerHtml = `<div class="container" id="container"></div>`;
 const filter = `<!--Filter-->
 <div class="container">
     <div class="row align-items-end">
-        <div class="col-5">
+        <div class="col-1">
             <label for="touch"><span class = "Filtering">Filter</span></label>               
             <input type="checkbox" id="touch"> 
         
@@ -39,8 +39,9 @@ const filter = `<!--Filter-->
                 <li> <a  class="filterButton1 hvr-grow" id="Speed" name="ASC">Filter By Speed</a></li>
             </ul>
         </div>
-        <div class="col-7 align-middler" id="searchWrapper">
+        <div class="col-11 align-middler " id="searchWrapper">
                 <input
+                class="form-control col-12"
                     type="text"
                     name="searchBar"
                     id="searchBar"
@@ -81,11 +82,10 @@ const filter = `<!--Filter-->
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
   return `<!--Card Start-->
-    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
-        <p id="type_${pokemon.type[0]}" class="type" style="" >${pokemon.type}</p>
-        <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
-        <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
-        width: 128px;" src="${pokemon.hires}"> </figure>
+    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3"  style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
+        <p id="type_${pokemon.type[0]}" class="type" >${pokemon.type}</p>
+        <h2 id="cardTitle" class="name" >${pokemon.name.english}</h2>
+        <figure class="figure2" style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" src="${pokemon.hires}"> </figure>
             <div class="cardText">
                 <div class="StatsContainer" style="display: flex; justify-content: space-between;  background: rgba(255,255,255,30%); font-size:15px; border-radius: 10px;">
                     <div class="statList"  >
@@ -130,9 +130,9 @@ const CollectionPage = async () => {
       filterType[count].style =
         filterType[count].style + "background-color: transparent;";
     }
-    console.log(searchString);
+
     listePokemonAfficher = pokemons.filter((pokemon) => {
-      return pokemon.name.french.toLowerCase().startsWith(searchString);
+      return pokemon.name.english.toLowerCase().startsWith(searchString);
       //Rajouter cette ligne si l'on veut aussi check les noms anglais
       // || pokemon.name.english.toLowerCase().startsWith(searchString)
     });
@@ -159,7 +159,6 @@ const CollectionPage = async () => {
         );
       }
 
-      console.log(listePokemonAfficher);
       container.innerHTML = "";
       //refresh le background-color laissé sur le dernier filtreType cliquer
       for (let count = 0; count < filterType.length; count++) {
@@ -174,7 +173,6 @@ const CollectionPage = async () => {
   });
 
   if (showMyCollection == false) {
-    console.log("all");
     async function findAllPokemons() {
       const response = await fetch("/api/pokemons", {
         method: "GET",
@@ -182,7 +180,7 @@ const CollectionPage = async () => {
         cache: "no-store",
       });
       if (!response.ok) {
-        console.log("response ko !");
+        console.error("response ko !");
       }
 
       pokemons = await response.json();
@@ -192,12 +190,9 @@ const CollectionPage = async () => {
     }
     findAllPokemons();
   } else {
-    console.log("my");
-    console.log(showMyCollection);
     const container1 = document.querySelector("#container");
     container1.innerHTML = "";
     let userSession = getSessionObject("user");
-    console.log(userSession, "user");
     async function findMyCollections() {
       const response = await fetch("/api/users/collection/" + userSession.id, {
         method: "GET",
@@ -205,7 +200,7 @@ const CollectionPage = async () => {
         cache: "no-store",
       });
       if (!response.ok) {
-        console.log("response ko !");
+        console.error("response ko !");
       }
 
       pokemons = await response.json();
@@ -264,11 +259,13 @@ const displayRow = async (currentRow, divRow) => {
   for (let index = currentRow; index < currentRow + 4; index++) {
     let hex = "";
     pokemon = listePokemonAfficher[index];
-    const promise = await Vibrant.from(pokemon.hires)
-      .getPalette()
-      .then((palette) => (hex = palette));
-    cardsHtml += pokemonCardHtml(pokemon, hex);
-    divRow.innerHTML = cardsHtml;
+    if (pokemon) {
+      const promise = await Vibrant.from(pokemon.hires)
+        .getPalette()
+        .then((palette) => (hex = palette));
+      cardsHtml += pokemonCardHtml(pokemon, hex);
+      divRow.innerHTML = cardsHtml;
+    }
   }
 };
 
@@ -399,7 +396,6 @@ const affichageListe = async () => {
   if (NumberRow < 4) {
     maxRow = NumberRow;
     surplusRow = lengthListe % 4;
-    console.log("Surplus:" + surplusRow);
   }
   let compteur = 0;
   while (compteur < maxRow - 1) {

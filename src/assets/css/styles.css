@@ -81,8 +81,17 @@ a.filterType {
   size: 22%;
   width: 22%;
   height: 22%;
+  border: solid;
   border-radius: 15px;
+  border-width: 2px;
   margin: 10px;
+}
+#cardTitle {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: white;
 }
 .figure2 {
   padding: 0 25% 0 25%;
@@ -96,7 +105,6 @@ a.filterType {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.7);
 }
-
 .nav-link {
   transition: all 0.5s ease;
 }

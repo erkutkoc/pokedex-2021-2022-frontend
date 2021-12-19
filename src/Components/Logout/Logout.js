@@ -3,7 +3,6 @@ import { Redirect } from "../Router/Router";
 import { removeSessionObject } from "../../utils/session";
 
 const Logout = () => {
-  console.log("Logout");
   // clear the user session data from the localStorage
   removeSessionObject("user");
 
