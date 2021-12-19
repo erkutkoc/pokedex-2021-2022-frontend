@@ -1,4 +1,4 @@
-
+import Granim from ('granim');
 var granimInstance = new Granim({
     element: '#canvas-interactive',
     name: 'interactive-gradient',
