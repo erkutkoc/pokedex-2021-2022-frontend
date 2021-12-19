@@ -1,4 +1,5 @@
 const path = require("path");
+require ('granim');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
