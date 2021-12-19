@@ -11,7 +11,7 @@ import TradingPage from "../Pages/TradingPage";
 
 // Configure your routes here
 const routes = {
-  "/": HomePage,
+  "/": CollectionPage,
   "/new": NewPage,
   "/login": LoginPage,
   "/register": RegisterPage,
