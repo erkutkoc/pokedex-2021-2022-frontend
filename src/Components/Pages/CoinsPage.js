@@ -12,7 +12,7 @@ const coinsPage = `
  <section></section>
  <div class="container">
      <div class="row">
-         <div id="pack1" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
+         <div id="pack1" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid ; border-color: #6f7a85; background: rgba(255,255,255,50%); ">
              <div class="text-center" style="color: var(--bs-blue);">
                  <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 1</figcaption>
@@ -22,7 +22,7 @@ const coinsPage = `
              <div style="text-align: center;"><button class="btn border rounded-0" data-bss-hover-animate="pulse" type="button" style="background: #ffde00;text-align: center;width: 330px;height: auto;">Free</button></div><strong class="text-center"></strong>
          </div>
 
-         <div id="pack2" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
+         <div id="pack2" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid ; border-color: #6f7a85; background: rgba(255,255,255,50%); ">
              <div class="text-center" style="color: var(--bs-blue);">
                  <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 2</figcaption>
@@ -32,7 +32,7 @@ const coinsPage = `
              <div style="text-align: center;"><button class="btn border rounded-0" data-bss-hover-animate="pulse" type="button" style="background: #ffde00;text-align: center;width: 330px;height: auto;">Free</button></div><strong class="text-center"></strong>
          </div>
 
-         <div id="pack3" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid var(--bs-blue);">
+         <div id="pack3" class="col-md-4 text-center text-secondary" style="border-radius: 6px;border: 1px solid ; border-color: #6f7a85; background: rgba(255,255,255,50%); ">
              <div class="text-center" style="color: var(--bs-blue);">
                  <figure class="figure"><img class="img-fluid figure-img" style="width: auto;height: auto;" src="https://github.com/erkutkoc/pokedex-2021-2022-frontend/blob/main/src/assets/img/coins.png?raw=true">
                      <figcaption class="figure-caption">Pack 3</figcaption>
