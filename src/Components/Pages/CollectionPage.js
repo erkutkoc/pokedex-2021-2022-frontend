@@ -80,11 +80,10 @@ const filter = `<!--Filter-->
 //une carte
 const pokemonCardHtml = (pokemon, hex) => {
   return `<!--Card Start-->
-    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3" style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
-        <p id="type_${pokemon.type[0]}" class="type" style="" >${pokemon.type}</p>
-        <h2 class="name" style="text-align: center;font-size: 1.5em;font-weight: 700; letter-spacing: 0.02em;color:white">${pokemon.name.french}</h2>
-        <figure class="figure2"style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" style="display: inline-block;  height: 128px;
-        width: 128px;" src="${pokemon.hires}"> </figure>
+    <div id="card_${pokemon.type[0]}" class ="card1 col-3 mb-3"  style ="background :linear-gradient(100deg, ${hex.Vibrant.hex} 0%, ${hex.DarkMuted.hex} 100%);">
+        <p id="type_${pokemon.type[0]}" class="type" >${pokemon.type}</p>
+        <h2 id="cardTitle" class="name" >${pokemon.name.english}</h2>
+        <figure class="figure2" style="padding: 0 25% 0 25%;"><img class="img-fluid figure-img" src="${pokemon.hires}"> </figure>
             <div class="cardText">
                 <div class="StatsContainer" style="display: flex; justify-content: space-between;  background: rgba(255,255,255,30%); font-size:15px; border-radius: 10px;">
                     <div class="statList"  >
@@ -131,7 +130,7 @@ const CollectionPage = async () => {
     }
 
     listePokemonAfficher = pokemons.filter((pokemon) => {
-      return pokemon.name.french.toLowerCase().startsWith(searchString);
+      return pokemon.name.english.toLowerCase().startsWith(searchString);
       //Rajouter cette ligne si l'on veut aussi check les noms anglais
       // || pokemon.name.english.toLowerCase().startsWith(searchString)
     });

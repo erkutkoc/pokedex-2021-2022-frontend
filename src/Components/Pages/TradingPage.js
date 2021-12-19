@@ -207,7 +207,7 @@ const loadingAndDisplay = (array) => {
       const element = array[i];
       let tableRow = `
     <tr id="${element.id}" class="requestsPokemonList">
-      <th id="${element.id}" >${element.name.french}</th>
+      <th id="${element.id}" >${element.name.english}</th>
       <th id="${element.id}" ><img style="width:50px"  src="${element.hires}"></th>
     </tr>
   `;
@@ -245,7 +245,7 @@ const TradingPage = async () => {
     list.className = "propositions";
     list.style = "background:rgb(245, 245, 245, 0.7);";
     listPropositionPokemonAAfficher.forEach((element) => {
-      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections" style="border : 0.5px solid; border-color:green"><p class="text-center text-success">${element.name.french}</p><img style="width:100px"  src="${element.hires}" ></div>`;
+      myCollectionsPokemons += `<div id="${element.id}" class="imageMyCollections" style="border : 0.5px solid; border-color:green"><p class="text-center text-success">${element.name.english}</p><img style="width:100px"  src="${element.hires}" ></div>`;
     });
     list.innerHTML += myCollectionsPokemons;
     const container = document.getElementById("propositionsContainer");
@@ -288,7 +288,7 @@ const TradingPage = async () => {
       collectionsUserDontOwnDisplay = collectionsUserDontOwnDisplay.filter(
         (element) =>
           e.target.value.length != 0 &&
-          element.name.french
+          element.name.english
             .toLowerCase()
             .startsWith(e.target.value.toLowerCase())
       );
@@ -340,8 +340,11 @@ const TradingPage = async () => {
           propositions: propositions,
         }),
       })
-        .then((response) => response.text())
-        .then((result) =>{Redirect("/trading")})
+  
+        .then((response) => {  showAll = true;
+          showCreateTrades = false;
+          return Redirect("/trading");})
+        .then((result) =>{})
         .catch((error) => console.error("error", error));
     });
   } else if (showAll == true) {
