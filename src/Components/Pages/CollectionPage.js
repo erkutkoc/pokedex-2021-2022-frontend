@@ -27,7 +27,7 @@ const containerHtml = `<div class="container" id="container"></div>`;
 const filter = `<!--Filter-->
 <div class="container">
     <div class="row align-items-end">
-        <div class="col-5">
+        <div class="col-1">
             <label for="touch"><span class = "Filtering">Filter</span></label>               
             <input type="checkbox" id="touch"> 
         
@@ -38,8 +38,9 @@ const filter = `<!--Filter-->
                 <li> <a href="#" class="filterButton1" id="ASC" name="Speed">The fastest</a></li>
             </ul>
         </div>
-        <div class="col-7 align-middler" id="searchWrapper">
+        <div class="col-11 align-middler " id="searchWrapper">
                 <input
+                class="form-control col-12"
                     type="text"
                     name="searchBar"
                     id="searchBar"
@@ -259,11 +260,12 @@ const displayRow = async (currentRow, divRow) => {
   for (let index = currentRow; index < currentRow + 4; index++) {
     let hex = "";
     pokemon = listePokemonAfficher[index];
+    if(pokemon) {
     const promise = await Vibrant.from(pokemon.hires)
       .getPalette()
       .then((palette) => (hex = palette));
     cardsHtml += pokemonCardHtml(pokemon, hex);
-    divRow.innerHTML = cardsHtml;
+    divRow.innerHTML = cardsHtml;}
   }
 };
 
