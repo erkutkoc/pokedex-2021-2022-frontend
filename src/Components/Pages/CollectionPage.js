@@ -100,7 +100,7 @@ const pokemonCardHtml = (pokemon, hex) => {
                 </div>
                 <div class="movesContainer" style="display: flex;justify-content: space-between;">
                     <p class =moves style="color:white"> ${pokemon.profile.ability[0][0]} </p>
-                    <p class =moves style="color:white"> ${pokemon.profile.ability[0][1]} </p>
+                    <p class =moves style="color:white"> ${pokemon.profile.ability[1][0]} </p>
                 </div>
                 <div class="pokemonDescription" style="background: rgba(204,204,204,40%);; font-size: 10px; ">
                     <p class =description> 
@@ -211,8 +211,6 @@ const CollectionPage = async () => {
     }
     findMyCollections();
   }
-
-  //scroll bottom event detection
   window.addEventListener("scroll", () => {
     let lastKnowScrollPosition =
       window.innerHeight + Math.ceil(window.pageYOffset + 10);
@@ -277,11 +275,13 @@ const displayRowSurplus = async (currentRow, divRow) => {
   for (let index = currentRow; index < maxRow; index++) {
     let hex = "";
     pokemon = listePokemonAfficher[index];
+    if(pokemon) {
     const promise = await Vibrant.from(pokemon.hires)
       .getPalette()
       .then((palette) => (hex = palette));
     cardsHtml += pokemonCardHtml(pokemon, hex);
     divRow.innerHTML = cardsHtml;
+    }
   }
 };
 

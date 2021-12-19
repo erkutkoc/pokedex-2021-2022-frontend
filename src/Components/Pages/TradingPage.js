@@ -572,7 +572,7 @@ const cancelOffer = async (idTrade) => {
         Authorization: user.token,
       },
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
-      body: {},
+     
     };
 
     const response = await fetch("/api/trades/cancel/" + idTrade, options); // fetch return a promise => we wait for the response
