@@ -40,6 +40,7 @@ const registerPage = `
     </section>`;
 
 const RegisterPage = () => {
+  window.onscroll = null;
   let userSession = getSessionObject("user");
   if (userSession) {
     return Redirect("/");
@@ -64,8 +65,6 @@ const RegisterPage = () => {
         let password = document.getElementById("password").value;
         let password_reapeat = document.getElementById("password-repeat").value;
         return onSubmit(email, pseudo, password, password_reapeat);
-        // document.getElementById("email").value,
-        // document.getElementById("password").value
       },
       allowEnterKey: true,
     });

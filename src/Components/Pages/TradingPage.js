@@ -1,18 +1,13 @@
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import { Redirect } from "../Router/Router";
-import Navbar from "../Navbar/Navbar";
-import { setSessionObject } from "../../utils/session";
-import { createPopper } from "@popperjs/core/lib/createPopper";
 import Swal from "sweetalert2";
 /**
  * Render the trading page
  */
 
 let tradesList = [];
-let showMyTrades = false;
 let showCreateTrades = false;
 let showAll = true;
-let user = getSessionObject("user");
 const main = document.querySelector("main");
 const tabs = `<ul class="nav nav-tabs justify-content-center">
   <li class="nav-item">
@@ -110,9 +105,10 @@ const formAddTrade = `
 `;
 const containerHtml = `<div class="container" id="container"></div>`;
 
-
 //une carte
 const tradesCardHtml = async (trade) => {
+  let user = getSessionObject("user");
+
   let tradeObjreq = await getTradePlusPokeObject(trade.id, "requests");
   let tradeObjprop = await getTradePlusPokeObject(trade.id, "propositions");
 
@@ -130,7 +126,6 @@ const tradesCardHtml = async (trade) => {
   if (user.id != trade.id_trader) {
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-primary acceptButton">Accept Trade</button> `;
   } else if (user.id == trade.id_trader) {
-
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-danger cancelButton">Cancel Trade</button> `;
   }
   if (trade.status != "Accept" && trade.status != "Cancel") {
@@ -172,6 +167,8 @@ const tradesCardHtml = async (trade) => {
   }
 };
 async function findMyCollections() {
+  let user = getSessionObject("user");
+
   const response = await fetch("/api/users/collection/" + user.id, {
     method: "GET",
     cache: "no-cache",
@@ -217,6 +214,9 @@ const loadingAndDisplay = (array) => {
   }
 };
 const TradingPage = async () => {
+  window.onscroll = null;
+  let user = getSessionObject("user");
+
   if (!user) {
     return Redirect("/login");
   }
@@ -327,7 +327,6 @@ const TradingPage = async () => {
     });
     let trade = document.getElementById("addTrade");
     trade.addEventListener("click", () => {
-
       fetch("/api/trades", {
         method: "POST",
         headers: {
@@ -340,11 +339,12 @@ const TradingPage = async () => {
           propositions: propositions,
         }),
       })
-  
-        .then((response) => {  showAll = true;
+        .then((response) => {
+          showAll = true;
           showCreateTrades = false;
-          return Redirect("/trading");})
-        .then((result) =>{})
+          return Redirect("/trading");
+        })
+        .then((result) => {})
         .catch((error) => console.error("error", error));
     });
   } else if (showAll == true) {
@@ -358,32 +358,13 @@ const TradingPage = async () => {
       tradesList = await response.json();
       let divRow = document.createElement("div");
       divRow.className = "row";
-      divRow.style = "background:rgb(245, 245, 245, 0.7); border: solid; border-radius : 10px; border-width:0.3px";
+      divRow.style =
+        "background:rgb(245, 245, 245, 0.7); border: solid; border-radius : 10px; border-width:0.3px";
       container.appendChild(divRow);
       displayRow(divRow);
     }
     findAllTrades();
-  } /*else {
-    const container1 = document.querySelector("#container");
-    container1.innerHTML = "";
-    async function findMyTrades() {
-      const response = await fetch("/api/trades/" + user.id, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        console.log("response ko !");
-      }
-
-      tradesList = await response.json();
-      console.log("test" + tradesList);
-
-      let divRow = document.createElement("div");
-      divRow.className = "row";
-      container.appendChild(divRow);
-      displayRow(divRow);
-    }
-    findMyTrades();
-  }*/
+  }
   // get all nav-link items
   let tabsTag = document.getElementsByClassName("nav-link");
   // filter all nav-link item by id
@@ -398,19 +379,11 @@ const TradingPage = async () => {
   });
   // tabsTagFiltered[1] = nav link id = myTrade
   tabsTagFiltered[1].addEventListener("click", () => {
-
     tabsTagFiltered[0].className = "nav-link";
     tabsTagFiltered[1].className = "nav-link active";
     showAll = false;
     showCreateTrades = true;
   });
-  /*tabsTagFiltered[2].addEventListener("click", () => {
-    tabsTagFiltered[0].className = "nav-link";
-    tabsTagFiltered[1].className = "nav-link";
-    tabsTagFiltered[2].className = "nav-link active";
-    showAll = false;
-    showCreateTrades = true;
-  });  */
 };
 // slick library working with jQuery
 const customSlick = (className) => {
@@ -453,6 +426,8 @@ const customSlick = (className) => {
   });
 };
 const displayRow = async (divRow) => {
+  let user = getSessionObject("user");
+
   let cardsHtml = "";
   for (let i = 0; i < tradesList.length; i++) {
     let trade = tradesList[i];
@@ -572,7 +547,6 @@ const cancelOffer = async (idTrade) => {
         Authorization: user.token,
       },
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
-     
     };
 
     const response = await fetch("/api/trades/cancel/" + idTrade, options); // fetch return a promise => we wait for the response

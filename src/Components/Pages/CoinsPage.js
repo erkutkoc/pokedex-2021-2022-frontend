@@ -49,7 +49,6 @@ const CoinsPage = () => {
   if (!userSession) {
     return Redirect("/login");
   }
-
   const main = document.querySelector("main");
   main.innerHTML = coinsPage;
 
@@ -66,10 +65,7 @@ const CoinsPage = () => {
     e.preventDefault();
     try {
       const id = userSession.id;
-
       const packCoins = 100;
-
-
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
@@ -80,23 +76,18 @@ const CoinsPage = () => {
           Authorization: userSession.token,
         },
       };
-
       const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
-
       if (!response.ok) {
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
       setSessionObject("user", userSession);
-
       // Rerender the navbar to display the new coins value
       Navbar();
-
       // call the CoinsPage via the Router
       Redirect("/coins");
     } catch (error) {
@@ -113,21 +104,16 @@ const CoinsPage = () => {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
-
     Toast.fire({
       icon: "success",
       title: "Coins successfuly added to your account !",
     });
   }
-
   async function onSubmitPack2(e) {
     e.preventDefault();
     try {
       const id = userSession.id;
-
       const packCoins = 1000;
-
-
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
@@ -138,23 +124,18 @@ const CoinsPage = () => {
           Authorization: userSession.token,
         },
       };
-
       const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
-
       if (!response.ok) {
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
       setSessionObject("user", userSession);
-
       // Rerender the navbar to display the new coins value
       Navbar();
-
       // call the CoinsPage via the Router
       Redirect("/coins");
     } catch (error) {
@@ -171,21 +152,16 @@ const CoinsPage = () => {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
-
     Toast.fire({
       icon: "success",
       title: "Coins successfuly added to your account !",
     });
   }
-
   async function onSubmitPack3(e) {
     e.preventDefault();
     try {
       const id = userSession.id;
-
       const packCoins = 10000;
-
-
       const options = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
@@ -196,23 +172,18 @@ const CoinsPage = () => {
           Authorization: userSession.token,
         },
       };
-
       const response = await fetch("/api/coins/" + id, options); // fetch return a promise => we wait for the response
-
       if (!response.ok) {
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-
       // save the user into the localStorage with the new coins value
       userSession.coins = user.coins;
       setSessionObject("user", userSession);
-
       // Rerender the navbar to display the new coins value
       Navbar();
-
       // call the CoinsPage via the Router
       Redirect("/coins");
     } catch (error) {
@@ -229,12 +200,10 @@ const CoinsPage = () => {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
-
     Toast.fire({
       icon: "success",
       title: "Coins successfuly added to your account !",
     });
   }
 };
-
 export default CoinsPage;

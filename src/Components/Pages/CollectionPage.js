@@ -1,15 +1,14 @@
 import "../../assets/css/cartePokememon.css";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import changerBack from "../../assets/js/background";
+import {changerBack} from "../../assets/js/background";
 import Swal from "sweetalert2";
-let pokemons = [];
-let listePokemonAfficher = [];
+var pokemons = [];
+var listePokemonAfficher = [];
 var showMyCollection = false;
 let lengthListe = 0;
 
 let nombresPokemonAffiche = 0;
 let currentFilter = [];
-
 const main = document.querySelector("main");
 let tabs = `<ul class="nav nav-tabs justify-content-center">
 <li class="nav-item">
@@ -18,7 +17,6 @@ let tabs = `<ul class="nav nav-tabs justify-content-center">
 <a class="nav-link" id="myCollection" href="#" style="color:white; background: rgba(0,0,0,30%);   ">My Collection</a>
 </li></ul>
 `;
-
 const containerHtml = `<div class="container" id="container"></div>`;
 const filter = `<!--Filter-->
 <div class="container">
@@ -73,8 +71,6 @@ const filter = `<!--Filter-->
     </div>
 </div>
 <!--Filter-->`;
-
-//une carte
 const pokemonCardHtml = (pokemon, hex) => {
   let abilityOne = "";
   let abilityTwo = "";
@@ -116,43 +112,33 @@ const pokemonCardHtml = (pokemon, hex) => {
 <!--Card End-->`;
 };
 const CollectionPage = async () => {
-let userSession = getSessionObject("user");
-
+  let userSession = getSessionObject("user");
   main.innerHTML = "";
   if (userSession) {
     main.innerHTML += tabs;
   }
-  
-   main.innerHTML += filter;
+  main.innerHTML += filter;
   main.innerHTML += containerHtml;
   let container = document.querySelector("#container");
-
   // Gère la barre de recherche sur la liste contenant Tous les pokemons
   const searchBar = document.getElementById("searchBar");
   searchBar.addEventListener("keyup", (e) => {
     const searchString = e.target.value.toLowerCase();
-    //refresh le background-color laissé sur le dernier filtreType cliquer
-    //car la recherche se fait sur toute la liste et non la liste trié par type choisi
     for (let count = 0; count < filterType.length; count++) {
       filterType[count].style =
         filterType[count].style + "background-color: transparent;";
     }
-
     listePokemonAfficher = pokemons.filter((pokemon) => {
       return pokemon.name.english.toLowerCase().startsWith(searchString);
-      //Rajouter cette ligne si l'on veut aussi check les noms anglais
-      // || pokemon.name.english.toLowerCase().startsWith(searchString)
     });
     container.innerHTML = "";
     affichageListe();
   });
-
   // Gère le bouton filter en haut à gauche - Pas fonctionnelle
   const filterButton1 = document.querySelectorAll(".filterButton1");
   filterButton1.forEach((item) => {
     item.addEventListener("click", filterby.bind(event, item.id, item.name));
   });
-
   // Gère tous les boutons Type ex( Water, Grass,...)
   const filterType = document.querySelectorAll(".filterType");
   filterType.forEach((item) => {
@@ -165,7 +151,6 @@ let userSession = getSessionObject("user");
           (pokemon) => pokemon.type[0] == nomType || pokemon.type[1] == nomType
         );
       }
-
       container.innerHTML = "";
       //refresh le background-color laissé sur le dernier filtreType cliquer
       for (let count = 0; count < filterType.length; count++) {
@@ -178,7 +163,6 @@ let userSession = getSessionObject("user");
       affichageListe();
     });
   });
-
   if (showMyCollection == false) {
     async function findAllPokemons() {
       const response = await fetch("/api/pokemons", {
@@ -189,7 +173,6 @@ let userSession = getSessionObject("user");
       if (!response.ok) {
         console.error("response ko !");
       }
-
       pokemons = await response.json();
       pokemons = pokemons.filter((pokemon) => pokemon.base != undefined);
       listePokemonAfficher = pokemons;
@@ -199,7 +182,6 @@ let userSession = getSessionObject("user");
   } else {
     const container1 = document.querySelector("#container");
     container1.innerHTML = "";
-    
     async function findMyCollections() {
       const response = await fetch("/api/users/collection/" + userSession.id, {
         method: "GET",
@@ -217,38 +199,36 @@ let userSession = getSessionObject("user");
     }
     findMyCollections();
   }
-  window.addEventListener("scroll", () => {
+  window.onscroll = () => {
     let lastKnowScrollPosition =
       window.innerHeight + Math.ceil(window.pageYOffset + 10);
     if (document.body.offsetHeight <= lastKnowScrollPosition) {
       lastKnowScrollPosition = document.body.offsetHeight - 1;
       displayRowAfterScroll();
     }
-  });
-  if(userSession){
-  // get all nav-link items
-  let tabsTag = document.getElementsByClassName("nav-link");
-  // filter all nav-link item by id
-  let tabsTagFiltered = [].filter.call(tabsTag, (e) => e.id != "");
-  // tabsTagFiltered[0] = nav link id = All
-  tabsTagFiltered[0].addEventListener("click", () => {
-    tabsTagFiltered[0].className = "nav-link active";
-    tabsTagFiltered[1].className = "nav-link";
-    showMyCollection = false;
-  });
-  // tabsTagFiltered[1] = nav link id = myCollection
-  tabsTagFiltered[1].addEventListener("click", () => {
-    tabsTagFiltered[0].className = "nav-link";
-    tabsTagFiltered[1].className = "nav-link active";
-    showMyCollection = true;
-  });}
+  };
+  if (userSession) {
+    // get all nav-link items
+    let tabsTag = document.getElementsByClassName("nav-link");
+    // filter all nav-link item by id
+    let tabsTagFiltered = [].filter.call(tabsTag, (e) => e.id != "");
+    // tabsTagFiltered[0] = nav link id = All
+    tabsTagFiltered[0].addEventListener("click", () => {
+      tabsTagFiltered[0].className = "nav-link active";
+      tabsTagFiltered[1].className = "nav-link";
+      showMyCollection = false;
+    });
+    // tabsTagFiltered[1] = nav link id = myCollection
+    tabsTagFiltered[1].addEventListener("click", () => {
+      tabsTagFiltered[0].className = "nav-link";
+      tabsTagFiltered[1].className = "nav-link active";
+      showMyCollection = true;
+    });
+  }
 };
-
 const displayRowAfterScroll = () => {
   lengthListe = listePokemonAfficher.length - nombresPokemonAffiche;
-  console.log("Taille liste - nombresPokemonAffiche: " + lengthListe);
   if (lengthListe <= 0) return;
-
   let maxRow = 4;
   let compteur = 0;
   while (compteur < maxRow) {
@@ -272,67 +252,61 @@ const displayRowAfterScroll = () => {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
-
     Toast.fire({
       icon: "info",
     });
   }
-}
-
-  const displayRow = (currentRow, divRow) => {
-    let cardsHtml = "";
-    let pokemon;
-
-    for (let index = currentRow; index < currentRow + 4; index++) {
-      if (index < listePokemonAfficher.length) {
-        let hex = "";
-        console.log("INDEX => " + index);
-        pokemon = listePokemonAfficher[index];
-        nombresPokemonAffiche++;
-        if (pokemon.type[0].toLowerCase() == "grass") {
-          hex = "#5FC314";
-        } else if (pokemon.type[0].toLowerCase() == "poison") {
-          hex = "#c41b5a";
-        } else if (pokemon.type[0].toLowerCase() == "fire") {
-          hex = "#801100";
-        } else if (pokemon.type[0].toLowerCase() == "flying") {
-          hex = "#DBf4e0";
-        } else if (pokemon.type[0].toLowerCase() == "water") {
-          hex = "#2384eb";
-        } else if (pokemon.type[0].toLowerCase() == "bug") {
-          hex = "#499801";
-        } else if (pokemon.type[0].toLowerCase() == "normal") {
-          hex = "#aaaaaa";
-        } else if (pokemon.type[0].toLowerCase() == "ground") {
-          hex = "#d47b4a";
-        } else if (pokemon.type[0].toLowerCase() == "electric") {
-          hex = "#FEDA00";
-        } else if (pokemon.type[0].toLowerCase() == "fairy") {
-          hex = "#FC98D3";
-        } else if (pokemon.type[0].toLowerCase() == "fighting") {
-          hex = "#b41c24";
-        } else if (pokemon.type[0].toLowerCase() == "psychic") {
-          hex = "#E54ED0";
-        } else if (pokemon.type[0].toLowerCase() == "steel") {
-          hex = "#d1e1f6";
-        } else if (pokemon.type[0].toLowerCase() == "ice") {
-          hex = "#3F7EB3";
-        } else if (pokemon.type[0].toLowerCase() == "rock") {
-          hex = "#1e0707";
-        } else if (pokemon.type[0].toLowerCase() == "ghost") {
-          hex = "#3d5496";
-        } else if (pokemon.type[0].toLowerCase() == "dragon") {
-          hex = "#d52318";
-        } else if (pokemon.type[0].toLowerCase() == "dark") {
-          hex = "#23395d";
-        }
-
-        cardsHtml += pokemonCardHtml(pokemon, hex);
-        divRow.innerHTML = cardsHtml;
+};
+const displayRow = (currentRow, divRow) => {
+  let cardsHtml = "";
+  let pokemon;
+  for (let index = currentRow; index < currentRow + 4; index++) {
+    if (index < listePokemonAfficher.length) {
+      let hex = "";
+      pokemon = listePokemonAfficher[index];
+      nombresPokemonAffiche++;
+      if (pokemon.type[0].toLowerCase() == "grass") {
+        hex = "#5FC314";
+      } else if (pokemon.type[0].toLowerCase() == "poison") {
+        hex = "#c41b5a";
+      } else if (pokemon.type[0].toLowerCase() == "fire") {
+        hex = "#801100";
+      } else if (pokemon.type[0].toLowerCase() == "flying") {
+        hex = "#DBf4e0";
+      } else if (pokemon.type[0].toLowerCase() == "water") {
+        hex = "#2384eb";
+      } else if (pokemon.type[0].toLowerCase() == "bug") {
+        hex = "#499801";
+      } else if (pokemon.type[0].toLowerCase() == "normal") {
+        hex = "#aaaaaa";
+      } else if (pokemon.type[0].toLowerCase() == "ground") {
+        hex = "#d47b4a";
+      } else if (pokemon.type[0].toLowerCase() == "electric") {
+        hex = "#FEDA00";
+      } else if (pokemon.type[0].toLowerCase() == "fairy") {
+        hex = "#FC98D3";
+      } else if (pokemon.type[0].toLowerCase() == "fighting") {
+        hex = "#b41c24";
+      } else if (pokemon.type[0].toLowerCase() == "psychic") {
+        hex = "#E54ED0";
+      } else if (pokemon.type[0].toLowerCase() == "steel") {
+        hex = "#d1e1f6";
+      } else if (pokemon.type[0].toLowerCase() == "ice") {
+        hex = "#3F7EB3";
+      } else if (pokemon.type[0].toLowerCase() == "rock") {
+        hex = "#1e0707";
+      } else if (pokemon.type[0].toLowerCase() == "ghost") {
+        hex = "#3d5496";
+      } else if (pokemon.type[0].toLowerCase() == "dragon") {
+        hex = "#d52318";
+      } else if (pokemon.type[0].toLowerCase() == "dark") {
+        hex = "#23395d";
       }
+      cardsHtml += pokemonCardHtml(pokemon, hex);
+      divRow.innerHTML = cardsHtml;
     }
-  };
-
+  }
+};
 
 function getAllSorted(filter, value) {
   let timerInterval;
@@ -450,7 +424,6 @@ const filterby = async (filter, value) => {
   container.innerHTML = "";
   affichageListe();
 };
-
 const affichageListe = async () => {
   nombresPokemonAffiche = 0;
   lengthListe = listePokemonAfficher.length;
@@ -466,5 +439,4 @@ const affichageListe = async () => {
     compteur++;
   }
 };
-
 export default CollectionPage;

@@ -4,30 +4,6 @@ import { setSessionObject } from "../../utils/session";
 import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import Swal from "sweetalert2";
 
-/**
- * Render the LoginPage
- */
-
-// const loginPage = `
-//  <section class="login-dark">
-//         <form class="d-inline" method="post" style="background: var(--bs-body-bg);">
-//             <h2 class="text-center" style="color: var(--bs-danger);">Login</h2>
-//             <div class="illustration"><i class="icon ion-ios-locked-outline" style="color: var(--bs-red);"></i></div>
-//             <div class="mb-3">
-//                 <label for="email"> Votre email</label>
-//                 <input class="form-control" type="email" name="email" id="email" placeholder="Email" >
-//             </div>
-//             <div class="mb-3">
-//                 <label for="password"> Votre mot de passe</label>
-//                 <input class="form-control" type="password" name="password" id="password" placeholder="Password">
-//             </div>
-//             <span id='message' style="color:red;"></span>
-//             <br/>
-//             <br/>
-//             <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-red);">Log In</button></div><a class="forgot" href="#" style="color: var(--bs-danger);">Forgot your email or password?</a>
-//         </form>
-//     </section>`;
-
 const LoginPage = () => {
   let userSession = getSessionObject("user");
   if (userSession) {
@@ -37,8 +13,6 @@ const LoginPage = () => {
   showLoginForm();
   main.innerHTML = "";
 
-  //const form = main.querySelector("form");
-  //form.addEventListener("submit", onSubmit);
   async function showLoginForm() {
     const { value: formValues } = await Swal.fire({
       title: "Login",
@@ -57,8 +31,6 @@ const LoginPage = () => {
       allowEnterKey: true,
     });
   }
-  // document.getElementById("email").value,
-  // document.getElementById("password").value,
 
   async function onSubmit(mail, mdp) {
     const email = mail;
@@ -80,7 +52,6 @@ const LoginPage = () => {
 
       if (!response.ok) {
         const message = document.getElementById("message");
-        //HTML = "Email or password doesn't match";
         Swal.fire({
           icon: "error",
           title: "Email or password doesn't match",
@@ -98,7 +69,7 @@ const LoginPage = () => {
       setSessionObject("user", user);
       // Rerender the navbar for an authenticated user
       Navbar();
-     
+
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -119,9 +90,7 @@ const LoginPage = () => {
     } catch (error) {
       console.error("LoginPage::error: ", error);
     }
-     
   }
-  
 };
 
 export default LoginPage;

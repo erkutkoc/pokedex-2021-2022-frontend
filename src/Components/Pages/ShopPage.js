@@ -26,6 +26,7 @@ const shopPage = `
  </div>`;
 
 const ShopPage = () => {
+  window.onscroll = null;
   let userSession = getSessionObject("user");
   if (!userSession) {
     return Redirect("/login");
@@ -178,7 +179,6 @@ const ShopPage = () => {
 
       Navbar();
     }
-    //---
   }
 };
 

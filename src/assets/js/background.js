@@ -137,7 +137,7 @@ var granimInstance = new Granim({
 const changerBack = async (element) => {
    granimInstance.changeState(element.toString());
 }
-export default changerBack;
+export {changerBack};
 
 
 

@@ -3,12 +3,12 @@ import { setSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 
-
 /**
  * Render the profil page
  */
 
 const ProfilPage = async () => {
+  window.onscroll = null;
   let userSession = getSessionObject("user");
   if (!userSession) {
     return Redirect("/login");
@@ -41,13 +41,11 @@ const ProfilPage = async () => {
 
     // Rerender the navbar for an authenticated user
     Navbar();
-
   } catch (error) {
     console.error("ProfilPage::error: ", error);
   }
 
   let profilPage = `
-    <h5>Profil</h5>
     <div class="col">
       <div class="row">
         <div class="col mb-3">
@@ -162,7 +160,7 @@ const ProfilPage = async () => {
         body: JSON.stringify({
           currentPassword: currentPassword.value,
           newPassword: newPassword.value,
-        }), 
+        }),
         headers: {
           "Content-Type": "application/json",
           Authorization: userSession.token,
