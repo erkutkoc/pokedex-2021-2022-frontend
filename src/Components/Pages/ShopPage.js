@@ -42,6 +42,16 @@ const ShopPage = () => {
   );
 
   async function onSubmitPack1(cost) {
+    let checkCoins = parseInt(userSession.coins) + parseInt(cost);
+    //Si n'a pas l'argent, alors affiche un pop-up afin de prévenir de l'echec
+    if(checkCoins < 0) {
+      return Swal.fire({
+        title: "U don't have enough coins",
+        timer: 1100,
+        timerProgressBar: true,
+        allowOutsideClick: false,
+      });
+    }
     let timerInterval;
     Swal.fire({
       title: "Opening the pack !",

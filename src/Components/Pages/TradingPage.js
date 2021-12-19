@@ -123,9 +123,9 @@ const tradesCardHtml = async (trade) => {
   let userIn = await getUserNameByid(trade.id_trader);
   let pseudo = userIn.pseudo;
   let buttonAccept = "";
-  if (user.id != trade.id_trader) {
+  if (user && user.id != trade.id_trader) {
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-primary acceptButton">Accept Trade</button> `;
-  } else if (user.id == trade.id_trader) {
+  } else if (user && user.id == trade.id_trader) {
     buttonAccept = ` <button type="button" id="${trade.id}" class="btn btn-danger cancelButton">Cancel Trade</button> `;
   }
   if (trade.status != "Accept" && trade.status != "Cancel") {
