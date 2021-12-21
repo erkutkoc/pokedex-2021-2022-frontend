@@ -181,6 +181,8 @@ async function findMyCollections() {
   return pokemons.filter((pokemon) => pokemon.base != undefined);
 }
 async function findCollectionsIDontOwn() {
+  let user = getSessionObject("user");
+
   const response = await fetch(
     "/api/users/collection/" + user.id + "/dontown",
     {
